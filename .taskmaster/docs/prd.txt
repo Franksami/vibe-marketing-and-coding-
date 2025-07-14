@@ -1,0 +1,186 @@
+# Vibe Marketing & Coding: Product Requirements Document (PRD)
+
+_Last updated: 2025-07-15 (Final Strategy Polish)_
+
+## 1. Overview
+
+**Purpose:**  
+To establish the "Vibe Marketing & Coding" agency as the definitive resource for building beautiful, user-centric applications and authentic brands. Our unique selling proposition is the fusion of **Vibe Coding** (mastery of the Cursor + Claude environment for rapid, high-quality development) and **Vibe Marketing** (building brands people love through authentic content and community).
+
+**Scope:**  
+Deliver a comprehensive ecosystem that teaches and implements our dual philosophy:
+- **Services:** Build bespoke, full-stack applications and automated marketing engines for clients.
+- **Digital Products:** Offer a suite of courses, templates, and toolkits covering both our development workflow and our authentic marketing strategies.
+- **Community:** Cultivate a community of forward-thinking builders who value both exceptional engineering and authentic brand-building.
+- **Content:** Become the #1 authority on YouTube and X/Twitter for AI-assisted development and authentic marketing for tech-enabled creators.
+
+## 2. Objectives & Success Criteria
+
+- **Revenue:** $50K+ MRR within 12 months.
+- **Community:** 10,000+ active members, with a 5% conversion rate to paid products.
+- **Product:** Launch a flagship course "The Vibe Coding Masterclass" and a parallel "Vibe Marketing Launchpad" course.
+- **Brand:** Be synonymous with the "Cursor + Claude" development workflow and the "Vibe Marketing" philosophy. Rank #1 for keywords like "build UI for n8n," "Supabase tutorial," "Vibe Coding," and "buildshipmarket alternative."
+
+## 3. Target Users
+
+### Personas
+
+1.  **The Ambitious Automator:**
+    *   **Pain:** Has mastered n8n/Zapier but their deliverables are "just workflows." They can't command premium prices because the client experience is clunky and lacks a professional UI.
+    *   **Goal:** To level-up their skills, offer polished, dashboard-driven solutions, and transition from freelancer to product builder.
+2.  **The Solopreneur Developer:**
+    *   **Pain:** Wants to build and ship SaaS ideas quickly but gets bogged down in boilerplate code, complex setups, and slow development cycles.
+    *   **Goal:** To leverage the "cheat code" of Cursor + Claude to rapidly prototype, build, and launch multiple SaaS products.
+3.  **The Agency Owner:**
+    *   **Pain:** Their agency's automation services are becoming commoditized. They need a new, high-value offering to stand out.
+    *   **Goal:** To integrate a "Vibe Coding" division into their agency, offering custom front-ends and dashboards as a premium service.
+4.  **The Creative Founder:**
+    *   **Pain:** Has a strong brand vision and a loyal community but struggles to translate that into scalable digital products and automated marketing funnels.
+    *   **Goal:** To partner with an agency that understands their "vibe" and can build the technical infrastructure to support their growth without sacrificing authenticity.
+
+## 4. Product Features & Requirements
+
+### 4.1. The "Vibe" Value Ladder
+
+We will structure our offerings into a clear, market-validated value ladder, guiding users from free resources to premium, high-touch services.
+
+- [ ] **Tier 1: High-Touch Services & Coaching**
+    - [ ] **Bespoke Development:** Our core service. We build custom front-ends and full-stack micro-SaaS products for clients.
+    - [ ] **1:1 Vibe Coaching ($250/hr):** Premium, personalized coaching sessions tailored to specific needs, from advanced Cursor workflows to architectural guidance on Supabase.
+- [ ] **Tier 2: Intensive Cohort-Based Training**
+    - [ ] **The Vibe Cohort ($899):** A 2-week intensive, cohort-based program where students build and ship a complete micro-SaaS product. Includes live sessions, peer accountability, and lifetime access to the Academy.
+- [ ] **Tier 3: Self-Paced Learning & Digital Products**
+    - [ ] **The Vibe Academy ($499):** Our flagship self-paced course. A comprehensive library of 15+ modules covering our entire stack and philosophy.
+    - [ ] **Skool Community ($49/mo):** Premium access to exclusive resources, weekly live builds, and direct access to mentors.
+
+### 4.2. Community Platform
+
+- [ ] **Skool Community:** Tiers focused on skill progression, from "Automator" to "Vibe Coder" to "SaaS Founder."
+- [ ] **Events & Workshops:** Live "Code with the Vibe" sessions, showing real-time builds of UI components for n8n workflows using Cursor.
+- [ ] **Resource Hub:** A library of `.cursorrules` for different frameworks, prompt libraries for UI generation, and boilerplate project templates.
+- [ ] **Community Rituals & Engagement:**
+    - [ ] **Weekly Wins:** A dedicated thread for members to share their progress and built projects, fostering motivation and social proof.
+    - [ ] **Monthly "Vibe & Build" Challenge:** A themed challenge (e.g., "Build a personal CRM") to spur creation and engagement.
+    - [ ] **Member Showcase:** A monthly live event where a community member presents their project to the group for feedback and visibility.
+
+### 4.3. Digital Products & Curriculum
+
+- [ ] **Flagship Course: "The Vibe Coding Masterclass" (in The Vibe Academy)**
+    - A comprehensive, 15+ module video course. This is a systematic, step-by-step curriculum that takes students from beginner to shipping their own MVP.
+    - **Modules 1-3: Foundation:** Master Cursor setup, project navigation, and create your first custom modes for specialized workflows.
+    - **Modules 4-6: Advanced Workflows:** Generate comprehensive PRDs with AI, set up powerful Cursor rules, and create effective AI guidance systems.
+    - **Modules 7-9: Integration & Packages:** Learn Model Context Protocol (MCP), install servers, and master development package management with AI assistance.
+    - **Modules 10-12: Build Your MVP:** Apply everything to plan, build, test, and deploy a full-stack Minimum Viable Product.
+    - **Modules 13-15: Supabase Mastery:** Complete database setup, authentication, real-time features, and production deployment with Supabase.
+    - **Coming Soon:** Modules on deploying to **Render, Cloudflare, & Netlify**, and domain-specific workflows (Marketing, Sales, Finance).
+- [ ] **Marketing Course: "The Vibe Marketing Launchpad"**
+    - A course focused on building an authentic brand and creating a content engine that attracts a loyal audience. Covers finding your niche, crafting your message, and building automated, non-spammy marketing funnels.
+- [ ] **UI Kits for Automators:** Pre-built React components (using Shadcn UI/Tailwind) specifically for displaying data and triggering n8n webhooks.
+- [ ] **Micro-SaaS Starter Kits:** Turnkey templates for ideas like "AI-powered blog writer" or "Client dashboard," built on a React/Node.js/Supabase stack.
+- [ ] **The Authentic Content Engine Kit:** A Notion template combined with n8n workflows for planning, creating, and distributing content that builds a loyal following.
+- [ ] **The Ultimate Cursor Rulebook:** A curated collection of `.cursorrules` files, offered as a premium digital product or lead magnet.
+- [ ] **Vibe Prompt Packs:** A collection of our best-performing prompts for Claude 3.5 Sonnet, focused on UI/UX, marketing copy, and strategic planning.
+
+### 4.4. Content Engine
+
+- [ ] **YouTube Channel:**
+    - [ ] **"Zero to SaaS in 60 Minutes":** Live-streamed challenges building a full app.
+    - [ ] **"UI for n8n":** A series on building beautiful front-ends for automations.
+    - [ ] **"Marketing that Doesn't Suck":** A series on building authentic brands.
+- [ ] **Lead Magnets:**
+    - [ ] **Free Rules & Prompts:** Offer a starter kit of our best Cursor rules and prompts to attract our ideal audience.
+    - [ ] **"The Brand Vibe Check":** An interactive workbook to help founders define their brand's voice and values.
+- [ ] **SEO Blog:** Target keywords across development ("build UI for n8n", "Supabase tutorial") and marketing ("authentic marketing for creators").
+- [ ] **Social Proof:** Systematically collect and showcase strong, results-oriented testimonials (e.g., "went from zero to shipping a real product in 3 weeks").
+
+## 5. Tech Stack
+
+- **Primary Development Environment:** **Cursor**
+- **Primary AI Model:** **Claude 3.5 / Claude Code**
+- **Frontend:** **React, Next.js, Vite, Tailwind CSS, Shadcn UI**
+- **Backend & Database:** **Supabase**, n8n, Zapier
+- **SaaS Boilerplate:** Wasp, Open SaaS, or similar React/Node.js starters.
+- **Community:** Skool
+- **Content:** YouTube, Twitter/X, Substack
+- **Deployment:** **Vercel, Netlify, Render, Cloudflare**
+
+## 6. Monetization
+
+- **Services:** $2,500–$15,000/project (Custom UI/UX & Micro-SaaS Dev).
+- **High-Touch Training:** $899/cohort, $250/hr for 1:1 coaching.
+- **Self-Paced Learning:** $499 for lifetime Academy access.
+- **Community:** $49/mo for premium Skool access.
+- **Digital Products:** $49–$299 (UI Kits, Starter Kits, Rulebooks).
+- **Affiliate:** 10–30% on recommended tools (Supabase, Vercel, etc.).
+
+## 7. User Flows
+
+### 7.1. Lead → Community → Product Funnel
+
+1. Discover via content (YouTube, Twitter, SEO)
+2. Opt-in for free resource/newsletter
+3. Join free Skool community
+4. Engage in events, try free templates
+5. Upsell to premium community, courses, or services
+
+### 7.2. Client Automation Project
+
+1. Book discovery call
+2. Needs assessment & proposal
+3. Project kickoff (workflow mapping)
+4. Build & deploy automations
+5. Training, handoff, and support
+
+## 8. Go-To-Market Strategy
+
+- [ ] **Founding Members Launch:** Offer a lifetime deal on "The Vibe Academy" for the first 50-100 members. This will create initial buzz, secure early revenue, and build a core group of advocates.
+- [ ] **Partnership-Led Promotion:** Collaborate with 1-2 key influencers in the Supabase, n8n, or AI development communities for a joint webinar or content swap during launch week to tap into existing audiences.
+- [ ] **Build in Public:** Document the entire journey of building "Vibe Marketing & Coding" on X/Twitter and YouTube—sharing revenue, challenges, and lessons to build authenticity and a loyal following.
+
+## 9. MVP Scope
+
+- [ ] Launch free Skool community with onboarding flow and defined community rituals.
+- [ ] Release 5–10 workflow templates (Notion, n8n, Claude)
+- [ ] Publish 3–5 YouTube tutorials & 10 Twitter threads documenting the "Build in Public" journey.
+- [ ] Announce and promote the "Founding Members" offer for the Vibe Academy.
+- [ ] Build landing page (Webflow) with lead magnets and a clear call-to-action for the Founding Members offer.
+
+## 10. Success Metrics
+
+- **Launch:** Secure 50+ Founding Members within the first month.
+- **MRR:** $10K+ within 3 months, $50K+ in 12 months
+- **Community:** 1,000+ members in 3 months, 10,000+ in 12 months
+- **Course Completions:** 100+ in 6 months
+- **YouTube:** 5,000+ subs in 6 months, 20,000+ in 12 months
+- **Twitter:** 10,000+ followers in 6 months
+
+## 11. Risks & Mitigation
+
+- **Platform Risk:** Diversify community presence across Skool, email lists, and social platforms to avoid single-point-of-failure.
+- **AI Model Changes:** Build an abstraction layer for core AI calls to easily swap models (Claude, GPT, etc.) if performance or pricing changes.
+- **Market Saturation:** Differentiate aggressively on the unique "Vibe Coding" philosophy and the tight-knit, high-engagement community model.
+- **Key Person Risk:** The brand is initially tied to the founder. **Mitigation:** Document all processes and methodologies from day one. Long-term goal is to train other coaches in the "Vibe Coding" method to create a scalable agency and reduce dependency.
+- **Pacing & Burnout Risk:** The timeline is ambitious for a solo founder. **Mitigation:** Prioritize revenue-generating activities first. The **Vibe Cohort** is the highest priority as it generates immediate high-ticket cash flow, and its content can be recorded and repurposed for the self-paced Vibe Academy, creating a more sustainable development pace.
+
+## 12. Timeline (First 6 Months)
+
+| Month | Milestones |
+|-------|------------|
+| 1     | MVP Skool launch, 5 n8n templates, 1 Claude prompt pack, 3 YouTube videos, landing page |
+| 2     | 10 more templates, "Content Creation Engine" prompt pack, 5 more videos, first paid members |
+| 3     | Launch first course ("n8n Mastery"), pilot automation projects, newsletter launch |
+| 4     | Community events, "SEO Mastery" prompt pack, 1st affiliate deals, 1st $10K MRR |
+| 5     | Marketplace v1, 25+ templates, "Solopreneur's AI Toolkit" launch, 3rd course |
+| 6     | 1,000+ community, 50+ templates, $25K+ MRR, review & iterate |
+
+## 13. Next Steps
+
+- [ ] **Finalize Branding:** Solidify "Vibe Marketing & Coding" and create visual assets.
+- [ ] **Structure Tiered Offerings:** Build out sales pages for the Academy ($499), Cohort ($899), and Coaching ($250/hr).
+- [ ] **Develop "Vibe Coding Masterclass" MVP:** Record the first 5 modules based on the new, detailed curriculum.
+- [ ] **Develop "Vibe Marketing Launchpad" Outline:** Structure the marketing course.
+- [ ] **Build Lead Magnets:** Create the free "Rules & Prompts" starter kit and "The Brand Vibe Check" workbook.
+- [ ] **Content Blitz:** Record the first "UI for n8n" and "Supabase Mastery" videos, documenting the process as part of the "Build in Public" strategy.
+- [ ] **Recruit Pilot Clients & Students:** Find beta students for the first Vibe Cohort by offering a significant discount to Founding Members of the Academy.
+
+**End of PRD** 

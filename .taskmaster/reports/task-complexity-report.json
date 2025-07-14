@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-14T04:23:04.302Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": false
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 11,
+			"taskTitle": "Setup Skool Community Platform Infrastructure",
+			"complexityScore": 7,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Break down the Skool platform setup into detailed implementation tasks covering platform configuration, tier setup, onboarding workflow, channel creation, automation rules, and payment integration, including testing phases for each component",
+			"reasoning": "High complexity due to multiple interconnected components, payment processing integration, and need for extensive testing across user flows and permission levels"
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Develop Landing Page with Webflow",
+			"complexityScore": 6,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Detail the landing page development process including design phases, section implementations, integration tasks, and comprehensive testing procedures for each component",
+			"reasoning": "Moderate complexity involving design, implementation, and integration work with multiple sections and third-party systems"
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Create Vibe Coding Masterclass Foundation",
+			"complexityScore": 8,
+			"recommendedSubtasks": 15,
+			"expansionPrompt": "Break down the course creation process into detailed tasks covering content planning, recording setup, module production, resource creation, and quality assurance for each component",
+			"reasoning": "High complexity due to content creation, technical demonstrations, production quality requirements, and comprehensive resource development"
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Develop UI Kit for n8n Integration",
+			"complexityScore": 7,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the component development process including setup, individual component implementation, testing, documentation, and distribution preparation",
+			"reasoning": "Significant technical complexity involving React component development, integration with n8n, and comprehensive testing requirements"
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Implement Lead Magnet Creation and Distribution",
+			"complexityScore": 5,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Break down the lead magnet development process into content creation, automation setup, landing page development, and distribution system implementation tasks",
+			"reasoning": "Moderate complexity with focus on content creation and automation setup, with dependency on landing page completion"
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Setup Content Production Pipeline",
+			"complexityScore": 6,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the content pipeline setup including workflow creation, template development, tools configuration, and testing procedures for each content type",
+			"reasoning": "Moderate complexity requiring systematic approach to content creation and distribution across multiple platforms"
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Develop Micro-SaaS Starter Kit",
+			"complexityScore": 9,
+			"recommendedSubtasks": 15,
+			"expansionPrompt": "Break down the SaaS starter kit development into detailed technical tasks covering architecture, feature implementation, security, deployment, and documentation",
+			"reasoning": "High technical complexity involving full-stack development, security considerations, and comprehensive documentation requirements"
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Create Vibe Marketing Launchpad Course Outline",
+			"complexityScore": 5,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Detail the course outline development process including module planning, content structure, resource creation, and validation tasks",
+			"reasoning": "Moderate complexity focused on curriculum development and content planning, with dependency on existing course experience"
+		},
+		{
+			"taskId": 19,
+			"taskTitle": "Implement Analytics and Tracking System",
+			"complexityScore": 7,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Break down the analytics implementation into specific tracking setup tasks, dashboard creation, reporting automation, and validation procedures",
+			"reasoning": "High complexity due to multiple integration points, data accuracy requirements, and comprehensive reporting needs"
+		},
+		{
+			"taskId": 20,
+			"taskTitle": "Develop Founding Members Program",
+			"complexityScore": 6,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the founding members program implementation including benefit definition, pricing structure, marketing materials, and member management system setup",
+			"reasoning": "Moderate complexity with multiple dependencies and need for careful planning of member benefits and communication"
+		}
+	]
+}

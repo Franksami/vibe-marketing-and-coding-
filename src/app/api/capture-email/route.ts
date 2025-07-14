@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { createConvertKitClient } from '@/lib/convertkit';
 
 export async function POST(request: Request) {
   try {
@@ -11,23 +12,64 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Integrate with actual email service (ConvertKit, Mailchimp, etc.)
-    // For now, we'll log it and return success
-    console.log('Email captured:', email);
-    
-    // Here you would typically:
-    // 1. Add to email service
-    // 2. Store in database
-    // 3. Send welcome email
-    // 4. Track conversion
-    
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Thanks for joining! Check your email for your free resources.' 
-      },
-      { status: 200 }
-    );
+    // Check if ConvertKit is configured
+    const formId = process.env.CONVERTKIT_FORM_ID;
+    if (!formId || !process.env.CONVERTKIT_API_KEY) {
+      // Log the email if ConvertKit is not configured
+      console.log('Email captured (ConvertKit not configured):', email);
+      
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Thanks for joining! We\'ll be in touch soon.' 
+        },
+        { status: 200 }
+      );
+    }
+
+    try {
+      // Add subscriber to ConvertKit form
+      const convertkit = createConvertKitClient();
+      const subscribed = await convertkit.addSubscriberWithWebhook(email, formId);
+
+      if (subscribed) {
+        console.log('Email added to ConvertKit:', email);
+        
+        // Note: Welcome emails should be configured in ConvertKit's visual automations
+        // This ensures better deliverability and tracking
+        
+        return NextResponse.json(
+          { 
+            success: true, 
+            message: 'Thanks for joining! Check your email for your free resources.' 
+          },
+          { status: 200 }
+        );
+      } else {
+        // Subscriber might already exist, which is fine
+        console.log('Email already in ConvertKit or pending confirmation:', email);
+        
+        return NextResponse.json(
+          { 
+            success: true, 
+            message: 'Welcome back! Check your email for your resources.' 
+          },
+          { status: 200 }
+        );
+      }
+    } catch (convertkitError) {
+      // Log but don't fail - we still captured the email
+      console.error('ConvertKit error (email still captured):', convertkitError);
+      console.log('Email captured with error:', email);
+      
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Thanks for joining! We\'ll be in touch soon.' 
+        },
+        { status: 200 }
+      );
+    }
   } catch (error) {
     console.error('Email capture error:', error);
     return NextResponse.json(

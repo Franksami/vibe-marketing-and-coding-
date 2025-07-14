@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Clock, Users, Zap } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 export function CTASection() {
   const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ export function CTASection() {
   };
 
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-r from-primary/10 to-primary/5">
+    <section id="get-started" className="py-24 sm:py-32 bg-gradient-to-r from-primary/10 to-primary/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-background to-background/95">
           <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
@@ -111,7 +112,7 @@ export function CTASection() {
               {/* Secondary CTAs */}
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
                 <Button variant="link" size="lg" asChild>
-                  <a href="#pricing">Compare Plans →</a>
+                  <Link href="/pricing">Compare Plans →</Link>
                 </Button>
                 <Button variant="link" size="lg" asChild>
                   <a href="#testimonials">See Success Stories →</a>

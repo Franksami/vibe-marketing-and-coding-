@@ -7,6 +7,7 @@ import { TechStackSection } from "@/components/landing/tech-stack-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { FAQSection } from "@/components/landing/faq-section";
 import { CTASection } from "@/components/landing/cta-section";
+import { ExitIntentPopup } from "@/components/popups/exit-intent-popup";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <FAQSection />
         <CTASection />
       </main>
+      <ExitIntentPopup />
     </div>
   );
 }

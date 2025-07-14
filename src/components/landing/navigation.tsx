@@ -4,16 +4,26 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import { LoginDialog } from "@/components/auth/login-dialog";
+import { useSession, signOut } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Navigation() {
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
 
   const navItems = [
     { label: "Features", href: "#features" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Courses", href: "#courses" },
     { label: "Community", href: "#community" },
     { label: "Library", href: "/library" },
@@ -45,12 +55,40 @@ export function Navigation() {
           </nav>
           
           <div className="flex items-center space-x-4">
-            <Button variant="outline" onClick={() => setShowLoginDialog(true)}>
-              Sign In
-            </Button>
-            <Button asChild>
-              <Link href="#get-started">Get Started Free</Link>
-            </Button>
+            {status === "loading" ? (
+              <div className="h-9 w-20 animate-pulse bg-muted rounded" />
+            ) : session ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>{session.user?.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/library">My Library</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account">Account Settings</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => signOut()}>
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button variant="outline" onClick={() => setShowLoginDialog(true)}>
+                  Sign In
+                </Button>
+                <Button asChild>
+                  <Link href="#get-started">Get Started Free</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
 

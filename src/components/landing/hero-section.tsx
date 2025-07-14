@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Sparkles, Users, Zap } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { trackEvents } from "@/components/analytics/google-analytics";
 
 export function HeroSection() {
   const [email, setEmail] = useState("");
@@ -31,6 +32,8 @@ export function HeroSection() {
       if (response.ok) {
         setMessage(data.message);
         setEmail("");
+        // Track successful email capture
+        trackEvents.emailCapture('hero_section');
       } else {
         setMessage(data.error || 'Something went wrong');
       }
@@ -116,7 +119,7 @@ export function HeroSection() {
           {/* CTA buttons */}
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button variant="outline" size="lg" asChild>
-              <Link href="#pricing">
+              <Link href="/pricing">
                 View Pricing
               </Link>
             </Button>

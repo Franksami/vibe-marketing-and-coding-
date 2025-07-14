@@ -1,12 +1,57 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Sparkles, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { trackEvents } from "@/components/analytics/google-analytics";
 
 export function ServiceTiersSection() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePurchase = async () => {
+    if (!session) {
+      toast.error("Please sign in to purchase");
+      return;
+    }
+
+    setIsLoading(true);
+    
+    // Track checkout intent
+    trackEvents.beginCheckout(499);
+    
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // Price ID will come from env variable
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+
+      // Redirect to Stripe checkout
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
+      setIsLoading(false);
+    }
+  };
+
   const tiers = [
     {
       name: "Community",
@@ -20,7 +65,7 @@ export function ServiceTiersSection() {
         "Community support",
       ],
       cta: "Join Community",
-      href: "#community",
+      href: "https://skool.com/vibe-coding",
       variant: "outline" as const,
     },
     {
@@ -115,14 +160,33 @@ export function ServiceTiersSection() {
               </CardContent>
               
               <CardFooter>
-                <Button 
-                  className="w-full" 
-                  variant={tier.variant}
-                  size="lg"
-                  asChild
-                >
-                  <Link href={tier.href}>{tier.cta}</Link>
-                </Button>
+                {tier.name === "Vibe Academy" ? (
+                  <Button 
+                    className="w-full" 
+                    variant={tier.variant}
+                    size="lg"
+                    onClick={handlePurchase}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      tier.cta
+                    )}
+                  </Button>
+                ) : (
+                  <Button 
+                    className="w-full" 
+                    variant={tier.variant}
+                    size="lg"
+                    asChild
+                  >
+                    <Link href={tier.href}>{tier.cta}</Link>
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

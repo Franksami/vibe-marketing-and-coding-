@@ -139,7 +139,7 @@ export function ExitIntentPopup() {
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
             <Gift className="h-6 w-6 text-primary" />
           </div>
-          <DialogTitle className="text-2xl">Wait! Don't Leave Empty-Handed 🎁</DialogTitle>
+          <DialogTitle className="text-2xl">Wait! Don&apos;t Leave Empty-Handed 🎁</DialogTitle>
           <DialogDescription className="text-base">
             Get our exclusive <strong>Cursor Power Pack</strong> with 10 advanced rules 
             that will instantly level up your AI coding game.
@@ -151,7 +151,7 @@ export function ExitIntentPopup() {
           <div className="rounded-lg bg-muted p-4">
             <h3 className="mb-2 font-semibold flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary" />
-              What You'll Get:
+              What You&apos;ll Get:
             </h3>
             <ul className="space-y-1 text-sm text-muted-foreground">
               <li>• 10 Advanced Cursor Rules (normally $47)</li>

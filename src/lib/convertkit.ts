@@ -1,7 +1,7 @@
 interface ConvertKitSubscriber {
   email: string;
   first_name?: string;
-  fields?: Record<string, any>;
+  fields?: Record<string, string | number | boolean>;
   tags?: number[];
 }
 
@@ -19,7 +19,7 @@ interface ConvertKitResponse {
       email_address: string;
       state: string;
       created_at: string;
-      fields: Record<string, any>;
+      fields: Record<string, string | number | boolean>;
     };
   };
 }
@@ -69,7 +69,7 @@ export class ConvertKitClient {
     }
   }
 
-  async tagSubscriber(email: string, tagId: number): Promise<any> {
+  async tagSubscriber(email: string, tagId: number): Promise<ConvertKitResponse> {
     const url = `${this.baseUrl}/tags/${tagId}/subscribe`;
     
     const response = await fetch(url, {
@@ -91,12 +91,7 @@ export class ConvertKitClient {
     return response.json();
   }
 
-  async sendBroadcast(subject: string, content: string, fromEmail: string): Promise<any> {
-    // Note: Broadcasts require OAuth, so this is a placeholder
-    // For welcome emails, use ConvertKit's visual automations instead
-    console.log('Use ConvertKit visual automations for welcome emails');
-    return null;
-  }
+  // Note: Broadcasts require OAuth, so use ConvertKit's visual automations for welcome emails
 }
 
 // Helper function to create client

@@ -5,7 +5,7 @@ import { Navigation } from "@/components/landing/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Check, X, Sparkles, Users, Zap, Shield, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -55,8 +55,8 @@ export default function PricingPage() {
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
       setIsLoading(false);
     }
   };
@@ -131,7 +131,7 @@ export default function PricingPage() {
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex justify-center">
-            <Tabs value={billingPeriod} onValueChange={(v) => setBillingPeriod(v as any)} className="w-full max-w-md">
+            <Tabs value={billingPeriod} onValueChange={(v) => setBillingPeriod(v as "lifetime" | "payment-plan")} className="w-full max-w-md">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="lifetime">
                   Lifetime Access

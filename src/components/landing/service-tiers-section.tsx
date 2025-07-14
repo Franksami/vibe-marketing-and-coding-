@@ -7,13 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { trackEvents } from "@/components/analytics/google-analytics";
 
 export function ServiceTiersSection() {
   const { data: session } = useSession();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePurchase = async () => {
@@ -46,8 +44,8 @@ export function ServiceTiersSection() {
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
       setIsLoading(false);
     }
   };

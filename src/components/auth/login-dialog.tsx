@@ -87,8 +87,8 @@ export function LoginDialog({ open, onOpenChange }: LoginDialogProps) {
         onOpenChange(false);
         router.push("/library");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -117,8 +117,8 @@ export function LoginDialog({ open, onOpenChange }: LoginDialogProps) {
         console.log("Magic link:", data.magicLink);
         toast.info("Check console for magic link (dev only)");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -137,8 +137,8 @@ export function LoginDialog({ open, onOpenChange }: LoginDialogProps) {
         // TODO: Verify code and login
         toast.info("Phone login coming soon!");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong");
     } finally {
       setIsLoading(false);
     }

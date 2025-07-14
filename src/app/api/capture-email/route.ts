@@ -30,10 +30,12 @@ export async function POST(request: Request) {
     try {
       // Add subscriber to ConvertKit form
       const convertkit = createConvertKitClient();
+      console.log('[ConvertKit] Attempting to subscribe:', email, 'to form:', formId);
+      
       const subscribed = await convertkit.addSubscriberWithWebhook(email, formId);
 
       if (subscribed) {
-        console.log('Email added to ConvertKit:', email);
+        console.log('[ConvertKit] SUCCESS - Email added:', email);
         
         // Note: Welcome emails should be configured in ConvertKit's visual automations
         // This ensures better deliverability and tracking

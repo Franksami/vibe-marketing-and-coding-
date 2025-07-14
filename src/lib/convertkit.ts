@@ -62,9 +62,15 @@ export class ConvertKitClient {
   async addSubscriberWithWebhook(email: string, formId: string): Promise<boolean> {
     try {
       const result = await this.addSubscriberToForm(formId, { email });
+      console.log('[ConvertKit] API Response:', {
+        subscriberId: result.subscription.subscriber.id,
+        state: result.subscription.state,
+        email: email,
+        formId: formId
+      });
       return result.subscription.state === 'active' || result.subscription.state === 'inactive';
     } catch (error) {
-      console.error('ConvertKit subscription error:', error);
+      console.error('[ConvertKit] Subscription error:', error);
       return false;
     }
   }

@@ -180,7 +180,7 @@ export default function ConvertKitDebugPage() {
                   {/* Recent Subscribers */}
                   <div className="p-4 bg-gray-50 rounded-lg">
                     <h3 className="font-semibold mb-2">Recent Subscribers</h3>
-                    {debugData.recentSubscribers?.length > 0 ? (
+                    {debugData.recentSubscribers && debugData.recentSubscribers.length > 0 ? (
                       <ul className="space-y-2 text-sm">
                         {debugData.recentSubscribers.map((sub, i) => (
                           <li key={i} className="flex justify-between">

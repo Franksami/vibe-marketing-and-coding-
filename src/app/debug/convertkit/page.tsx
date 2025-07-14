@@ -6,11 +6,44 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Loader2, CheckCircle, XCircle, RefreshCw } from "lucide-react";
 
+interface DebugData {
+  error?: string;
+  message?: string;
+  config?: {
+    hasApiKey: boolean;
+    hasApiSecret: boolean;
+    hasFormId: boolean;
+  };
+  form?: {
+    id: string;
+    name: string;
+    totalSubscribers: number;
+  };
+  recentSubscribers?: Array<{
+    email: string;
+    state: string;
+    createdAt: string;
+  }>;
+  testSubmission?: {
+    email: string;
+    success: boolean;
+    state?: string;
+    message: string;
+  };
+}
+
+interface TestResult {
+  email: string;
+  success: boolean;
+  message: string;
+  timestamp: string;
+}
+
 export default function ConvertKitDebugPage() {
   const [loading, setLoading] = useState(false);
-  const [debugData, setDebugData] = useState<any>(null);
+  const [debugData, setDebugData] = useState<DebugData | null>(null);
   const [testEmail, setTestEmail] = useState("");
-  const [testResult, setTestResult] = useState<any>(null);
+  const [testResult, setTestResult] = useState<TestResult | null>(null);
 
   const runDebug = async () => {
     setLoading(true);
@@ -18,7 +51,7 @@ export default function ConvertKitDebugPage() {
       const response = await fetch("/api/convertkit-debug");
       const data = await response.json();
       setDebugData(data);
-    } catch (error) {
+    } catch {
       setDebugData({ error: "Failed to fetch debug data" });
     }
     setLoading(false);
@@ -41,7 +74,7 @@ export default function ConvertKitDebugPage() {
         message: data.message || data.error,
         timestamp: new Date().toISOString(),
       });
-    } catch (error) {
+    } catch {
       setTestResult({
         email: testEmail,
         success: false,
@@ -149,7 +182,7 @@ export default function ConvertKitDebugPage() {
                     <h3 className="font-semibold mb-2">Recent Subscribers</h3>
                     {debugData.recentSubscribers?.length > 0 ? (
                       <ul className="space-y-2 text-sm">
-                        {debugData.recentSubscribers.map((sub: any, i: number) => (
+                        {debugData.recentSubscribers.map((sub, i) => (
                           <li key={i} className="flex justify-between">
                             <span>{sub.email}</span>
                             <span className={`px-2 py-1 rounded text-xs ${
@@ -193,7 +226,7 @@ export default function ConvertKitDebugPage() {
           <CardTitle>Troubleshooting Guide</CardTitle>
         </CardHeader>
         <CardContent className="prose prose-sm max-w-none">
-          <h4>If subscribers show as "inactive":</h4>
+          <h4>If subscribers show as &quot;inactive&quot;:</h4>
           <ol>
             <li>Check your ConvertKit form settings for double opt-in</li>
             <li>Look in spam/promotions folder for confirmation emails</li>

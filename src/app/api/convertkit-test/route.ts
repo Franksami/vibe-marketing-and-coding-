@@ -1,5 +1,39 @@
 import { NextResponse } from 'next/server';
 
+interface ConvertKitForm {
+  id: number;
+  name: string;
+  type: string;
+  created_at: string;
+  format: string;
+  embed_url: string;
+}
+
+interface FormsResponse {
+  forms?: ConvertKitForm[];
+}
+
+interface Subscription {
+  subscriber?: {
+    id: string;
+  };
+  state: string;
+}
+
+interface FormSubscriptionResponse {
+  subscription?: Subscription;
+}
+
+interface BulkSubscribeResponse {
+  subscribers?: Array<{
+    id: string;
+  }>;
+}
+
+interface SubscriberLookupResponse {
+  total_subscribers: number;
+}
+
 // Direct API test bypassing our form logic
 export async function POST(request: Request) {
   try {
@@ -22,7 +56,7 @@ export async function POST(request: Request) {
       }
     );
 
-    const formData = await formResponse.json();
+    const formData: FormSubscriptionResponse = await formResponse.json();
     console.log('[ConvertKit Test] Form response:', formData);
 
     // Test 2: Get subscriber by email
@@ -31,7 +65,7 @@ export async function POST(request: Request) {
       { method: 'GET' }
     );
 
-    const subscriberData = await subscriberResponse.json();
+    const subscriberData: SubscriberLookupResponse = await subscriberResponse.json();
     console.log('[ConvertKit Test] Subscriber lookup:', subscriberData);
 
     // Test 3: Try alternative subscription endpoint
@@ -52,7 +86,7 @@ export async function POST(request: Request) {
       }
     );
 
-    const bulkData = await bulkResponse.json();
+    const bulkData: BulkSubscribeResponse = await bulkResponse.json();
     console.log('[ConvertKit Test] Bulk subscribe response:', bulkData);
 
     return NextResponse.json({
@@ -101,10 +135,10 @@ export async function GET() {
       { method: 'GET' }
     );
 
-    const data = await response.json();
+    const data: FormsResponse = await response.json();
     
     return NextResponse.json({
-      forms: data.forms?.map((form: any) => ({
+      forms: data.forms?.map((form: ConvertKitForm) => ({
         id: form.id,
         name: form.name,
         type: form.type,

@@ -1,5 +1,35 @@
 import { NextResponse } from 'next/server';
 
+interface Subscriber {
+  email_address: string;
+}
+
+interface Subscription {
+  subscriber?: Subscriber;
+  state: string;
+  created_at: string;
+}
+
+interface Form {
+  name: string;
+  url: string;
+}
+
+interface FormResponse {
+  form?: Form;
+}
+
+interface SubscriptionsResponse {
+  total_subscriptions: number;
+  subscriptions?: Subscription[];
+}
+
+interface TestSubscriptionResponse {
+  subscription?: {
+    state: string;
+  };
+}
+
 export async function GET() {
   const apiKey = process.env.CONVERTKIT_API_KEY;
   const apiSecret = process.env.CONVERTKIT_API_SECRET;
@@ -22,14 +52,14 @@ export async function GET() {
       `https://api.convertkit.com/v3/forms/${formId}?api_secret=${apiSecret}`,
       { method: 'GET' }
     );
-    const formData = await formResponse.json();
+    const formData: FormResponse = await formResponse.json();
 
     // Test 2: Get recent subscribers (last 50)
     const subscribersResponse = await fetch(
       `https://api.convertkit.com/v3/forms/${formId}/subscriptions?api_secret=${apiSecret}&per_page=50`,
       { method: 'GET' }
     );
-    const subscribersData = await subscribersResponse.json();
+    const subscribersData: SubscriptionsResponse = await subscribersResponse.json();
 
     // Test 3: Test email submission
     const testEmail = `debug-test-${Date.now()}@example.com`;
@@ -44,7 +74,7 @@ export async function GET() {
         }),
       }
     );
-    const testData = await testResponse.json();
+    const testData: TestSubscriptionResponse = await testResponse.json();
 
     return NextResponse.json({
       status: 'ConvertKit Debug Info',
@@ -55,7 +85,7 @@ export async function GET() {
         url: formData.form?.url || 'N/A',
         totalSubscribers: subscribersData.total_subscriptions || 0,
       },
-      recentSubscribers: subscribersData.subscriptions?.slice(0, 5).map((sub: any) => ({
+      recentSubscribers: subscribersData.subscriptions?.slice(0, 5).map((sub: Subscription) => ({
         email: sub.subscriber?.email_address,
         state: sub.state,
         createdAt: sub.created_at,

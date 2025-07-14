@@ -7,14 +7,60 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, XCircle, AlertCircle, Loader2 } from "lucide-react";
+import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
+
+interface APITestResult {
+  endpoint: string;
+  success: boolean;
+  status?: number;
+  data?: {
+    message?: string;
+    error?: string;
+    [key: string]: unknown;
+  };
+  timestamp?: string;
+  error?: string;
+}
+
+interface DirectTestResult {
+  success: boolean;
+  error?: string;
+  tests?: {
+    formSubscription: {
+      success: boolean;
+      status: number;
+      data: Record<string, unknown>;
+    };
+    subscriberLookup: {
+      found: boolean;
+      count: number;
+    };
+  };
+  summary?: {
+    subscriberId?: string;
+    state: string;
+    email: string;
+  };
+}
+
+interface FormsData {
+  error?: string;
+  currentFormId?: string;
+  forms?: Array<{
+    id: number;
+    name: string;
+    type: string;
+    format: string;
+  }>;
+}
+
 
 export default function TestConvertKitPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<any>(null);
-  const [forms, setForms] = useState<any>(null);
-  const [directTest, setDirectTest] = useState<any>(null);
+  const [results, setResults] = useState<APITestResult | null>(null);
+  const [forms, setForms] = useState<FormsData | null>(null);
+  const [directTest, setDirectTest] = useState<DirectTestResult | null>(null);
 
   const testOurEndpoint = async () => {
     setLoading(true);
@@ -67,7 +113,7 @@ export default function TestConvertKitPage() {
       const response = await fetch("/api/convertkit-test");
       const data = await response.json();
       setForms(data);
-    } catch (error) {
+    } catch {
       setForms({ error: "Failed to fetch forms" });
     }
     setLoading(false);
@@ -232,7 +278,7 @@ export default function TestConvertKitPage() {
                       Current Form ID in .env: <code>{forms.currentFormId}</code>
                     </AlertDescription>
                   </Alert>
-                  {forms.forms?.map((form: any) => (
+                  {forms.forms?.map((form) => (
                     <div key={form.id} className={`p-4 border rounded-lg ${form.id.toString() === forms.currentFormId ? 'border-primary bg-primary/5' : ''}`}>
                       <div className="flex justify-between items-start">
                         <div>
@@ -252,7 +298,7 @@ export default function TestConvertKitPage() {
                   )}
                 </div>
               ) : (
-                <p className="text-muted-foreground">Click "List Forms" to see available forms</p>
+                <p className="text-muted-foreground">Click &quot;List Forms&quot; to see available forms</p>
               )}
             </CardContent>
           </Card>

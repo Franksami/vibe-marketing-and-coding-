@@ -242,17 +242,19 @@ export default function TestConvertKitPage() {
                       </div>
 
                       {/* Summary */}
-                      <div className="p-4 bg-blue-50 rounded-lg">
-                        <h3 className="font-medium mb-2">Summary</h3>
-                        <dl className="grid grid-cols-2 gap-2 text-sm">
-                          <dt>Subscriber ID:</dt>
-                          <dd className="font-mono">{directTest.summary.subscriberId || 'N/A'}</dd>
-                          <dt>State:</dt>
-                          <dd>{directTest.summary.state}</dd>
-                          <dt>Email:</dt>
-                          <dd>{directTest.summary.email}</dd>
-                        </dl>
-                      </div>
+                      {directTest.summary && (
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h3 className="font-medium mb-2">Summary</h3>
+                          <dl className="grid grid-cols-2 gap-2 text-sm">
+                            <dt>Subscriber ID:</dt>
+                            <dd className="font-mono">{directTest.summary.subscriberId || 'N/A'}</dd>
+                            <dt>State:</dt>
+                            <dd>{directTest.summary.state}</dd>
+                            <dt>Email:</dt>
+                            <dd>{directTest.summary.email}</dd>
+                          </dl>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>

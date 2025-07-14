@@ -1,0 +1,173 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-14T04:49:04.513Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 20,
+		"analysisCount": 20,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 11,
+			"taskTitle": "Setup Skool Community Platform Infrastructure",
+			"complexityScore": 7,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Break down the Skool platform setup into detailed implementation tasks covering platform configuration, tier setup, onboarding workflow, channel creation, automation rules, and payment integration, including testing phases for each component",
+			"reasoning": "High complexity due to multiple interconnected components, payment processing integration, and need for extensive testing across user flows and permission levels"
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Develop Landing Page with Webflow",
+			"complexityScore": 6,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Detail the landing page development process including design phases, section implementations, integration tasks, and comprehensive testing procedures for each component",
+			"reasoning": "Moderate complexity involving design, implementation, and integration work with multiple sections and third-party systems"
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Create Vibe Coding Masterclass Foundation",
+			"complexityScore": 8,
+			"recommendedSubtasks": 15,
+			"expansionPrompt": "Break down the course creation process into detailed tasks covering content planning, recording setup, module production, resource creation, and quality assurance for each component",
+			"reasoning": "High complexity due to content creation, technical demonstrations, production quality requirements, and comprehensive resource development"
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Develop UI Kit for n8n Integration",
+			"complexityScore": 7,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the component development process including setup, individual component implementation, testing, documentation, and distribution preparation",
+			"reasoning": "Significant technical complexity involving React component development, integration with n8n, and comprehensive testing requirements"
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Implement Lead Magnet Creation and Distribution",
+			"complexityScore": 5,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Break down the lead magnet development process into content creation, automation setup, landing page development, and distribution system implementation tasks",
+			"reasoning": "Moderate complexity with focus on content creation and automation setup, with dependency on landing page completion"
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Setup Content Production Pipeline",
+			"complexityScore": 6,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the content pipeline setup including workflow creation, template development, tools configuration, and testing procedures for each content type",
+			"reasoning": "Moderate complexity requiring systematic approach to content creation and distribution across multiple platforms"
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Develop Micro-SaaS Starter Kit",
+			"complexityScore": 9,
+			"recommendedSubtasks": 15,
+			"expansionPrompt": "Break down the SaaS starter kit development into detailed technical tasks covering architecture, feature implementation, security, deployment, and documentation",
+			"reasoning": "High technical complexity involving full-stack development, security considerations, and comprehensive documentation requirements"
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Create Vibe Marketing Launchpad Course Outline",
+			"complexityScore": 5,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Detail the course outline development process including module planning, content structure, resource creation, and validation tasks",
+			"reasoning": "Moderate complexity focused on curriculum development and content planning, with dependency on existing course experience"
+		},
+		{
+			"taskId": 19,
+			"taskTitle": "Implement Analytics and Tracking System",
+			"complexityScore": 7,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Break down the analytics implementation into specific tracking setup tasks, dashboard creation, reporting automation, and validation procedures",
+			"reasoning": "High complexity due to multiple integration points, data accuracy requirements, and comprehensive reporting needs"
+		},
+		{
+			"taskId": 20,
+			"taskTitle": "Develop Founding Members Program",
+			"complexityScore": 6,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Detail the founding members program implementation including benefit definition, pricing structure, marketing materials, and member management system setup",
+			"reasoning": "Moderate complexity with multiple dependencies and need for careful planning of member benefits and communication"
+		},
+		{
+			"taskId": 21,
+			"taskTitle": "Implement Multi-Tier Subscription System with Stripe",
+			"complexityScore": 9,
+			"recommendedSubtasks": 14,
+			"expansionPrompt": "Break down the Stripe integration into discrete subtasks: API initialization, product/price creation, tier logic implementation for each subscription level, webhook setup, usage-based pricing, dashboard UI/UX, affiliate tracking, error handling, security, and compliance. Include subtasks for unit/integration testing, documentation, and deployment.",
+			"reasoning": "This task involves complex integration with a third-party payment provider, multiple subscription tiers, usage-based pricing, webhooks, and affiliate tracking. Each area requires careful handling of security, compliance, and edge cases. Industry best practices recommend modularizing payment logic, isolating webhook processing, and ensuring robust test coverage. The breadth of features and the need for reliability and scalability justify a high complexity score and a detailed subtask breakdown."
+		},
+		{
+			"taskId": 24,
+			"taskTitle": "Implement n8n Workflow Gallery",
+			"complexityScore": 7,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Expand into subtasks for UI/UX design, workflow data modeling, n8n API integration, export/import logic, cloning feature, execution history tracking, metrics dashboard, example workflow creation, authentication/authorization, and comprehensive testing.",
+			"reasoning": "This task requires integrating with n8n APIs, building a user-facing gallery, supporting workflow cloning, and tracking execution metrics. The need for real-time updates, robust data handling, and a polished UI increases complexity. Best practices suggest separating API integration, UI, and metrics logic, and providing thorough testing for import/export and cloning features."
+		},
+		{
+			"taskId": 28,
+			"taskTitle": "Implement Business Intelligence Features",
+			"complexityScore": 8,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Decompose into subtasks for Stripe data integration, revenue dashboard, churn analysis algorithms, feature usage tracking, ROI calculator, data visualization, real-time updates, export functionality, access control, backend API development, frontend implementation, and end-to-end testing.",
+			"reasoning": "Business intelligence dashboards require secure data integration, complex analytics (churn, ROI), real-time updates, and export features. Each metric and visualization should be modularized. Industry standards recommend separating data ingestion, analytics, and presentation layers, with strong focus on data accuracy and security."
+		},
+		{
+			"taskId": 23,
+			"taskTitle": "Build Core LMS Features",
+			"complexityScore": 9,
+			"recommendedSubtasks": 15,
+			"expansionPrompt": "Expand into subtasks for Supabase integration, progress tracking logic, certificate generation, course completion, AI learning path algorithm, code playground, project submission, peer review, user authentication, role management, UI/UX for each feature, backend APIs, testing, documentation, and deployment.",
+			"reasoning": "Core LMS features span multiple domains: database integration, AI, interactive coding, and peer workflows. Each feature is substantial and requires its own backend, frontend, and testing. Best practices call for modular, testable components and clear separation of concerns, especially for AI and real-time features."
+		},
+		{
+			"taskId": 30,
+			"taskTitle": "Implement Global Performance Optimization",
+			"complexityScore": 10,
+			"recommendedSubtasks": 16,
+			"expansionPrompt": "Break down into subtasks for edge function deployment, caching strategy design, Sentry integration, performance dashboard, CDN setup, scaling rules, disaster recovery, monitoring, alerting, security review, load testing, failover simulation, documentation, rollback planning, cost optimization, and compliance checks.",
+			"reasoning": "This task covers global infrastructure, edge computing, caching, monitoring, scaling, and disaster recovery—each a major engineering effort. High complexity arises from the need for reliability, security, and performance at scale. Industry standards require granular subtasks for each infrastructure and monitoring component, with rigorous testing and rollback plans."
+		},
+		{
+			"taskId": 22,
+			"taskTitle": "Develop Interactive Tech Stack Visualization",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down this task with a focus on develop interactive tech stack visualization.",
+			"reasoning": "Automatically added due to missing analysis in AI response."
+		},
+		{
+			"taskId": 25,
+			"taskTitle": "Develop Community and Engagement Features",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down this task with a focus on develop community and engagement features.",
+			"reasoning": "Automatically added due to missing analysis in AI response."
+		},
+		{
+			"taskId": 26,
+			"taskTitle": "Create Marketing Funnel Analytics Dashboard",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down this task with a focus on create marketing funnel analytics dashboard.",
+			"reasoning": "Automatically added due to missing analysis in AI response."
+		},
+		{
+			"taskId": 27,
+			"taskTitle": "Develop Developer Experience Tools",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down this task with a focus on develop developer experience tools.",
+			"reasoning": "Automatically added due to missing analysis in AI response."
+		},
+		{
+			"taskId": 29,
+			"taskTitle": "Set Up Multi-Tenant Architecture",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down this task with a focus on set up multi-tenant architecture.",
+			"reasoning": "Automatically added due to missing analysis in AI response."
+		}
+	]
+}

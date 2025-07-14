@@ -9,7 +9,7 @@
         "testStrategy": "1. Test complete user registration flow\n2. Verify tier permissions and access levels\n3. Validate automated welcome sequences\n4. Test payment processing integration\n5. Conduct user acceptance testing with 5-10 beta members",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": [
           {
             "id": 1,
@@ -17,7 +17,7 @@
             "description": "Sign up for a Skool account, start the free trial, and create a new community with a relevant name and branding.",
             "dependencies": [],
             "details": "Register on Skool, choose a community name, upload profile and banner images, and set up initial branding elements.",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -251,7 +251,7 @@
         "testStrategy": "1. Beta testing with 5 users\n2. Video quality assessment\n3. Knowledge check quizzes\n4. Practice exercise validation\n5. Closed caption accuracy",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": [
           {
             "id": 1,
@@ -259,7 +259,7 @@
             "description": "Clarify the learning outcomes and identify the ideal learners for the course.",
             "dependencies": [],
             "details": "Specify what students should achieve by the end of the course and describe the target demographic.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1714,7 +1714,7 @@
     ],
     "metadata": {
       "created": "2025-07-14T04:19:20.563Z",
-      "updated": "2025-07-14T05:59:10.240Z",
+      "updated": "2025-07-14T22:10:00.242Z",
       "description": "Tasks for master context"
     }
   }

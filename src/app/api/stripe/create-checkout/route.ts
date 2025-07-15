@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
+import { authOptions } from '@/lib/auth';
 import { STRIPE_PRODUCTS } from '@/lib/stripe-products';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

@@ -3,14 +3,14 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { gumroad } from '@/lib/gumroad';
-import productCatalog from '@/content/products/catalog.json';
+import productCatalog from '../../../../../content/products/catalog.json';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
+  const { productId } = await params;
   try {
-    const { productId } = params;
     
     // Check if user is authenticated
     const session = await getServerSession(authOptions);

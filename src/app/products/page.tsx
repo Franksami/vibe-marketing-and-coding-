@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import productCatalog from "@/content/products/catalog.json";
+import productCatalog from "../../../content/products/catalog.json";
 import { formatGumroadPrice, getProductUrl } from "@/lib/gumroad";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

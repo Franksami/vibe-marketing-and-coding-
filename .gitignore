@@ -65,3 +65,6 @@ node_modules/
 # tasks/ 
 
 /src/generated/prisma
+
+*storybook.log
+storybook-static

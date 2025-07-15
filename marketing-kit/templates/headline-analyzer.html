@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Analyzer Pro - Vibe Marketing Kit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .headline-input {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: 2px solid #e1e4e8;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .headline-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .char-count {
+            text-align: right;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .char-count.warning {
+            color: #f59e0b;
+        }
+
+        .char-count.error {
+            color: #ef4444;
+        }
+
+        .analyze-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .results-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .overall-score {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .score-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .score-description {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .analysis-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e1e4e8;
+        }
+
+        .analysis-card h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .metric-score {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-bar {
+            height: 8px;
+            background: #e1e4e8;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+
+        .metric-feedback {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .suggestions-section {
+            background: #f0f4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .suggestions-section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .suggestion-icon {
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .suggestion-text {
+            flex: 1;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .alternatives-section {
+            margin-top: 30px;
+        }
+
+        .alternatives-section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .alternative-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .alternative-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .alternative-headline {
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+
+        .alternative-score {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .word-analysis {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .word-tag {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .word-common {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .word-uncommon {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .word-emotional {
+            background: #fce7f3;
+            color: #a21caf;
+        }
+
+        .word-power {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #5a67d8;
+        }
+
+        .history-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e1e4e8;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e4e8;
+        }
+
+        .history-headline {
+            flex: 1;
+            color: #666;
+        }
+
+        .history-score {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .analyzing {
+            animation: pulse 1s infinite;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Headline Analyzer Pro</h1>
+        <p class="subtitle">Write magnetic headlines that drive clicks and conversions</p>
+
+        <div class="input-section">
+            <input 
+                type="text" 
+                id="headlineInput" 
+                class="headline-input" 
+                placeholder="Enter your headline here..."
+                maxlength="100"
+            >
+            <div class="char-count" id="charCount">0 / 60 characters (recommended)</div>
+            <button class="analyze-btn" onclick="analyzeHeadline()">Analyze Headline</button>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="overall-score">
+                <div class="score-circle">
+                    <svg width="200" height="200">
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="#e1e4e8" stroke-width="10"></circle>
+                        <circle 
+                            id="scoreCircle" 
+                            cx="100" 
+                            cy="100" 
+                            r="90" 
+                            fill="none" 
+                            stroke="url(#gradient)" 
+                            stroke-width="10"
+                            stroke-dasharray="565.48"
+                            stroke-dashoffset="565.48"
+                            transform="rotate(-90 100 100)"
+                        ></circle>
+                        <defs>
+                            <linearGradient id="gradient">
+                                <stop offset="0%" stop-color="#667eea"></stop>
+                                <stop offset="100%" stop-color="#764ba2"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="score-number" id="scoreNumber">0</div>
+                </div>
+                <div class="score-label">Overall Score</div>
+                <div class="score-description" id="scoreDescription">Good headline!</div>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>
+                        <span class="tooltip">📏 
+                            <span class="tooltiptext">Optimal length is 50-60 characters for best display across platforms</span>
+                        </span>
+                        Word Balance
+                    </h3>
+                    <div class="metric-score" id="wordScore">0/100</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="wordFill" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-feedback" id="wordFeedback">Analyzing...</div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>
+                        <span class="tooltip">💪 
+                            <span class="tooltiptext">Power words trigger emotion and drive action</span>
+                        </span>
+                        Emotional Impact
+                    </h3>
+                    <div class="metric-score" id="emotionalScore">0/100</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="emotionalFill" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-feedback" id="emotionalFeedback">Analyzing...</div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>
+                        <span class="tooltip">🎯 
+                            <span class="tooltiptext">Keywords help with SEO and relevance</span>
+                        </span>
+                        SEO Optimization
+                    </h3>
+                    <div class="metric-score" id="seoScore">0/100</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="seoFill" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-feedback" id="seoFeedback">Analyzing...</div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>
+                        <span class="tooltip">📖 
+                            <span class="tooltiptext">Easy to read headlines get more engagement</span>
+                        </span>
+                        Readability
+                    </h3>
+                    <div class="metric-score" id="readabilityScore">0/100</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="readabilityFill" style="width: 0%"></div>
+                    </div>
+                    <div class="metric-feedback" id="readabilityFeedback">Analyzing...</div>
+                </div>
+            </div>
+
+            <div class="word-analysis" id="wordAnalysis"></div>
+
+            <div class="suggestions-section" id="suggestionsSection">
+                <h2>💡 Improvement Suggestions</h2>
+                <div id="suggestionsList"></div>
+            </div>
+
+            <div class="alternatives-section">
+                <h2>✨ AI-Generated Alternatives</h2>
+                <div id="alternativesList"></div>
+            </div>
+
+            <div class="history-section">
+                <h2>📜 Recent Headlines</h2>
+                <div id="historyList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Power words database
+        const powerWords = [
+            'amazing', 'powerful', 'proven', 'secret', 'instant', 'easy', 'free', 'new',
+            'discover', 'unlock', 'revealed', 'breakthrough', 'revolutionary', 'transform',
+            'boost', 'skyrocket', 'master', 'ultimate', 'essential', 'critical', 'vital',
+            'explosive', 'massive', 'guaranteed', 'exclusive', 'limited', 'urgent', 'now',
+            'today', 'quick', 'simple', 'effective', 'surprising', 'shocking', 'incredible'
+        ];
+
+        const emotionalWords = [
+            'love', 'hate', 'fear', 'angry', 'happy', 'sad', 'excited', 'worried',
+            'anxious', 'confident', 'inspired', 'motivated', 'passionate', 'curious',
+            'surprised', 'amazed', 'delighted', 'frustrated', 'confused', 'proud'
+        ];
+
+        const commonWords = [
+            'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+            'of', 'with', 'by', 'from', 'about', 'as', 'into', 'through', 'after',
+            'over', 'between', 'out', 'against', 'during', 'without', 'before', 'under',
+            'around', 'among', 'is', 'are', 'was', 'were', 'be', 'been', 'being'
+        ];
+
+        let history = JSON.parse(localStorage.getItem('headlineHistory') || '[]');
+
+        // Character count update
+        document.getElementById('headlineInput').addEventListener('input', function(e) {
+            const length = e.target.value.length;
+            const charCount = document.getElementById('charCount');
+            charCount.textContent = `${length} / 60 characters (recommended)`;
+            
+            if (length > 70) {
+                charCount.className = 'char-count error';
+            } else if (length > 60) {
+                charCount.className = 'char-count warning';
+            } else {
+                charCount.className = 'char-count';
+            }
+        });
+
+        function analyzeHeadline() {
+            const headline = document.getElementById('headlineInput').value.trim();
+            
+            if (!headline) {
+                alert('Please enter a headline to analyze');
+                return;
+            }
+
+            // Show results section with animation
+            document.getElementById('resultsSection').style.display = 'block';
+            document.querySelector('.analyze-btn').classList.add('analyzing');
+            
+            // Simulate analysis delay
+            setTimeout(() => {
+                const analysis = performAnalysis(headline);
+                displayResults(analysis);
+                generateAlternatives(headline);
+                saveToHistory(headline, analysis.overall);
+                document.querySelector('.analyze-btn').classList.remove('analyzing');
+            }, 1000);
+        }
+
+        function performAnalysis(headline) {
+            const words = headline.toLowerCase().split(/\s+/);
+            const charLength = headline.length;
+            
+            // Word Balance Score
+            let wordScore = 100;
+            let wordFeedback = '';
+            
+            if (words.length < 4) {
+                wordScore = 60;
+                wordFeedback = 'Too short. Add more descriptive words.';
+            } else if (words.length > 12) {
+                wordScore = 70;
+                wordFeedback = 'Too long. Try to be more concise.';
+            } else if (words.length >= 6 && words.length <= 9) {
+                wordScore = 100;
+                wordFeedback = 'Perfect length! Easy to scan and remember.';
+            } else {
+                wordScore = 85;
+                wordFeedback = 'Good length. Could be slightly adjusted.';
+            }
+
+            // Emotional Impact Score
+            const powerWordCount = words.filter(word => 
+                powerWords.includes(word) || emotionalWords.includes(word)
+            ).length;
+            
+            let emotionalScore = Math.min(100, powerWordCount * 40);
+            let emotionalFeedback = '';
+            
+            if (powerWordCount === 0) {
+                emotionalFeedback = 'Add power words to increase impact.';
+            } else if (powerWordCount === 1) {
+                emotionalFeedback = 'Good start! Consider adding one more power word.';
+            } else if (powerWordCount >= 2) {
+                emotionalScore = 100;
+                emotionalFeedback = 'Excellent emotional appeal!';
+            }
+
+            // SEO Score
+            let seoScore = 80; // Base score
+            let seoFeedback = '';
+            
+            // Check for numbers
+            if (/\d/.test(headline)) {
+                seoScore += 10;
+                seoFeedback = 'Numbers increase click-through rates. ';
+            }
+            
+            // Check for questions
+            if (headline.includes('?')) {
+                seoScore += 5;
+                seoFeedback += 'Questions engage readers. ';
+            }
+            
+            // Check for brackets or parentheses
+            if (/[\[\]()]/.test(headline)) {
+                seoScore += 5;
+                seoFeedback += 'Brackets add clarity. ';
+            }
+            
+            seoScore = Math.min(100, seoScore);
+            if (!seoFeedback) {
+                seoFeedback = 'Consider adding numbers or brackets for SEO.';
+            }
+
+            // Readability Score
+            const avgWordLength = words.reduce((sum, word) => sum + word.length, 0) / words.length;
+            const commonWordCount = words.filter(word => commonWords.includes(word)).length;
+            const readabilityRatio = commonWordCount / words.length;
+            
+            let readabilityScore = 100;
+            let readabilityFeedback = '';
+            
+            if (avgWordLength > 6) {
+                readabilityScore -= 20;
+                readabilityFeedback = 'Use simpler words for better readability.';
+            } else if (readabilityRatio < 0.2) {
+                readabilityScore -= 15;
+                readabilityFeedback = 'Too many complex words. Simplify.';
+            } else {
+                readabilityFeedback = 'Easy to read and understand!';
+            }
+
+            // Overall Score
+            const overall = Math.round((wordScore + emotionalScore + seoScore + readabilityScore) / 4);
+
+            return {
+                overall,
+                wordScore,
+                wordFeedback,
+                emotionalScore,
+                emotionalFeedback,
+                seoScore,
+                seoFeedback,
+                readabilityScore,
+                readabilityFeedback,
+                words
+            };
+        }
+
+        function displayResults(analysis) {
+            // Animate overall score
+            const scoreCircle = document.getElementById('scoreCircle');
+            const scoreNumber = document.getElementById('scoreNumber');
+            const scoreDescription = document.getElementById('scoreDescription');
+            
+            const circumference = 2 * Math.PI * 90;
+            const offset = circumference - (analysis.overall / 100 * circumference);
+            
+            scoreCircle.style.strokeDashoffset = offset;
+            
+            // Animate number
+            let currentScore = 0;
+            const increment = analysis.overall / 20;
+            const timer = setInterval(() => {
+                currentScore += increment;
+                if (currentScore >= analysis.overall) {
+                    currentScore = analysis.overall;
+                    clearInterval(timer);
+                }
+                scoreNumber.textContent = Math.round(currentScore);
+            }, 50);
+
+            // Score description
+            if (analysis.overall >= 90) {
+                scoreDescription.textContent = 'Excellent headline! Ready to publish.';
+            } else if (analysis.overall >= 70) {
+                scoreDescription.textContent = 'Good headline! Minor improvements possible.';
+            } else if (analysis.overall >= 50) {
+                scoreDescription.textContent = 'Average headline. Consider improvements.';
+            } else {
+                scoreDescription.textContent = 'Needs work. See suggestions below.';
+            }
+
+            // Update individual metrics
+            updateMetric('word', analysis.wordScore, analysis.wordFeedback);
+            updateMetric('emotional', analysis.emotionalScore, analysis.emotionalFeedback);
+            updateMetric('seo', analysis.seoScore, analysis.seoFeedback);
+            updateMetric('readability', analysis.readabilityScore, analysis.readabilityFeedback);
+
+            // Word analysis
+            displayWordAnalysis(analysis.words);
+
+            // Suggestions
+            generateSuggestions(analysis);
+        }
+
+        function updateMetric(type, score, feedback) {
+            document.getElementById(`${type}Score`).textContent = `${score}/100`;
+            document.getElementById(`${type}Fill`).style.width = `${score}%`;
+            document.getElementById(`${type}Feedback`).textContent = feedback;
+        }
+
+        function displayWordAnalysis(words) {
+            const wordAnalysis = document.getElementById('wordAnalysis');
+            wordAnalysis.innerHTML = '<h3 style="width: 100%; margin-bottom: 10px;">Word Analysis:</h3>';
+            
+            words.forEach(word => {
+                const tag = document.createElement('span');
+                tag.className = 'word-tag';
+                tag.textContent = word;
+                
+                if (powerWords.includes(word.toLowerCase())) {
+                    tag.className += ' word-power';
+                } else if (emotionalWords.includes(word.toLowerCase())) {
+                    tag.className += ' word-emotional';
+                } else if (commonWords.includes(word.toLowerCase())) {
+                    tag.className += ' word-common';
+                } else {
+                    tag.className += ' word-uncommon';
+                }
+                
+                wordAnalysis.appendChild(tag);
+            });
+        }
+
+        function generateSuggestions(analysis) {
+            const suggestionsList = document.getElementById('suggestionsList');
+            suggestionsList.innerHTML = '';
+            
+            const suggestions = [];
+            
+            if (analysis.wordScore < 80) {
+                suggestions.push({
+                    icon: '📏',
+                    text: 'Adjust headline length to 6-9 words for optimal engagement'
+                });
+            }
+            
+            if (analysis.emotionalScore < 80) {
+                suggestions.push({
+                    icon: '💪',
+                    text: `Try adding power words like: ${getRandomPowerWords(3).join(', ')}`
+                });
+            }
+            
+            if (analysis.seoScore < 90) {
+                suggestions.push({
+                    icon: '🔢',
+                    text: 'Include numbers (e.g., "5 Ways", "10 Tips") to boost clicks'
+                });
+            }
+            
+            if (analysis.readabilityScore < 90) {
+                suggestions.push({
+                    icon: '📚',
+                    text: 'Simplify complex words for broader appeal'
+                });
+            }
+            
+            if (suggestions.length === 0) {
+                suggestions.push({
+                    icon: '🎯',
+                    text: 'Your headline is well-optimized! Consider A/B testing variations.'
+                });
+            }
+            
+            suggestions.forEach(suggestion => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.innerHTML = `
+                    <span class="suggestion-icon">${suggestion.icon}</span>
+                    <span class="suggestion-text">${suggestion.text}</span>
+                `;
+                suggestionsList.appendChild(item);
+            });
+        }
+
+        function getRandomPowerWords(count) {
+            const shuffled = [...powerWords].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function generateAlternatives(originalHeadline) {
+            const alternativesList = document.getElementById('alternativesList');
+            alternativesList.innerHTML = '';
+            
+            // Generate variations
+            const alternatives = [
+                addNumbers(originalHeadline),
+                addPowerWord(originalHeadline),
+                makeQuestion(originalHeadline),
+                addUrgency(originalHeadline),
+                simplify(originalHeadline)
+            ].filter(alt => alt !== originalHeadline);
+            
+            alternatives.forEach(alt => {
+                const score = performAnalysis(alt).overall;
+                const item = document.createElement('div');
+                item.className = 'alternative-item';
+                item.innerHTML = `
+                    <span class="alternative-headline">${alt}</span>
+                    <span class="alternative-score">${score}</span>
+                `;
+                
+                item.addEventListener('click', () => {
+                    document.getElementById('headlineInput').value = alt;
+                    analyzeHeadline();
+                });
+                
+                alternativesList.appendChild(item);
+            });
+        }
+
+        function addNumbers(headline) {
+            const numbers = ['5', '7', '10', '3'];
+            const templates = ['X Ways to', 'X Tips for', 'X Secrets to'];
+            const template = templates[Math.floor(Math.random() * templates.length)];
+            const number = numbers[Math.floor(Math.random() * numbers.length)];
+            return template.replace('X', number) + ' ' + headline;
+        }
+
+        function addPowerWord(headline) {
+            const word = getRandomPowerWords(1)[0];
+            return word.charAt(0).toUpperCase() + word.slice(1) + ' ' + headline;
+        }
+
+        function makeQuestion(headline) {
+            if (headline.includes('?')) return headline;
+            return 'How to ' + headline + '?';
+        }
+
+        function addUrgency(headline) {
+            const urgencyWords = ['Now', 'Today', 'This Week', 'Before It\'s Too Late'];
+            const word = urgencyWords[Math.floor(Math.random() * urgencyWords.length)];
+            return headline + ' (' + word + ')';
+        }
+
+        function simplify(headline) {
+            // Simple simplification - just return a shortened version
+            const words = headline.split(' ');
+            if (words.length > 8) {
+                return words.slice(0, 8).join(' ');
+            }
+            return headline;
+        }
+
+        function saveToHistory(headline, score) {
+            history.unshift({ headline, score, date: new Date().toISOString() });
+            history = history.slice(0, 10); // Keep only last 10
+            localStorage.setItem('headlineHistory', JSON.stringify(history));
+            displayHistory();
+        }
+
+        function displayHistory() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+            
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `
+                    <span class="history-headline">${item.headline}</span>
+                    <span class="history-score">${item.score}/100</span>
+                `;
+                historyList.appendChild(div);
+            });
+        }
+
+        // Initialize
+        displayHistory();
+
+        // Allow Enter key to analyze
+        document.getElementById('headlineInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeHeadline();
+            }
+        });
+    </script>
+</body>
+</html>

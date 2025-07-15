@@ -1,0 +1,230 @@
+{
+  "products": [
+    {
+      "id": "vibe-marketing-kit",
+      "gumroadId": "",
+      "name": "Vibe Marketing Kit - AI-Powered Marketing Workspace",
+      "slug": "marketing-kit",
+      "tier": "free",
+      "price": 0,
+      "description": "Transform your marketing workflow with AI-powered tools and templates. Includes UTM Builder Pro, Headline Analyzer, 8-week learning path, and Cursor workspace configuration.",
+      "features": [
+        "UTM Builder Pro with bulk generation",
+        "AI-powered Headline Analyzer",
+        "3 pre-configured AI marketing agents",
+        "8-week marketing curriculum",
+        "Advanced blog post template",
+        "Visual learning roadmap"
+      ],
+      "deliverables": [
+        "marketing-kit.zip (instant download)",
+        "Installation guide PDF",
+        "Quick start video (10 min)",
+        "Email support for 30 days"
+      ],
+      "coverImage": "/images/products/marketing-kit-cover.png",
+      "salesPage": "/products/marketing-kit",
+      "status": "testing",
+      "tags": ["marketing", "ai", "cursor", "free", "lead-magnet"],
+      "metadata": {
+        "emailSequence": "marketing-kit-onboarding",
+        "downloadUrl": "/api/downloads/marketing-kit",
+        "fileSize": "12MB"
+      }
+    },
+    {
+      "id": "cursor-rules-starter",
+      "gumroadId": "",
+      "name": "Cursor Rules Starter Kit",
+      "slug": "cursor-rules",
+      "tier": "tripwire",
+      "price": 2700,
+      "description": "50+ battle-tested Cursor rules to supercharge your coding workflow. Includes language-specific rule sets, performance optimization rules, and testing automation.",
+      "features": [
+        "50+ production-ready rules",
+        "Language-specific rule sets",
+        "Performance optimization rules",
+        "Testing automation rules",
+        "Weekly rule updates",
+        "Video walkthrough (45 min)"
+      ],
+      "deliverables": [
+        "cursor-rules.zip",
+        "Installation guide",
+        "Video tutorials",
+        "Lifetime updates"
+      ],
+      "coverImage": "/images/products/cursor-rules-cover.png",
+      "salesPage": "/products/cursor-rules",
+      "status": "planned",
+      "tags": ["cursor", "productivity", "development", "tripwire"],
+      "metadata": {
+        "updateFrequency": "weekly",
+        "currentVersion": "1.0.0"
+      }
+    },
+    {
+      "id": "claude-prompt-templates",
+      "gumroadId": "",
+      "name": "Claude Prompt Templates for Developers",
+      "slug": "claude-prompts",
+      "tier": "tripwire",
+      "price": 4700,
+      "description": "100+ categorized Claude prompts specifically designed for developers. Includes code generation, debugging, documentation, and API integration templates.",
+      "features": [
+        "100+ developer-focused prompts",
+        "Organized by use case",
+        "Copy-paste ready",
+        "Notion template included",
+        "Regular updates",
+        "Community access"
+      ],
+      "deliverables": [
+        "Notion template access",
+        "PDF quick reference",
+        "Video guide (30 min)",
+        "Discord community invite"
+      ],
+      "coverImage": "/images/products/claude-prompts-cover.png",
+      "salesPage": "/products/claude-prompts",
+      "status": "development",
+      "tags": ["ai", "claude", "prompts", "productivity"],
+      "metadata": {
+        "notionTemplateId": "",
+        "discordRole": "prompt-masters"
+      }
+    },
+    {
+      "id": "vibe-ui-kit",
+      "gumroadId": "",
+      "name": "Vibe UI Kit - React Components for n8n",
+      "slug": "ui-kit",
+      "tier": "premium",
+      "price": 9700,
+      "description": "Professional React component library designed for n8n workflow integration. 50+ components with dark mode, Storybook docs, and TypeScript support.",
+      "features": [
+        "50+ React components",
+        "n8n workflow integration",
+        "Dark/light mode support",
+        "Tailwind CSS styling",
+        "Storybook documentation",
+        "TypeScript definitions",
+        "Figma design files",
+        "6 months of updates"
+      ],
+      "deliverables": [
+        "NPM package access",
+        "Source code (GitHub)",
+        "Figma design system",
+        "Storybook documentation",
+        "Integration examples",
+        "Priority support"
+      ],
+      "coverImage": "/images/products/ui-kit-cover.png",
+      "salesPage": "/products/ui-kit",
+      "status": "planned",
+      "tags": ["react", "components", "ui", "n8n", "premium"],
+      "metadata": {
+        "npmPackage": "@vibe/ui-kit",
+        "githubRepo": "private",
+        "figmaUrl": ""
+      }
+    },
+    {
+      "id": "supabase-saas-boilerplate",
+      "gumroadId": "",
+      "name": "Supabase SaaS Boilerplate",
+      "slug": "saas-boilerplate",
+      "tier": "premium",
+      "price": 29700,
+      "description": "Production-ready SaaS boilerplate with Supabase backend, Stripe subscriptions, admin dashboard, and multi-tenant architecture.",
+      "features": [
+        "Complete authentication system",
+        "Stripe subscription integration",
+        "Multi-tenant architecture",
+        "Admin dashboard",
+        "API rate limiting",
+        "Email notifications",
+        "Landing page templates",
+        "12 months of updates"
+      ],
+      "deliverables": [
+        "Full source code",
+        "Setup documentation",
+        "Video course (3 hours)",
+        "Private Discord channel",
+        "2 hours consulting",
+        "Deployment guide"
+      ],
+      "coverImage": "/images/products/saas-boilerplate-cover.png",
+      "salesPage": "/products/saas-boilerplate",
+      "status": "planned",
+      "tags": ["saas", "supabase", "boilerplate", "premium", "nextjs"],
+      "metadata": {
+        "techStack": ["Next.js", "Supabase", "Stripe", "TypeScript"],
+        "supportLevel": "premium"
+      }
+    },
+    {
+      "id": "n8n-workflow-pack",
+      "gumroadId": "",
+      "name": "n8n AI Workflow Pack",
+      "slug": "n8n-workflows",
+      "tier": "premium",
+      "price": 19700,
+      "description": "20+ pre-built n8n workflows for AI automation. Includes OpenAI, Claude, content creation, and business automation workflows.",
+      "features": [
+        "20+ ready-to-use workflows",
+        "AI integration templates",
+        "Business automation flows",
+        "Content creation pipelines",
+        "Email automation",
+        "Social media workflows",
+        "Documentation & guides",
+        "Workflow updates"
+      ],
+      "deliverables": [
+        "n8n workflow JSON files",
+        "Setup instructions",
+        "Video walkthroughs",
+        "Custom node templates",
+        "Integration guides"
+      ],
+      "coverImage": "/images/products/n8n-workflows-cover.png",
+      "salesPage": "/products/n8n-workflows",
+      "status": "planned",
+      "tags": ["n8n", "automation", "ai", "workflows"],
+      "metadata": {
+        "workflowCount": 20,
+        "lastUpdated": ""
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "id": "ultimate-developer-bundle",
+      "name": "Ultimate Developer Bundle",
+      "description": "Everything you need to build with AI. Save $147!",
+      "products": ["cursor-rules-starter", "claude-prompt-templates", "vibe-ui-kit"],
+      "originalPrice": 19100,
+      "bundlePrice": 14900,
+      "savings": 4200,
+      "status": "planned"
+    },
+    {
+      "id": "ai-automation-suite",
+      "name": "AI Automation Suite",
+      "description": "Complete automation toolkit. Save $97!",
+      "products": ["n8n-workflow-pack", "claude-prompt-templates"],
+      "originalPrice": 24400,
+      "bundlePrice": 19700,
+      "savings": 4700,
+      "status": "planned"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-01-14T18:00:00Z",
+    "version": "1.0.0",
+    "currency": "USD"
+  }
+}

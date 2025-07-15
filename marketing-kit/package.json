@@ -1,0 +1,88 @@
+{
+  "name": "vibe-marketing-kit",
+  "version": "1.0.0",
+  "description": "AI-powered marketing workspace with tools, templates, and learning resources",
+  "author": "Vibe Coding Academy",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "ai",
+    "cursor",
+    "automation",
+    "seo",
+    "content-creation",
+    "email-marketing",
+    "social-media"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vibe-academy/marketing-kit"
+  },
+  "main": "README.md",
+  "files": [
+    "README.md",
+    "INSTALLATION.md",
+    "cursor-workspace-preset.json",
+    ".cursorrules",
+    "visual-roadmap.md",
+    "package.json",
+    "templates/",
+    "docs/"
+  ],
+  "kit-contents": {
+    "workspace": {
+      "cursor-preset": "cursor-workspace-preset.json",
+      "ai-rules": ".cursorrules",
+      "ai-agents": [
+        {
+          "name": "Content Creator",
+          "alias": "@content",
+          "purpose": "SEO-optimized content generation"
+        },
+        {
+          "name": "SEO Researcher", 
+          "alias": "@seo",
+          "purpose": "Keyword research and optimization"
+        },
+        {
+          "name": "Campaign Strategist",
+          "alias": "@campaign",
+          "purpose": "Multi-channel campaign planning"
+        }
+      ]
+    },
+    "tools": {
+      "utm-builder": {
+        "file": "templates/utm-builder-pro.html",
+        "description": "Advanced UTM parameter generator with bulk creation"
+      },
+      "headline-analyzer": {
+        "file": "templates/headline-analyzer.html",
+        "description": "AI-powered headline optimization tool"
+      }
+    },
+    "templates": {
+      "blog-post": {
+        "file": "templates/blog-post-advanced.md",
+        "description": "SEO-optimized blog post template with AI prompts"
+      }
+    },
+    "learning": {
+      "curriculum": "docs/marketing-learning-path.md",
+      "roadmap": "visual-roadmap.md",
+      "duration": "8 weeks",
+      "modules": 8
+    }
+  },
+  "requirements": {
+    "cursor": "Latest version",
+    "browser": "Modern browser with JavaScript enabled",
+    "time": "5-10 hours per week",
+    "skills": "Basic computer skills"
+  },
+  "support": {
+    "email": "support@vibe-academy.com",
+    "discord": "https://discord.gg/vibe-marketing",
+    "documentation": "https://docs.vibe-academy.com/marketing-kit"
+  }
+}

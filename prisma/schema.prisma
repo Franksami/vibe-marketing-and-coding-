@@ -55,9 +55,12 @@ model User {
   isFoundingMember Boolean   @default(false)
   purchasedAt      DateTime?
   stripeCustomerId String?   @unique
+  metadata         Json?     // For tags and other flexible data
   
   accounts      Account[]
   sessions      Session[]
+  purchases     Purchase[]
+  licenseKeys   LicenseKey[]
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -69,4 +72,52 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// Purchase tracking for both Stripe and Gumroad
+model Purchase {
+  id          String   @id @default(cuid())
+  userId      String
+  productId   String   // Our internal product ID
+  productName String
+  amount      Int      // Amount in cents
+  currency    String   @default("USD")
+  status      String   // completed, refunded, disputed
+  provider    String   // stripe, gumroad
+  providerId  String   // Stripe session ID or Gumroad sale ID
+  metadata    Json?    // Store provider-specific data
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseKeys LicenseKey[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([provider, providerId])
+  @@index([userId])
+  @@index([productId])
+}
+
+// License key management
+model LicenseKey {
+  id              String    @id @default(cuid())
+  key             String    @unique
+  userId          String
+  purchaseId      String
+  productId       String
+  activations     Int       @default(0)
+  maxActivations  Int       @default(1)
+  lastActivatedAt DateTime?
+  expiresAt       DateTime?
+  disabled        Boolean   @default(false)
+  metadata        Json?     // Store activation details
+  
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+  @@index([productId])
 }

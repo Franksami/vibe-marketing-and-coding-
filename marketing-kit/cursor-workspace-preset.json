@@ -1,0 +1,191 @@
+{
+  "name": "Vibe Marketing Workspace",
+  "version": "1.0.0",
+  "description": "AI-powered marketing workspace with pre-configured agents and tools",
+  "folders": [
+    {
+      "path": "content",
+      "name": "📝 Content Hub",
+      "description": "All marketing content - blogs, social, emails"
+    },
+    {
+      "path": "research",
+      "name": "🔍 Research & Analytics",
+      "description": "Competitor analysis, keywords, market research"
+    },
+    {
+      "path": "templates",
+      "name": "🎨 Templates & Tools",
+      "description": "Reusable templates and micro-tools"
+    },
+    {
+      "path": "campaigns",
+      "name": "📊 Campaign Tracking",
+      "description": "Active campaigns and performance data"
+    },
+    {
+      "path": "assets",
+      "name": "🇼️ Media Assets",
+      "description": "Images, videos, and brand assets"
+    }
+  ],
+  "settings": {
+    "editor.wordWrap": "on",
+    "editor.lineHeight": 1.6,
+    "editor.fontSize": 14,
+    "markdown.preview.breaks": true,
+    "markdown.preview.linkify": true,
+    "files.defaultLanguage": "markdown",
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true
+  },
+  "ai_agents": [
+    {
+      "name": "Content Creator",
+      "alias": "@content",
+      "description": "Expert content writer focused on engagement and conversion",
+      "system_prompt": "You are an expert content marketing specialist with deep knowledge of SEO, user psychology, and conversion optimization. Your writing is engaging, clear, and always focused on providing value to the reader. You understand different content formats (blogs, social media, emails) and adapt your tone accordingly. Always consider: 1) Target audience and their pain points, 2) SEO best practices, 3) Clear calls-to-action, 4) Scannable formatting with headers and bullets, 5) Data and examples to support claims.",
+      "temperature": 0.7,
+      "max_tokens": 4000,
+      "top_p": 0.9,
+      "frequency_penalty": 0.3,
+      "presence_penalty": 0.3
+    },
+    {
+      "name": "SEO Researcher",
+      "alias": "@seo",
+      "description": "Technical SEO expert for keyword research and optimization",
+      "system_prompt": "You are a technical SEO specialist with expertise in keyword research, on-page optimization, and search intent analysis. You provide data-driven recommendations based on current SEO best practices. Your analysis includes: 1) Keyword difficulty and search volume, 2) User search intent (informational, navigational, transactional), 3) SERP feature opportunities, 4) Content gap analysis, 5) Technical SEO factors. Always cite reliable sources and provide actionable recommendations.",
+      "temperature": 0.3,
+      "max_tokens": 2000,
+      "top_p": 0.95,
+      "frequency_penalty": 0,
+      "presence_penalty": 0
+    },
+    {
+      "name": "Campaign Strategist",
+      "alias": "@campaign",
+      "description": "Multi-channel marketing strategist for campaign planning",
+      "system_prompt": "You are a digital marketing strategist specializing in multi-channel campaign planning and optimization. You excel at creating cohesive campaigns across email, social media, content marketing, and paid advertising. Your expertise includes: 1) Customer journey mapping, 2) Channel selection and budget allocation, 3) A/B testing strategies, 4) Performance metrics and KPIs, 5) ROI optimization. Provide strategic recommendations with clear implementation steps and success metrics.",
+      "temperature": 0.5,
+      "max_tokens": 3000,
+      "top_p": 0.9,
+      "frequency_penalty": 0.1,
+      "presence_penalty": 0.2
+    }
+  ],
+  "snippets": {
+    "blog-outline": {
+      "prefix": "blog-outline",
+      "body": [
+        "# ${1:Blog Title}",
+        "",
+        "## Target Keyword: ${2:primary keyword}",
+        "## Secondary Keywords: ${3:related keywords}",
+        "## Target Audience: ${4:audience description}",
+        "## Search Intent: ${5|Informational,Commercial,Transactional,Navigational|}",
+        "",
+        "## Outline",
+        "",
+        "### 1. Introduction (150 words)",
+        "- Hook: ${6:attention-grabbing opening}",
+        "- Problem statement",
+        "- Value proposition",
+        "- Article preview",
+        "",
+        "### 2. ${7:Main Section 1} (300 words)",
+        "- Key point",
+        "- Supporting data/examples",
+        "- Practical application",
+        "",
+        "### 3. ${8:Main Section 2} (300 words)",
+        "- Key point",
+        "- Supporting data/examples",
+        "- Practical application",
+        "",
+        "### 4. ${9:Main Section 3} (300 words)",
+        "- Key point",
+        "- Supporting data/examples",
+        "- Practical application",
+        "",
+        "### 5. Conclusion (150 words)",
+        "- Recap main points",
+        "- Call to action",
+        "- Next steps",
+        "",
+        "## Meta Description (155 chars)",
+        "${10:meta description}",
+        "",
+        "## Internal Links",
+        "- [Related Post 1]()",
+        "- [Related Post 2]()",
+        "",
+        "## External Links",
+        "- [Authority Source 1]()",
+        "- [Authority Source 2]()"
+      ],
+      "description": "Create a complete SEO-optimized blog outline"
+    },
+    "utm-campaign": {
+      "prefix": "utm",
+      "body": [
+        "${1:https://example.com}?utm_source=${2|google,facebook,twitter,linkedin,email,newsletter|}&utm_medium=${3|cpc,social,email,affiliate,referral|}&utm_campaign=${4:campaign_name}&utm_content=${5:content_variant}&utm_term=${6:keyword}"
+      ],
+      "description": "Generate UTM tracking parameters"
+    },
+    "meta-desc": {
+      "prefix": "meta",
+      "body": [
+        "${1:Primary keyword} - ${2:Value proposition in 120-155 characters that includes the keyword and entices clicks}"
+      ],
+      "description": "Create SEO meta description"
+    },
+    "email-subject": {
+      "prefix": "subject",
+      "body": [
+        "${1|🎯,🚀,💡,🔥,✨,🎁,📈,💰|} ${2:Benefit-focused subject line} ${3:[Urgency/Curiosity element]}"
+      ],
+      "description": "Create engaging email subject line"
+    },
+    "cta-button": {
+      "prefix": "cta",
+      "body": [
+        "${1|Get Started,Learn More,Download Now,Sign Up Free,Claim Your Spot,Start Free Trial,Get Instant Access,Join Now|} ${2:→}"
+      ],
+      "description": "Create compelling CTA button text"
+    }
+  },
+  "tasks": [
+    {
+      "label": "Marketing Tasks",
+      "tasks": [
+        {
+          "label": "Content Creation",
+          "command": "workbench.action.terminal.sendSequence",
+          "args": { "text": "echo 'Starting content creation workflow...'\n" }
+        },
+        {
+          "label": "SEO Analysis",
+          "command": "workbench.action.terminal.sendSequence",
+          "args": { "text": "echo 'Running SEO analysis...'\n" }
+        },
+        {
+          "label": "Campaign Setup",
+          "command": "workbench.action.terminal.sendSequence",
+          "args": { "text": "echo 'Setting up new campaign...'\n" }
+        }
+      ]
+    }
+  ],
+  "recommended_extensions": [
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "streetsidesoftware.code-spell-checker",
+    "grammarly.grammarly",
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "ritwickdey.liveserver"
+  ],
+  "initialization_script": "echo '🚀 Vibe Marketing Workspace Loaded!' && echo '📝 AI Agents: @content, @seo, @campaign' && echo '⚡ Snippets: blog-outline, utm, meta, subject, cta' && echo '📚 Full docs in marketing-kit/README.md'"
+}

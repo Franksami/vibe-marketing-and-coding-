@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User } from "lucide-react";
 import { LoginDialog } from "@/components/auth/login-dialog";
 import { useSession, signOut } from "next-auth/react";
+import { Logo } from "@/components/branding/logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,11 +35,7 @@ export function Navigation() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold text-xl bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Vibe Marketing & Coding
-            </span>
-          </Link>
+          <Logo className="mr-6" />
         </div>
         
         {/* Desktop Navigation */}

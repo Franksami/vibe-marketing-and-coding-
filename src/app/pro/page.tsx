@@ -80,11 +80,11 @@ export default function ProPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4" />
             Limited Time: 7-Day Free Trial
           </div>
@@ -98,8 +98,8 @@ export default function ProPage() {
           </p>
 
           {/* Pricing Card */}
-          <Card className="max-w-md mx-auto p-8 shadow-xl border-2 border-blue-500 relative">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+          <Card className="max-w-md mx-auto p-8 shadow-xl border-2 border-purple-500 relative">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
               BEST VALUE
             </div>
             
@@ -148,7 +148,7 @@ export default function ProPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, i) => (
               <Card key={i} className="p-6">
-                <benefit.icon className="w-10 h-10 text-blue-500 mb-4" />
+                <benefit.icon className="w-10 h-10 text-purple-600 mb-4" />
                 <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-gray-600 text-sm">{benefit.description}</p>
               </Card>
@@ -164,7 +164,7 @@ export default function ProPage() {
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div>
-              <div className="text-4xl font-bold text-blue-500">15-20</div>
+              <div className="text-4xl font-bold text-purple-600">15-20</div>
               <p className="text-gray-600">Hours saved per week</p>
             </div>
             <div>
@@ -221,7 +221,7 @@ export default function ProPage() {
 
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Still have questions?</p>
-            <a href="mailto:support@thevibelaunch.ai" className="text-blue-500 hover:underline">
+            <a href="mailto:support@thevibelaunch.ai" className="text-purple-600 hover:underline">
               Email support@thevibelaunch.ai
             </a>
           </div>
@@ -229,7 +229,7 @@ export default function ProPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+      <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
             Ready to Code 10x Faster?

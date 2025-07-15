@@ -16,8 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vibe Marketing & Coding - Master AI Development with Cursor + Claude",
-  description: "Learn to build $10K client dashboards in days using AI. Join 10,000+ developers mastering the Cursor + Claude stack for 10x faster development.",
+  title: "The Vibe Launch - Code 10x Faster with AI",
+  description: "Code 10x faster with AI. Ultimate Cursor Rulebook and resources to save 20+ hours per week. Starting at $47.",
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

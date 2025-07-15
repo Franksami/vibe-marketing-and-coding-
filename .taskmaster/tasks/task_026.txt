@@ -1,0 +1,21 @@
+# Task ID: 26
+# Title: Create Marketing Funnel Analytics Dashboard
+# Status: pending
+# Dependencies: 21, 22
+# Priority: medium
+# Description: Implement transparent marketing analytics showing conversion rates, A/B test results, and content performance metrics.
+# Details:
+1. Integrate PostHog/Mixpanel for analytics
+2. Create public analytics dashboard
+3. Implement A/B testing framework
+4. Build email sequence viewer
+5. Create content performance tracking
+6. Implement conversion funnel visualization
+7. Add real-time metrics updates
+
+# Test Strategy:
+1. Analytics accuracy validation
+2. A/B test framework testing
+3. Real-time updates testing
+4. Data visualization testing
+5. Performance impact testing

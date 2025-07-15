@@ -1,0 +1,17 @@
+# Task ID: 33
+# Title: Develop Free Lead Magnet Products
+# Status: done
+# Dependencies: 31, 32
+# Priority: high
+# Description: Create and package the free tier products including Vibe Coding Starter Kit, Brand Vibe Check Workbook, and email course content
+# Details:
+1. Create .cursorrules files for React/Next.js
+2. Design and develop interactive PDF workbook
+3. Write and format 7-day email course content
+4. Package assets for digital delivery
+
+# Test Strategy:
+1. Validate .cursorrules functionality
+2. Test PDF interactivity
+3. Review email course content flow
+4. Verify download functionality

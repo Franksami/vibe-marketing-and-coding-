@@ -1,0 +1,18 @@
+# Task ID: 34
+# Title: Develop UI Kits for Automators
+# Status: pending
+# Dependencies: 31
+# Priority: medium
+# Description: Create pre-built React components with Shadcn UI/Tailwind and n8n/Zapier integration
+# Details:
+1. Develop React components using Shadcn UI
+2. Implement Tailwind styling
+3. Create webhook integration examples
+4. Document component usage
+5. Package for distribution
+
+# Test Strategy:
+1. Unit test components
+2. Test webhook integrations
+3. Verify styling consistency
+4. Validate documentation accuracy

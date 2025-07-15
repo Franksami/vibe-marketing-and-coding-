@@ -1,0 +1,18 @@
+# Task ID: 38
+# Title: Develop n8n Pre-Processor Masterclass
+# Status: pending
+# Dependencies: 31, 32
+# Priority: low
+# Description: Create comprehensive video course on n8n pre-processor development
+# Details:
+1. Develop course curriculum
+2. Record video content
+3. Create code examples
+4. Prepare course materials
+5. Set up delivery platform
+
+# Test Strategy:
+1. Review video quality
+2. Test code examples
+3. Validate course flow
+4. Verify delivery system

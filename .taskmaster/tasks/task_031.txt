@@ -1,0 +1,21 @@
+# Task ID: 31
+# Title: Configure Gumroad Store and Product Infrastructure
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Set up the main Gumroad store infrastructure and configure product templates for all tiers (Free, Tripwire, and Standalone)
+# Details:
+1. Create Gumroad account if not exists
+2. Configure store branding and settings
+3. Create product templates for each tier:
+   - Free lead magnets
+   - Tripwire offers ($9-$49)
+   - Standalone courses ($99+)
+4. Set up payment processing and tax settings
+5. Configure webhook endpoints for integration
+
+# Test Strategy:
+1. Verify store settings and branding
+2. Test product template creation
+3. Validate payment processing with test transactions
+4. Confirm webhook configurations

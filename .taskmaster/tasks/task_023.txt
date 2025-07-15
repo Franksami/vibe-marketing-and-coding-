@@ -1,0 +1,21 @@
+# Task ID: 23
+# Title: Build Core LMS Features
+# Status: pending
+# Dependencies: 21
+# Priority: high
+# Description: Implement essential Learning Management System features including progress tracking, certificates, and AI-powered learning paths.
+# Details:
+1. Create progress tracking system using Supabase
+2. Implement certificate generation service
+3. Design and implement course completion logic
+4. Create AI learning path algorithm using Claude
+5. Build interactive code playground
+6. Implement project submission system
+7. Create peer review workflow
+
+# Test Strategy:
+1. Unit tests for progress calculation
+2. Integration tests for certificate generation
+3. AI recommendation system validation
+4. User flow testing
+5. Performance testing for concurrent users

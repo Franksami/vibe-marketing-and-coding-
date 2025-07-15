@@ -1,0 +1,18 @@
+# Task ID: 36
+# Title: Develop Supabase Boilerplate
+# Status: pending
+# Dependencies: 31
+# Priority: medium
+# Description: Create Next.js project template with Supabase integration and authentication
+# Details:
+1. Set up Next.js project structure
+2. Implement Supabase authentication
+3. Configure database schemas
+4. Set up RLS policies
+5. Create deployment documentation
+
+# Test Strategy:
+1. Test authentication flows
+2. Validate database operations
+3. Verify RLS policy enforcement
+4. Test deployment process

@@ -1,0 +1,111 @@
+# Task ID: 21
+# Title: Implement Multi-Tier Subscription System with Stripe
+# Status: in-progress
+# Dependencies: None
+# Priority: high
+# Description: Set up Stripe integration for handling multiple subscription tiers (Free, Learner, Builder, Agency) and one-time purchases with proper subscription management.
+# Details:
+1. Initialize Stripe API integration
+2. Create subscription products and price points in Stripe
+3. Implement subscription tier logic:
+   - Free Tier: Basic access
+   - Vibe Learner ($49/mo)
+   - Vibe Builder ($99/mo)
+   - Vibe Agency ($299/mo)
+4. Set up webhook handlers for subscription events
+5. Implement usage-based pricing logic
+6. Create subscription management dashboard
+7. Set up affiliate tracking system
+
+# Test Strategy:
+1. Unit tests for pricing logic
+2. Integration tests with Stripe sandbox
+3. Webhook reliability testing
+4. Subscription lifecycle testing (upgrade/downgrade/cancel)
+5. Load testing payment processing
+
+# Subtasks:
+## 1. Stripe API Initialization [done]
+### Dependencies: None
+### Description: Set up Stripe account, retrieve API keys, and install Stripe SDK for the chosen backend language.
+### Details:
+Sign up for Stripe, obtain publishable and secret API keys from the dashboard, and install the official Stripe library for your stack. Ensure secret keys are securely stored and not exposed client-side.
+
+## 2. Product and Price Creation in Stripe [done]
+### Dependencies: 21.1
+### Description: Create products and price points for each subscription tier and one-time purchases in the Stripe dashboard or via API.
+### Details:
+Define products for Free, Learner, Builder, Agency tiers, and any one-time purchases. Set up recurring and usage-based price objects as needed.
+
+## 3. Subscription Tier Logic Implementation [done]
+### Dependencies: 21.2
+### Description: Implement backend logic to handle subscription creation, upgrades, downgrades, and cancellations for each tier.
+### Details:
+Map each tier to its corresponding Stripe product/price. Ensure correct entitlements and access levels are enforced based on active subscription.
+
+## 4. Usage-Based Pricing Logic [pending]
+### Dependencies: 21.3
+### Description: Implement logic to track and report usage metrics for usage-based billing tiers.
+### Details:
+Integrate with Stripe's metered billing APIs to report usage events and calculate charges for applicable tiers.
+
+## 5. Webhook Setup and Handling [done]
+### Dependencies: 21.3
+### Description: Configure Stripe webhooks and implement secure handlers for subscription lifecycle events.
+### Details:
+Set up webhook endpoints to process events such as invoice payment, subscription creation, cancellation, and failed payments. Validate webhook signatures for security.
+
+## 6. Affiliate Tracking Integration [pending]
+### Dependencies: 21.3
+### Description: Integrate affiliate tracking system to attribute referrals and manage commissions.
+### Details:
+Implement logic to capture affiliate codes at signup, store attribution, and trigger commission payouts based on successful payments.
+
+## 7. Dashboard UI/UX for Subscription Management [pending]
+### Dependencies: 21.3, 21.4
+### Description: Design and implement user dashboard for managing subscriptions, billing, and usage.
+### Details:
+Provide UI for users to view current plan, upgrade/downgrade/cancel subscriptions, view invoices, and monitor usage if applicable.
+
+## 8. Error Handling and Resilience [pending]
+### Dependencies: 21.3, 21.5
+### Description: Implement robust error handling for all payment and subscription flows.
+### Details:
+Handle API failures, webhook retries, payment declines, and edge cases gracefully. Log errors and provide user-friendly feedback.
+
+## 9. Security Best Practices Implementation [pending]
+### Dependencies: 21.1, 21.5, 21.8
+### Description: Ensure all payment flows and sensitive data handling follow Stripe and industry security standards.
+### Details:
+Use HTTPS, validate webhook signatures, avoid exposing secret keys, and follow PCI DSS requirements for handling payment data.
+
+## 10. Compliance and Regulatory Checks [pending]
+### Dependencies: None
+### Description: Verify that the integration meets legal, tax, and compliance requirements for all supported regions.
+### Details:
+Ensure GDPR, PCI DSS, and local tax/VAT rules are followed. Implement consent and data retention policies as needed.
+
+## 11. Unit Testing for Payment and Subscription Logic [pending]
+### Dependencies: 21.3, 21.4, 21.8
+### Description: Write unit tests for all core payment, pricing, and subscription logic.
+### Details:
+Test tier logic, usage calculations, error handling, and affiliate attribution in isolation.
+
+## 12. Integration Testing with Stripe Sandbox [pending]
+### Dependencies: None
+### Description: Perform end-to-end integration tests using Stripe's test environment.
+### Details:
+Test full subscription lifecycle, webhook processing, and payment flows using Stripe's sandbox/test mode.
+
+## 13. Documentation for Integration and Operations [pending]
+### Dependencies: None
+### Description: Document the Stripe integration, subscription flows, error handling, and operational procedures.
+### Details:
+Provide developer and admin documentation covering setup, maintenance, and troubleshooting.
+
+## 14. Deployment and Post-Deployment Verification [done]
+### Dependencies: None
+### Description: Deploy the integration to production and verify all payment flows and webhooks function as expected.
+### Details:
+Monitor logs, test real transactions, and ensure all compliance and security checks are enforced in production.
+

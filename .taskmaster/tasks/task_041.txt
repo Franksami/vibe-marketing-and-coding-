@@ -1,0 +1,77 @@
+# Task ID: 41
+# Title: Implement AI-Powered Vibe Command Menu Assistant
+# Status: deferred
+# Dependencies: 22, 23, 30
+# Priority: medium
+# Description: Design and implement a floating AI assistant button that appears on all pages, with contextual awareness for the /rules route and three predefined action options: "Show code snippet", "Generate Claude prompts", and "Discuss in Community".
+# Details:
+1. Create new React component 'VibeCommandMenu':
+   - Implement floating button using fixed positioning
+   - Add click handler to toggle command menu overlay
+   - Style using Tailwind CSS for consistent design
+   - Ensure proper z-index handling
+
+2. Integrate with Next.js layout:
+   - Add component to root layout.js
+   - Implement route detection logic using Next.js router
+   - Handle mobile responsiveness
+   - Manage component mounting/unmounting
+
+3. Implement context awareness:
+   - Create route detection hook for /rules path
+   - Implement context provider for global state
+   - Define action handlers for each command:
+     * Show code snippet: Display relevant code based on current page
+     * Generate Claude prompts: Interface with AI prompt generation
+     * Discuss in Community: Link to community discussion
+
+4. Style and Animation:
+   - Add subtle entrance/exit animations
+   - Implement hover states and transitions
+   - Ensure accessibility compliance
+   - Add keyboard navigation support
+
+5. Performance Considerations:
+   - Lazy load command menu content
+   - Implement debouncing for route detection
+   - Optimize render performance
+   - Handle edge cases and error states
+
+Technical Requirements:
+- Use React 18+ features
+- Implement with TypeScript
+- Follow atomic design principles
+- Ensure mobile-first responsive design
+
+# Test Strategy:
+1. Component Testing:
+   - Unit test React component rendering
+   - Verify button positioning and visibility
+   - Test menu toggle functionality
+   - Validate context awareness logic
+   - Check mobile responsiveness
+
+2. Integration Testing:
+   - Verify Next.js layout integration
+   - Test route detection accuracy
+   - Validate command menu actions
+   - Check state management
+   - Test keyboard navigation
+
+3. User Experience Testing:
+   - Verify animations and transitions
+   - Test accessibility compliance
+   - Validate mobile touch interactions
+   - Check screen reader compatibility
+
+4. Performance Testing:
+   - Measure component load time
+   - Test memory usage
+   - Verify lazy loading
+   - Check render performance
+
+5. Cross-browser Testing:
+   - Test in Chrome, Firefox, Safari
+   - Verify mobile browser compatibility
+   - Check different viewport sizes
+   - Validate touch interactions

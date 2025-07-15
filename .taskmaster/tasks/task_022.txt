@@ -1,0 +1,21 @@
+# Task ID: 22
+# Title: Develop Interactive Tech Stack Visualization
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Create an interactive architecture diagram showing real-time platform components and their connections, including Cursor, Claude, Supabase, and n8n integration.
+# Details:
+1. Design interactive SVG-based architecture diagram
+2. Implement real-time data fetching for component status
+3. Add tooltips and information panels for each component
+4. Create API endpoints for metrics collection
+5. Implement WebSocket connections for live updates
+6. Add 'View Source' functionality for components
+7. Integrate Git commit history display
+
+# Test Strategy:
+1. Component rendering tests
+2. Real-time update testing
+3. WebSocket connection stability tests
+4. Cross-browser compatibility testing
+5. Performance testing for live updates

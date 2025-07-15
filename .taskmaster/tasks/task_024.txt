@@ -1,0 +1,24 @@
+# Task ID: 24
+# Title: Implement n8n Workflow Gallery
+# Status: pending
+# Dependencies: 21, 22
+# Priority: medium
+# Description: Create a showcase of actual n8n workflows powering the platform with cloning capability and execution metrics.
+# Details:
+1. Design workflow gallery interface
+2. Implement n8n workflow export/import functionality
+3. Create 'Clone to Your n8n' feature
+4. Build execution history tracking
+5. Implement metrics dashboard
+6. Create example workflows:
+   - Member onboarding
+   - Content publishing
+   - Support routing
+   - Payment processing
+
+# Test Strategy:
+1. Workflow export/import testing
+2. Clone functionality validation
+3. Metrics accuracy testing
+4. Integration testing with n8n API
+5. Performance testing for gallery loading

@@ -1,0 +1,20 @@
+# Task ID: 35
+# Title: Create Ultimate Cursor Rulebook
+# Status: done
+# Dependencies: 31
+# Priority: medium
+# Description: Develop comprehensive .cursorrules collection for multiple frameworks
+# Details:
+1. Create framework-specific rules:
+   - React rules
+   - Vue rules
+   - Svelte rules
+2. Develop task-specific rules
+3. Document usage and examples
+4. Package for distribution
+
+# Test Strategy:
+1. Test rules across frameworks
+2. Validate rule functionality
+3. Review documentation completeness
+4. Test distribution package

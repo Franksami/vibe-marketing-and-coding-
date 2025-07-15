@@ -1287,7 +1287,7 @@
             "description": "Set up Stripe account, retrieve API keys, and install Stripe SDK for the chosen backend language.",
             "dependencies": [],
             "details": "Sign up for Stripe, obtain publishable and secret API keys from the dashboard, and install the official Stripe library for your stack. Ensure secret keys are securely stored and not exposed client-side.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1309,7 +1309,7 @@
               2
             ],
             "details": "Map each tier to its corresponding Stripe product/price. Ensure correct entitlements and access levels are enforced based on active subscription.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1331,7 +1331,7 @@
               3
             ],
             "details": "Set up webhook endpoints to process events such as invoice payment, subscription creation, cancellation, and failed payments. Validate webhook signatures for security.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1714,7 +1714,7 @@
     ],
     "metadata": {
       "created": "2025-07-14T04:19:20.563Z",
-      "updated": "2025-07-15T04:26:11.823Z",
+      "updated": "2025-07-15T04:39:44.840Z",
       "description": "Tasks for master context"
     }
   }

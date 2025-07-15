@@ -40,7 +40,7 @@ export function PurchaseSuccessContent() {
           {status === "success" && (
             <>
               <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-600" />
-              <CardTitle>Welcome to Vibe Academy!</CardTitle>
+              <CardTitle>Welcome to The Vibe Launch!</CardTitle>
               <CardDescription>
                 You&apos;re now a founding member with lifetime access
               </CardDescription>

@@ -45,7 +45,7 @@ Setting up your email marketing system to deliver lead magnets, nurture sequence
 ### Step 2: Initial Configuration (15 mins)
 
 #### Sender Settings
-- **From Name**: [Your Name] from Vibe Academy
+- **From Name**: [Your Name] from The Vibe Launch
 - **From Email**: hello@yourdomain.com
 - **Reply-to**: Same as from email
 
@@ -71,7 +71,7 @@ If you don't see it in 5 minutes, check your spam folder.
 #### Embedded Form for Website
 ```html
 <!-- ConvertKit Form -->
-<script async data-uid="YOUR_FORM_ID" src="https://vibeacademy.ck.page/YOUR_FORM_ID/index.js"></script>
+<script async data-uid="YOUR_FORM_ID" src="https://thevibelaunch.ck.page/YOUR_FORM_ID/index.js"></script>
 ```
 
 ### Step 4: Set Up Tags & Segments (15 mins)
@@ -98,7 +98,7 @@ If you don't see it in 5 minutes, check your spam folder.
 ```
 Hi [First Name],
 
-Thanks for joining Vibe Academy! I'm excited to share these resources with you.
+Thanks for joining The Vibe Launch! I'm excited to share these resources with you.
 
 Here's what you requested:
 
@@ -163,7 +163,7 @@ P.S. Join our community to share your statement and get feedback: [Skool Link]
 ```
 
 ### Purchase Confirmation Template
-**Subject**: Welcome to Vibe Academy! Here's everything you need 🎉
+**Subject**: Welcome to The Vibe Launch! Here's everything you need 🎉
 
 ```
 Hi [First Name],

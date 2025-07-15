@@ -158,7 +158,7 @@ Edit `.cursorrules` to adjust:
 - **Docs**: See README.md for detailed guides
 
 ### Share Your Success
-- Tag us on social media: @vibeacademy
+- Tag us on social media: @thevibelaunch
 - Share your projects in Discord
 - Contribute templates back to the community
 

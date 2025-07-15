@@ -180,13 +180,13 @@ export default function PricingPage() {
               </CardFooter>
             </Card>
 
-            {/* Vibe Academy */}
+            {/* The Vibe Launch */}
             <Card className="relative border-primary shadow-lg">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                 <Badge className="px-3 py-1">MOST POPULAR</Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl">Vibe Academy</CardTitle>
+                <CardTitle className="text-2xl">The Vibe Launch</CardTitle>
                 <CardDescription>Complete course + lifetime updates</CardDescription>
                 <div className="mt-4">
                   {billingPeriod === "lifetime" ? (

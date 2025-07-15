@@ -9,7 +9,7 @@ This guide covers setting up your Gumroad store to sell digital products and int
 ### 1. Create Gumroad Account
 
 1. Go to [gumroad.com](https://gumroad.com) and sign up
-2. Choose a store URL (e.g., `vibeacademy.gumroad.com`)
+2. Choose a store URL (e.g., `thevibelaunch.gumroad.com`)
 3. Complete your profile:
    - Add profile picture and banner
    - Write compelling bio
@@ -64,7 +64,7 @@ GUMROAD_ACCESS_TOKEN=your_access_token_here
 GUMROAD_APPLICATION_ID=your_app_id_here
 GUMROAD_APPLICATION_SECRET=your_app_secret_here
 GUMROAD_WEBHOOK_SECRET=your_webhook_secret_here
-NEXT_PUBLIC_GUMROAD_STORE_URL=https://vibeacademy.gumroad.com
+NEXT_PUBLIC_GUMROAD_STORE_URL=https://thevibelaunch.gumroad.com
 ```
 
 ## Product Setup

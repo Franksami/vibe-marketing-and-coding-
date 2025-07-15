@@ -31,7 +31,7 @@ export const exitIntentVariants = {
     description: "Leave now and pay $499... or grab your exclusive 20% discount and join for just $399!",
     offer: "20% Discount",
     benefits: [
-      "Save $100 on Vibe Academy",
+      "Save $100 on The Vibe Launch",
       "Valid for next 48 hours only",
       "Includes all founding member benefits",
       "30-day money-back guarantee"

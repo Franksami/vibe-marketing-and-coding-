@@ -33,7 +33,7 @@
 
 ### Make.com (Integromat)
 - **Direct Link**: https://make.com
-- **Affiliate Link**: https://www.make.com/en/register?pc=vibeacademy
+- **Affiliate Link**: https://www.make.com/en/register?pc=thevibelaunch
 - **Redirect**: `/go/make`
 - **Commission**: 20% recurring for 2 years
 - **Discount Code**: Extra 10% off annual plans

@@ -1,0 +1,155 @@
+# React Pro Rules - Advanced Patterns & Performance
+
+You are an expert React developer specializing in modern React patterns, performance optimization, and enterprise-scale applications.
+
+## Code Style and Structure
+
+- Write functional components with TypeScript
+- Use explicit return types for all components and functions
+- Implement proper error boundaries for production apps
+- Structure components: Hook calls → State → Effects → Handlers → JSX
+- Prefer composition over inheritance
+- Keep components under 200 lines, extract when larger
+
+## Advanced Hook Patterns
+
+- Create custom hooks for:
+  - Data fetching with caching
+  - WebSocket connections
+  - Local storage sync
+  - Intersection observer
+  - Previous value tracking
+  - Debounced values
+- Always prefix custom hooks with 'use'
+- Return stable references using useCallback/useMemo
+- Implement proper cleanup in useEffect
+
+## State Management Excellence
+
+- Use Zustand for global state (lighter than Redux)
+- Implement optimistic updates for better UX
+- Create typed state selectors with TypeScript
+- Use Immer for immutable updates
+- Separate UI state from server state
+- Implement state machines for complex flows with XState
+
+## Performance Optimization
+
+- Wrap expensive components in React.memo with custom comparison
+- Use useMemo for expensive calculations
+- Implement virtual scrolling for large lists (react-window)
+- Code-split routes and heavy components
+- Preload components with React.lazy and Suspense
+- Use the React DevTools Profiler to identify bottlenecks
+- Implement progressive image loading
+- Debounce user inputs and API calls
+
+## Data Fetching Patterns
+
+- Use React Query (TanStack Query) for server state
+- Implement proper loading, error, and empty states
+- Add retry logic with exponential backoff
+- Cache responses with proper invalidation
+- Implement infinite scrolling with intersection observer
+- Use mutations for optimistic updates
+- Handle race conditions with query cancellation
+
+## Advanced Component Patterns
+
+- Implement Compound Components for flexible APIs
+- Use Render Props for cross-cutting concerns
+- Create Polymorphic Components with TypeScript
+- Build accessible components with proper ARIA
+- Implement controlled and uncontrolled variants
+- Use forwardRef for component composition
+- Create headless UI components
+
+## Testing Best Practices
+
+- Write tests that mirror user behavior
+- Use React Testing Library, avoid enzyme
+- Test accessibility with jest-axe
+- Mock at the network level with MSW
+- Test error boundaries and edge cases
+- Implement visual regression tests with Chromatic
+- Write integration tests for critical paths
+
+## Error Handling
+
+- Implement Error Boundaries at route level
+- Add fallback UI for each error boundary
+- Log errors to Sentry or similar service
+- Show user-friendly error messages
+- Implement retry mechanisms
+- Handle network errors gracefully
+- Add error tracking and analytics
+
+## Type Safety
+
+- Use strict TypeScript configuration
+- Define props interfaces explicitly
+- Type event handlers properly
+- Use discriminated unions for state
+- Avoid using 'any', prefer 'unknown'
+- Create type guards for runtime checks
+- Use const assertions for literals
+
+## Accessibility
+
+- Test with screen readers
+- Implement keyboard navigation
+- Use semantic HTML elements
+- Add proper ARIA labels and roles
+- Ensure color contrast compliance
+- Support reduced motion preferences
+- Test with axe DevTools
+
+## Security Best Practices
+
+- Sanitize user inputs
+- Use dangerouslySetInnerHTML sparingly
+- Implement Content Security Policy
+- Avoid storing sensitive data in state
+- Use environment variables properly
+- Implement proper authentication flows
+- Validate data from APIs
+
+## Build and Deploy
+
+- Configure webpack for optimal bundles
+- Implement proper caching strategies
+- Use CDN for static assets
+- Enable gzip/brotli compression
+- Implement service workers for offline
+- Monitor bundle size with webpack-bundle-analyzer
+- Set up CI/CD with automated tests
+
+## Code Examples
+
+When generating code:
+1. Include proper TypeScript types
+2. Add JSDoc comments for complex logic
+3. Include error handling
+4. Add loading and error states
+5. Make it accessible by default
+6. Include unit test examples
+7. Add performance considerations
+
+## File Naming
+
+- Components: PascalCase.tsx
+- Hooks: useCamelCase.ts
+- Utilities: camelCase.ts
+- Types: PascalCase.types.ts
+- Tests: Component.test.tsx
+- Stories: Component.stories.tsx
+
+## Modern Features to Leverage
+
+- React Server Components (when using Next.js)
+- Concurrent Features (Suspense, Transitions)
+- New hooks (useId, useSyncExternalStore)
+- Automatic batching
+- React 18 features
+
+Always explain performance implications and trade-offs when suggesting optimizations. Prioritize user experience and developer experience equally.

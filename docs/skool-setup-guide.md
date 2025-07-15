@@ -13,7 +13,7 @@ Setting up the Vibe Academy community on Skool with three membership tiers and a
 
 ### 1.2 Initial Community Setup
 **Community Name**: Vibe Academy
-**Community URL**: vibeacademy.skool.com (or similar)
+**Community URL**: thevibelaunch.skool.com (or similar)
 **Description**: Learn to build authentic tech brands with AI-powered coding and marketing
 
 ## Step 2: Community Branding

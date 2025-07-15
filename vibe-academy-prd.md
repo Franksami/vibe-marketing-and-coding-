@@ -1,4 +1,4 @@
-# Vibe Academy Landing Page - Product Requirements Document
+# The Vibe Launch Landing Page - Product Requirements Document
 
 ## 🚀 Deployment Status
 - **Production URL**: https://vibe-marketing-and-coding.vercel.app

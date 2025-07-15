@@ -1,4 +1,4 @@
-# 📊 Vibe Academy - Daily & Weekly Metrics Dashboard
+# 📊 The Vibe Launch - Daily & Weekly Metrics Dashboard
 
 ## 🎯 30-Day Goals (Started: [DATE])
 - [ ] 500 email subscribers

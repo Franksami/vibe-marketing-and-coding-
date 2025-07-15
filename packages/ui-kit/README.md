@@ -258,5 +258,5 @@ MIT © The Vibe Launch
 ## Support
 
 - 📧 Email: support@thevibelaunch.ai
-- 💬 Discord: [Join our community](https://discord.gg/vibeacademy)
+- 💬 Discord: [Join our community](https://discord.gg/thevibelaunch)
 - 📚 Docs: [Documentation](https://docs.thevibelaunch.ai/ui-kit)

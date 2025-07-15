@@ -18,7 +18,7 @@
 - Lead magnet delivery system
 
 ### 3. ✅ AI Freelancer Flywheel Module - NEW COMPLETE
-- Created Module 6 for the Vibe Academy course
+- Created Module 6 for The Vibe Launch course
 - 5 comprehensive lessons on building $10K/month freelance business
 - Worksheets, templates, and market research included
 - Data-driven approach with real 2024 market insights

@@ -206,7 +206,7 @@ export function formatGumroadPrice(cents: number): string {
 }
 
 export function getProductUrl(permalink: string, storeUrl?: string): string {
-  const base = storeUrl || process.env.NEXT_PUBLIC_GUMROAD_STORE_URL || 'https://vibeacademy.gumroad.com';
+  const base = storeUrl || process.env.NEXT_PUBLIC_GUMROAD_STORE_URL || 'https://thevibelaunch.gumroad.com';
   return `${base}/l/${permalink}`;
 }
 

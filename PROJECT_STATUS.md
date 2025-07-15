@@ -1,4 +1,4 @@
-# Vibe Academy Project Status
+# The Vibe Launch Project Status
 
 **Last Updated**: January 14, 2025
 

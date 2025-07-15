@@ -148,7 +148,7 @@
 ```
 🚀 FOUNDING MEMBER LAUNCH
 
-For the next 7 days only, get lifetime access to Vibe Academy for $249 (50% off).
+For the next 7 days only, get lifetime access to The Vibe Launch for $249 (50% off).
 
 Only 20 spots available.
 
@@ -164,7 +164,7 @@ Link in bio / [link]
 ```
 UPDATE: 13/20 founding member spots taken!
 
-If you've been thinking about joining Vibe Academy, now's the time.
+If you've been thinking about joining The Vibe Launch, now's the time.
 
 Price goes up to $499 in [X] days.
 

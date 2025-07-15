@@ -7,7 +7,7 @@
 - [ ] Click "Start free trial" 
 - [ ] Use email: [your business email]
 - [ ] Community name: **Vibe Academy**
-- [ ] Community URL: vibeacademy.skool.com
+- [ ] Community URL: thevibelaunch.skool.com
 
 ### 2. Quick Branding (15 mins)
 - [ ] Upload logo as profile image

@@ -87,20 +87,8 @@ export default function ProPage() {
         description="Everything you need to build a $10K/month business without writing code. Monthly membership with all courses, templates, and coaching."
         url="https://thevibelaunch.ai/pro"
         price="47"
-        priceCurrency="USD"
-        availability="InStock"
         category="Business Software"
-        offers={[{
-          "@type": "Offer",
-          "price": "47",
-          "priceCurrency": "USD",
-          "priceValidUntil": "2025-12-31",
-          "availability": "https://schema.org/InStock",
-          "seller": {
-            "@type": "Organization",
-            "name": "The Vibe Launch"
-          }
-        }]}
+        isDigital={true}
       />
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-4">

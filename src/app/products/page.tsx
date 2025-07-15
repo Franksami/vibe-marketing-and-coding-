@@ -53,9 +53,8 @@ export default function ProductsPage() {
           description={product.description}
           url={`https://thevibelaunch.ai/products/${product.slug}`}
           price={product.price.toString()}
-          priceCurrency="USD"
-          availability="InStock"
           category="Business Software"
+          isDigital={true}
         />
       ))}
       <div className="container mx-auto px-4 py-16">

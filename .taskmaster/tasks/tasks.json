@@ -1710,11 +1710,33 @@
         ],
         "priority": "medium",
         "subtasks": []
+      },
+      {
+        "id": 42,
+        "title": "Purchase thevibelaunch.ai domain",
+        "description": "Acquire the domain name thevibelaunch.ai for the Vibe Launch platform",
+        "details": "1. Check domain availability\n2. Select a reliable domain registrar (e.g., Namecheap, GoDaddy, or Cloudflare)\n3. Purchase domain for 1-2 years\n4. Configure DNS settings\n5. Set up domain privacy protection\n6. Point domain to hosting platform",
+        "testStrategy": "1. Verify domain registration is complete\n2. Test DNS propagation\n3. Ensure domain points to correct hosting\n4. Verify HTTPS certificate setup\n5. Test domain accessibility from multiple locations",
+        "priority": "high",
+        "status": "pending",
+        "dependencies": [],
+        "subtasks": []
+      },
+      {
+        "id": 43,
+        "title": "Complete Module 0.5: Tech Fundamentals",
+        "description": "Create and finalize the foundational module covering essential technical prerequisites for the Vibe Coding curriculum",
+        "details": "1. Define learning objectives for tech fundamentals\n2. Create content covering:\n   - Command line basics\n   - Git and version control\n   - VS Code setup and configuration\n   - Basic HTML/CSS/JavaScript concepts\n   - Node.js and npm fundamentals\n3. Develop hands-on exercises and challenges\n4. Create video tutorials and written guides\n5. Design assessment criteria\n6. Package module for delivery",
+        "testStrategy": "1. Review content for completeness and accuracy\n2. Test all code examples and exercises\n3. Verify video quality and audio clarity\n4. Get feedback from beta testers\n5. Ensure smooth integration with learning platform\n6. Test assessment functionality",
+        "priority": "high",
+        "status": "pending",
+        "dependencies": [13],
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-07-14T04:19:20.563Z",
-      "updated": "2025-07-15T18:09:05.670Z",
+      "updated": "2025-07-15T19:45:00.000Z",
       "description": "Tasks for master context"
     }
   }

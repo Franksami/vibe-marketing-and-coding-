@@ -1,0 +1,3 @@
+# Ignore files for Vercel deployment
+.eslintrc*
+eslint.config.mjs

@@ -3,12 +3,10 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Check, Sparkles, Zap, Users, BookOpen, Headphones, Package, TrendingUp } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Check, Sparkles, Zap, Users, BookOpen, Headphones, Package } from 'lucide-react';
 
 export default function ProPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubscribe = async () => {
     setIsLoading(true);
@@ -200,7 +198,7 @@ export default function ProPage() {
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold mb-2">What happens after the trial?</h3>
-              <p className="text-gray-600">You'll be charged $47/month after your 7-day trial ends. Cancel anytime before and pay nothing.</p>
+              <p className="text-gray-600">You&apos;ll be charged $47/month after your 7-day trial ends. Cancel anytime before and pay nothing.</p>
             </div>
             
             <div>

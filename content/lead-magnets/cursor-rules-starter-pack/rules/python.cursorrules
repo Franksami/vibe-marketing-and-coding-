@@ -1,0 +1,323 @@
+# Python Cursor Rules
+
+You are an expert Python developer. Follow these patterns and best practices.
+
+## Project Structure
+
+```
+project/
+  src/
+    __init__.py
+    main.py
+    models/
+    services/
+    utils/
+  tests/
+    __init__.py
+    test_*.py
+  requirements.txt
+  pyproject.toml
+```
+
+## Code Style & Formatting
+
+### Type Hints
+- Always use type hints for function arguments and returns
+- Use Union, Optional, List, Dict from typing
+- Use dataclasses for data structures
+- Use Protocol for structural typing
+
+```python
+from typing import Optional, List, Dict, Protocol
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: int
+    name: str
+    email: str
+    active: bool = True
+
+def get_user(user_id: int) -> Optional[User]:
+    """Retrieve user by ID."""
+    # Implementation
+```
+
+### Function Design
+- Keep functions small and focused
+- Use descriptive names
+- Document with docstrings
+- Handle exceptions explicitly
+
+```python
+def calculate_discount(
+    price: float,
+    discount_percent: float,
+    max_discount: Optional[float] = None
+) -> float:
+    """
+    Calculate discounted price.
+    
+    Args:
+        price: Original price
+        discount_percent: Discount percentage (0-100)
+        max_discount: Maximum discount amount allowed
+        
+    Returns:
+        Discounted price
+        
+    Raises:
+        ValueError: If discount_percent is invalid
+    """
+    if not 0 <= discount_percent <= 100:
+        raise ValueError("Discount must be between 0 and 100")
+    
+    discount = price * (discount_percent / 100)
+    if max_discount:
+        discount = min(discount, max_discount)
+    
+    return price - discount
+```
+
+## Error Handling
+
+### Custom Exceptions
+```python
+class AppError(Exception):
+    """Base exception for application."""
+    pass
+
+class ValidationError(AppError):
+    """Raised when validation fails."""
+    pass
+
+class NotFoundError(AppError):
+    """Raised when resource not found."""
+    pass
+```
+
+### Exception Handling
+```python
+def process_data(data: Dict[str, Any]) -> Result:
+    try:
+        validate_data(data)
+        result = transform_data(data)
+        return result
+    except ValidationError as e:
+        logger.error(f"Validation failed: {e}")
+        raise
+    except Exception as e:
+        logger.exception("Unexpected error")
+        raise AppError("Processing failed") from e
+```
+
+## Async Programming
+
+### Async/Await Patterns
+```python
+import asyncio
+from typing import List
+
+async def fetch_user(user_id: int) -> User:
+    """Fetch user asynchronously."""
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"/users/{user_id}") as response:
+            data = await response.json()
+            return User(**data)
+
+async def fetch_multiple_users(user_ids: List[int]) -> List[User]:
+    """Fetch multiple users concurrently."""
+    tasks = [fetch_user(uid) for uid in user_ids]
+    return await asyncio.gather(*tasks)
+```
+
+## Data Validation
+
+### Using Pydantic
+```python
+from pydantic import BaseModel, validator, EmailStr
+from datetime import datetime
+
+class UserCreate(BaseModel):
+    name: str
+    email: EmailStr
+    age: int
+    
+    @validator('name')
+    def name_must_not_be_empty(cls, v):
+        if not v.strip():
+            raise ValueError('Name cannot be empty')
+        return v
+    
+    @validator('age')
+    def age_must_be_positive(cls, v):
+        if v <= 0:
+            raise ValueError('Age must be positive')
+        return v
+```
+
+## Testing Patterns
+
+### Unit Tests with Pytest
+```python
+import pytest
+from unittest.mock import Mock, patch
+
+class TestUserService:
+    @pytest.fixture
+    def user_service(self):
+        return UserService()
+    
+    def test_create_user(self, user_service):
+        # Arrange
+        user_data = {"name": "John", "email": "john@example.com"}
+        
+        # Act
+        user = user_service.create_user(user_data)
+        
+        # Assert
+        assert user.name == "John"
+        assert user.email == "john@example.com"
+    
+    @patch('services.user.send_email')
+    def test_notify_user(self, mock_send_email, user_service):
+        # Test with mocked dependency
+        user = User(id=1, name="John", email="john@example.com")
+        user_service.notify_user(user)
+        
+        mock_send_email.assert_called_once_with(
+            to="john@example.com",
+            subject="Welcome!"
+        )
+```
+
+### Fixtures and Parametrization
+```python
+@pytest.fixture
+def sample_user():
+    return User(id=1, name="Test User", email="test@example.com")
+
+@pytest.mark.parametrize("input,expected", [
+    (0, 0),
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 3),
+])
+def test_fibonacci(input, expected):
+    assert fibonacci(input) == expected
+```
+
+## Database Patterns
+
+### SQLAlchemy ORM
+```python
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    def to_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'created_at': self.created_at.isoformat()
+        }
+```
+
+## API Development
+
+### FastAPI Patterns
+```python
+from fastapi import FastAPI, HTTPException, Depends
+from typing import List
+
+app = FastAPI()
+
+@app.get("/users/{user_id}", response_model=UserResponse)
+async def get_user(
+    user_id: int,
+    db: Session = Depends(get_db)
+) -> User:
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.post("/users/", response_model=UserResponse)
+async def create_user(
+    user: UserCreate,
+    db: Session = Depends(get_db)
+) -> User:
+    db_user = User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+```
+
+## Logging
+
+```python
+import logging
+from logging.handlers import RotatingFileHandler
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger(__name__)
+
+# Add file handler
+file_handler = RotatingFileHandler(
+    'app.log',
+    maxBytes=10_000_000,
+    backupCount=5
+)
+logger.addHandler(file_handler)
+```
+
+## Configuration Management
+
+```python
+from pydantic import BaseSettings
+from typing import Optional
+
+class Settings(BaseSettings):
+    app_name: str = "My App"
+    debug: bool = False
+    database_url: str
+    redis_url: Optional[str] = None
+    secret_key: str
+    
+    class Config:
+        env_file = ".env"
+        env_file_encoding = 'utf-8'
+
+settings = Settings()
+```
+
+## Best Practices
+
+1. **Use virtual environments**: venv or poetry
+2. **Follow PEP 8**: Use black for formatting
+3. **Write tests first**: TDD approach
+4. **Handle errors gracefully**: Never let exceptions bubble up
+5. **Use type hints**: Enable mypy for checking
+6. **Document everything**: Docstrings and comments
+7. **Keep dependencies minimal**: Only what you need
+8. **Use async when beneficial**: For I/O operations
+9. **Profile before optimizing**: Measure first
+10. **Security first**: Validate inputs, sanitize outputs

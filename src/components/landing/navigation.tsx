@@ -26,6 +26,7 @@ export function Navigation() {
     { label: "Pricing", href: "/pricing" },
     { label: "Courses", href: "#courses" },
     { label: "Community", href: "#community" },
+    { label: "Free Resources", href: "/resources/cursor-rules" },
     { label: "Library", href: "/library" },
   ];
 

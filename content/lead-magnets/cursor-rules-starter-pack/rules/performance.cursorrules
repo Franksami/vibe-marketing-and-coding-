@@ -1,0 +1,445 @@
+# Performance Optimization Cursor Rules
+
+You are an expert in performance optimization. Follow these patterns to write fast, efficient code.
+
+## Performance Principles
+
+1. **Measure First**: Never optimize without data
+2. **User-Perceived Performance**: Focus on what users experience
+3. **Critical Path**: Optimize the most-used code paths
+4. **Progressive Enhancement**: Fast initial load, enhance later
+
+## Frontend Performance
+
+### JavaScript Optimization
+
+#### Bundle Size Reduction
+```typescript
+// Dynamic imports for code splitting
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+
+// Tree-shakeable exports
+export { specificFunction } from './utils'; // Good
+export * from './utils'; // Bad - imports everything
+
+// Remove unused dependencies
+// Use bundle analyzer to find heavy dependencies
+// Consider lighter alternatives (date-fns vs moment)
+```
+
+#### Memoization
+```typescript
+// React component memoization
+const ExpensiveComponent = memo(({ data, filter }) => {
+  // Only re-renders when props change
+  return <ComplexVisualization data={data} filter={filter} />;
+}, (prevProps, nextProps) => {
+  // Custom comparison for complex props
+  return (
+    prevProps.data.id === nextProps.data.id &&
+    prevProps.filter === nextProps.filter
+  );
+});
+
+// Expensive calculations
+const processedData = useMemo(() => {
+  return expensiveProcessing(rawData);
+}, [rawData]);
+
+// Stable callbacks
+const handleClick = useCallback((id: string) => {
+  dispatch({ type: 'SELECT', payload: id });
+}, [dispatch]);
+```
+
+#### Virtual Scrolling
+```typescript
+import { FixedSizeList } from 'react-window';
+
+function VirtualList({ items }: { items: Item[] }) {
+  const Row = ({ index, style }) => (
+    <div style={style}>
+      {items[index].name}
+    </div>
+  );
+  
+  return (
+    <FixedSizeList
+      height={600}
+      itemCount={items.length}
+      itemSize={50}
+      width='100%'
+    >
+      {Row}
+    </FixedSizeList>
+  );
+}
+```
+
+### CSS Performance
+
+#### Efficient Selectors
+```css
+/* Fast - ID and class selectors */
+#header { }
+.button { }
+
+/* Slower - descendant selectors */
+.container .list .item { }
+
+/* Slowest - universal and attribute selectors */
+* { }
+[type="text"] { }
+
+/* Use CSS containment */
+.widget {
+  contain: layout style paint;
+}
+
+/* Hardware acceleration */
+.animated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+```
+
+#### Critical CSS
+```html
+<!-- Inline critical CSS -->
+<style>
+  /* Only above-the-fold styles */
+  body { margin: 0; font-family: sans-serif; }
+  .header { background: #333; color: white; }
+</style>
+
+<!-- Load non-critical CSS async -->
+<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+```
+
+### Image Optimization
+
+```typescript
+// Modern image formats with fallbacks
+<picture>
+  <source srcSet="image.webp" type="image/webp" />
+  <source srcSet="image.jpg" type="image/jpeg" />
+  <img src="image.jpg" alt="Description" loading="lazy" />
+</picture>
+
+// Responsive images
+<img
+  srcSet="
+    small.jpg 300w,
+    medium.jpg 600w,
+    large.jpg 1200w
+  "
+  sizes="(max-width: 600px) 100vw, 50vw"
+  src="medium.jpg"
+  alt="Responsive image"
+/>
+
+// Next.js Image component
+import Image from 'next/image';
+
+<Image
+  src="/hero.png"
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority
+  placeholder="blur"
+  blurDataURL={shimmerBase64}
+/>
+```
+
+## Backend Performance
+
+### Database Optimization
+
+#### Query Optimization
+```typescript
+// Use indexes
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_posts_user_date ON posts(user_id, created_at DESC);
+
+// Avoid N+1 queries
+// Bad
+const users = await User.findAll();
+for (const user of users) {
+  user.posts = await Post.findAll({ where: { userId: user.id } });
+}
+
+// Good - Eager loading
+const users = await User.findAll({
+  include: [{ model: Post, as: 'posts' }]
+});
+
+// Select only needed fields
+const users = await User.findAll({
+  attributes: ['id', 'name', 'email'],
+  where: { active: true }
+});
+```
+
+#### Connection Pooling
+```typescript
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  max: 20, // Maximum connections
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
+// Reuse connections
+export async function query(text: string, params?: any[]) {
+  const start = Date.now();
+  const res = await pool.query(text, params);
+  const duration = Date.now() - start;
+  
+  console.log('Query executed', { text, duration, rows: res.rowCount });
+  return res;
+}
+```
+
+### Caching Strategies
+
+#### Memory Caching
+```typescript
+import NodeCache from 'node-cache';
+
+const cache = new NodeCache({ 
+  stdTTL: 600, // 10 minutes default
+  checkperiod: 120 // Check for expired keys every 2 minutes
+});
+
+export async function getCachedData<T>(
+  key: string,
+  fetcher: () => Promise<T>,
+  ttl?: number
+): Promise<T> {
+  const cached = cache.get<T>(key);
+  if (cached) return cached;
+  
+  const fresh = await fetcher();
+  cache.set(key, fresh, ttl);
+  return fresh;
+}
+```
+
+#### Redis Caching
+```typescript
+import Redis from 'ioredis';
+
+const redis = new Redis({
+  maxRetriesPerRequest: 3,
+  enableReadyCheck: true,
+  lazyConnect: true
+});
+
+export class CacheService {
+  async get<T>(key: string): Promise<T | null> {
+    const data = await redis.get(key);
+    return data ? JSON.parse(data) : null;
+  }
+  
+  async set(key: string, value: any, ttlSeconds = 3600) {
+    await redis.setex(
+      key,
+      ttlSeconds,
+      JSON.stringify(value)
+    );
+  }
+  
+  async invalidate(pattern: string) {
+    const keys = await redis.keys(pattern);
+    if (keys.length) {
+      await redis.del(...keys);
+    }
+  }
+}
+```
+
+### API Performance
+
+#### Response Compression
+```typescript
+import compression from 'compression';
+
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  },
+  level: 6 // Balance between speed and compression
+}));
+```
+
+#### Pagination
+```typescript
+interface PaginationParams {
+  page: number;
+  limit: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export async function getPaginatedResults<T>(
+  model: any,
+  params: PaginationParams,
+  where = {}
+) {
+  const { page, limit, sortBy = 'id', sortOrder = 'asc' } = params;
+  const offset = (page - 1) * limit;
+  
+  const [results, total] = await Promise.all([
+    model.findAll({
+      where,
+      limit,
+      offset,
+      order: [[sortBy, sortOrder]]
+    }),
+    model.count({ where })
+  ]);
+  
+  return {
+    data: results,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit)
+    }
+  };
+}
+```
+
+## Monitoring & Profiling
+
+### Performance Monitoring
+```typescript
+// Custom performance monitoring
+export function performanceMiddleware(req, res, next) {
+  const start = process.hrtime.bigint();
+  
+  // Monkey-patch end method
+  const originalEnd = res.end;
+  res.end = function(...args) {
+    const duration = Number(process.hrtime.bigint() - start) / 1e6; // Convert to ms
+    
+    console.log({
+      method: req.method,
+      url: req.url,
+      statusCode: res.statusCode,
+      duration: `${duration.toFixed(2)}ms`
+    });
+    
+    // Add performance header
+    res.setHeader('X-Response-Time', `${duration.toFixed(2)}ms`);
+    
+    originalEnd.apply(res, args);
+  };
+  
+  next();
+}
+```
+
+### Memory Profiling
+```typescript
+// Monitor memory usage
+setInterval(() => {
+  const usage = process.memoryUsage();
+  console.log({
+    rss: `${(usage.rss / 1024 / 1024).toFixed(2)} MB`,
+    heapTotal: `${(usage.heapTotal / 1024 / 1024).toFixed(2)} MB`,
+    heapUsed: `${(usage.heapUsed / 1024 / 1024).toFixed(2)} MB`,
+    external: `${(usage.external / 1024 / 1024).toFixed(2)} MB`
+  });
+}, 30000); // Every 30 seconds
+
+// Detect memory leaks
+let lastHeapUsed = 0;
+setInterval(() => {
+  global.gc(); // Requires --expose-gc flag
+  const heapUsed = process.memoryUsage().heapUsed;
+  const increase = heapUsed - lastHeapUsed;
+  
+  if (increase > 10 * 1024 * 1024) { // 10MB increase
+    console.warn('Possible memory leak detected', {
+      increase: `${(increase / 1024 / 1024).toFixed(2)} MB`
+    });
+  }
+  
+  lastHeapUsed = heapUsed;
+}, 60000);
+```
+
+## Web Vitals
+
+### Core Web Vitals Optimization
+```typescript
+// Measure and log web vitals
+import { getCLS, getFID, getLCP, getTTFB, getFCP } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  // Send to your analytics endpoint
+  console.log(metric);
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+getFCP(sendToAnalytics);
+
+// Optimize Largest Contentful Paint (LCP)
+// 1. Preload critical resources
+<link rel="preload" as="image" href="hero-image.jpg">
+
+// 2. Use priority hints
+<img src="hero.jpg" fetchpriority="high" />
+
+// Optimize Cumulative Layout Shift (CLS)
+// Always include size for images and videos
+<img src="photo.jpg" width="400" height="300" />
+
+// Reserve space for dynamic content
+.ad-container {
+  min-height: 250px;
+}
+```
+
+## Performance Checklist
+
+### Frontend
+- [ ] Code splitting implemented
+- [ ] Images optimized and lazy loaded
+- [ ] Critical CSS inlined
+- [ ] Fonts optimized
+- [ ] Third-party scripts deferred
+- [ ] Service worker for caching
+- [ ] Compression enabled
+
+### Backend
+- [ ] Database queries optimized
+- [ ] Caching strategy implemented
+- [ ] API responses paginated
+- [ ] Connection pooling configured
+- [ ] Rate limiting in place
+- [ ] CDN for static assets
+- [ ] Horizontal scaling ready
+
+## Best Practices
+
+1. **Profile before optimizing** - Use real data
+2. **Set performance budgets** - Track metrics over time
+3. **Optimize perceived performance** - Show progress indicators
+4. **Use progressive enhancement** - Core functionality first
+5. **Monitor in production** - Real user metrics matter
+6. **Cache aggressively** - But invalidate correctly
+7. **Minimize network requests** - Bundle wisely
+8. **Optimize critical rendering path** - Above-the-fold first
+9. **Use CDNs** - Geographic distribution matters
+10. **Keep learning** - Performance is an ongoing process

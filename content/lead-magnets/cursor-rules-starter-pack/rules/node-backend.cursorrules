@@ -1,0 +1,247 @@
+# Node.js Backend Cursor Rules
+
+You are an expert Node.js developer. Follow these patterns for backend development.
+
+## Project Structure
+
+```
+src/
+  api/
+    routes/
+    controllers/
+    middleware/
+  services/
+  models/
+  utils/
+  config/
+index.ts
+```
+
+## Express.js Patterns
+
+### Route Setup
+```typescript
+// Use Express Router for modular routes
+import { Router } from 'express';
+
+const router = Router();
+
+router.get('/', async (req, res) => {
+  // Handler logic
+});
+
+export default router;
+```
+
+### Error Handling
+```typescript
+// Global error handler
+export const errorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.error(err.stack);
+  
+  res.status(err.status || 500).json({
+    error: {
+      message: err.message,
+      ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    }
+  });
+};
+```
+
+## Database Patterns
+
+### Prisma ORM
+- Define models in schema.prisma
+- Use migrations for schema changes
+- Handle connection errors gracefully
+- Use transactions for related operations
+
+```typescript
+// Transaction example
+const result = await prisma.$transaction(async (tx) => {
+  const user = await tx.user.create({ data });
+  const profile = await tx.profile.create({ 
+    data: { ...profileData, userId: user.id }
+  });
+  return { user, profile };
+});
+```
+
+### Query Optimization
+- Use select to limit fields
+- Implement pagination
+- Add appropriate indexes
+- Use connection pooling
+
+## Authentication & Security
+
+### JWT Implementation
+```typescript
+import jwt from 'jsonwebtoken';
+
+export const generateToken = (userId: string) => {
+  return jwt.sign(
+    { userId },
+    process.env.JWT_SECRET!,
+    { expiresIn: '7d' }
+  );
+};
+
+export const verifyToken = (token: string) => {
+  return jwt.verify(token, process.env.JWT_SECRET!);
+};
+```
+
+### Security Best Practices
+- Use helmet for security headers
+- Implement rate limiting
+- Validate all inputs
+- Sanitize user data
+- Use CORS properly
+- Hash passwords with bcrypt
+
+## API Design
+
+### RESTful Conventions
+- GET /resources - List all
+- GET /resources/:id - Get one
+- POST /resources - Create new
+- PUT /resources/:id - Update
+- DELETE /resources/:id - Delete
+
+### Response Format
+```typescript
+// Success response
+res.json({
+  success: true,
+  data: result,
+  meta: { page, limit, total }
+});
+
+// Error response
+res.status(400).json({
+  success: false,
+  error: {
+    code: 'VALIDATION_ERROR',
+    message: 'Invalid input',
+    details: errors
+  }
+});
+```
+
+## Validation
+
+### Input Validation with Zod
+```typescript
+import { z } from 'zod';
+
+const userSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  name: z.string().min(2).max(100)
+});
+
+export const validateUser = (data: unknown) => {
+  return userSchema.parse(data);
+};
+```
+
+## Environment Variables
+
+```typescript
+// config/env.ts
+import { z } from 'zod';
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  PORT: z.string().transform(Number),
+  DATABASE_URL: z.string().url(),
+  JWT_SECRET: z.string().min(32)
+});
+
+export const env = envSchema.parse(process.env);
+```
+
+## Testing Patterns
+
+### Unit Tests
+```typescript
+import { describe, it, expect } from 'vitest';
+
+describe('UserService', () => {
+  it('should create a new user', async () => {
+    const user = await userService.create(userData);
+    expect(user).toBeDefined();
+    expect(user.email).toBe(userData.email);
+  });
+});
+```
+
+### Integration Tests
+- Test full API endpoints
+- Use test database
+- Mock external services
+- Clean up after tests
+
+## Performance Optimization
+
+### Caching Strategy
+```typescript
+import Redis from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL);
+
+export const cacheMiddleware = (ttl: number) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const key = `cache:${req.originalUrl}`;
+    const cached = await redis.get(key);
+    
+    if (cached) {
+      return res.json(JSON.parse(cached));
+    }
+    
+    // Store original send
+    const originalSend = res.json;
+    
+    res.json = function(data: any) {
+      redis.setex(key, ttl, JSON.stringify(data));
+      return originalSend.call(this, data);
+    };
+    
+    next();
+  };
+};
+```
+
+## Logging
+
+```typescript
+import winston from 'winston';
+
+export const logger = winston.createLogger({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
+```
+
+## Best Practices
+
+1. **Error Handling**: Always use try-catch in async functions
+2. **Validation**: Validate all inputs before processing
+3. **Security**: Never trust user input
+4. **Performance**: Use indexes and optimize queries
+5. **Monitoring**: Log errors and performance metrics
+6. **Documentation**: Document API endpoints with OpenAPI
+7. **Testing**: Write tests for critical paths
+8. **TypeScript**: Use strict mode and avoid any
+9. **Dependencies**: Keep them updated and minimal
+10. **Code Style**: Use ESLint and Prettier

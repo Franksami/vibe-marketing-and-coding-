@@ -1,0 +1,377 @@
+# Testing Cursor Rules
+
+You are an expert in writing comprehensive tests. Follow these patterns for all test generation.
+
+## Test Philosophy
+
+- Test behavior, not implementation
+- Write tests that give confidence
+- Tests should be fast and deterministic
+- Each test should test one thing
+- Tests are documentation
+
+## Test Structure
+
+### Arrange-Act-Assert Pattern
+```typescript
+it('should calculate total with tax', () => {
+  // Arrange
+  const items = [{ price: 100 }, { price: 50 }];
+  const taxRate = 0.1;
+  
+  // Act
+  const total = calculateTotal(items, taxRate);
+  
+  // Assert
+  expect(total).toBe(165); // 150 + 15 tax
+});
+```
+
+### Given-When-Then Pattern
+```typescript
+describe('UserService', () => {
+  it('should send welcome email when user registers', async () => {
+    // Given
+    const userData = { email: 'user@example.com', name: 'John' };
+    const mockEmailService = jest.fn();
+    
+    // When
+    await userService.register(userData);
+    
+    // Then
+    expect(mockEmailService).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'user@example.com',
+        template: 'welcome'
+      })
+    );
+  });
+});
+```
+
+## Unit Testing
+
+### JavaScript/TypeScript with Jest
+```typescript
+// userService.test.ts
+import { UserService } from './userService';
+import { mockDatabase } from '../__mocks__/database';
+
+jest.mock('../database');
+
+describe('UserService', () => {
+  let service: UserService;
+  
+  beforeEach(() => {
+    jest.clearAllMocks();
+    service = new UserService();
+  });
+  
+  describe('createUser', () => {
+    it('should create user with hashed password', async () => {
+      const userData = {
+        email: 'test@example.com',
+        password: 'password123'
+      };
+      
+      const user = await service.createUser(userData);
+      
+      expect(user.email).toBe(userData.email);
+      expect(user.password).not.toBe(userData.password);
+      expect(mockDatabase.users.create).toHaveBeenCalledOnce();
+    });
+    
+    it('should throw error for duplicate email', async () => {
+      mockDatabase.users.findByEmail.mockResolvedValue({ id: 1 });
+      
+      await expect(
+        service.createUser({ email: 'exists@example.com', password: 'test' })
+      ).rejects.toThrow('Email already exists');
+    });
+  });
+});
+```
+
+### Python with Pytest
+```python
+# test_user_service.py
+import pytest
+from unittest.mock import Mock, patch
+from services.user import UserService
+from exceptions import DuplicateEmailError
+
+class TestUserService:
+    @pytest.fixture
+    def user_service(self):
+        return UserService()
+    
+    @pytest.fixture
+    def mock_db(self):
+        with patch('services.user.db') as mock:
+            yield mock
+    
+    def test_create_user_success(self, user_service, mock_db):
+        # Arrange
+        mock_db.users.find_by_email.return_value = None
+        user_data = {'email': 'test@example.com', 'name': 'Test'}
+        
+        # Act
+        user = user_service.create_user(user_data)
+        
+        # Assert
+        assert user.email == 'test@example.com'
+        mock_db.users.create.assert_called_once()
+    
+    def test_create_user_duplicate_email(self, user_service, mock_db):
+        # Arrange
+        mock_db.users.find_by_email.return_value = {'id': 1}
+        
+        # Act & Assert
+        with pytest.raises(DuplicateEmailError):
+            user_service.create_user({'email': 'exists@example.com'})
+```
+
+## Integration Testing
+
+### API Testing
+```typescript
+// api.integration.test.ts
+import request from 'supertest';
+import { app } from '../app';
+import { setupTestDatabase, teardownTestDatabase } from './helpers';
+
+describe('User API', () => {
+  beforeAll(async () => {
+    await setupTestDatabase();
+  });
+  
+  afterAll(async () => {
+    await teardownTestDatabase();
+  });
+  
+  describe('POST /users', () => {
+    it('should create new user', async () => {
+      const response = await request(app)
+        .post('/users')
+        .send({
+          email: 'newuser@example.com',
+          password: 'securepass123',
+          name: 'New User'
+        });
+      
+      expect(response.status).toBe(201);
+      expect(response.body).toMatchObject({
+        id: expect.any(Number),
+        email: 'newuser@example.com',
+        name: 'New User'
+      });
+      expect(response.body.password).toBeUndefined();
+    });
+    
+    it('should return 400 for invalid data', async () => {
+      const response = await request(app)
+        .post('/users')
+        .send({ email: 'invalid-email' });
+      
+      expect(response.status).toBe(400);
+      expect(response.body.errors).toBeDefined();
+    });
+  });
+});
+```
+
+### Database Testing
+```typescript
+// repository.integration.test.ts
+import { UserRepository } from './userRepository';
+import { createTestDatabase } from './testHelpers';
+
+describe('UserRepository Integration', () => {
+  let repository: UserRepository;
+  let db: TestDatabase;
+  
+  beforeEach(async () => {
+    db = await createTestDatabase();
+    repository = new UserRepository(db);
+  });
+  
+  afterEach(async () => {
+    await db.cleanup();
+  });
+  
+  it('should persist and retrieve user', async () => {
+    // Create user
+    const created = await repository.create({
+      email: 'test@example.com',
+      name: 'Test User'
+    });
+    
+    // Retrieve user
+    const retrieved = await repository.findById(created.id);
+    
+    expect(retrieved).toEqual(created);
+  });
+});
+```
+
+## End-to-End Testing
+
+### Playwright Example
+```typescript
+// auth.e2e.test.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Authentication Flow', () => {
+  test('user can sign up, log in, and access dashboard', async ({ page }) => {
+    // Sign up
+    await page.goto('/signup');
+    await page.fill('[name="email"]', 'e2e@example.com');
+    await page.fill('[name="password"]', 'testpass123');
+    await page.click('button[type="submit"]');
+    
+    // Verify redirect to dashboard
+    await expect(page).toHaveURL('/dashboard');
+    await expect(page.locator('h1')).toContainText('Welcome');
+    
+    // Log out
+    await page.click('button:has-text("Logout")');
+    await expect(page).toHaveURL('/login');
+    
+    // Log back in
+    await page.fill('[name="email"]', 'e2e@example.com');
+    await page.fill('[name="password"]', 'testpass123');
+    await page.click('button[type="submit"]');
+    
+    await expect(page).toHaveURL('/dashboard');
+  });
+});
+```
+
+## Test Doubles
+
+### Mocking Strategies
+```typescript
+// Mock external services
+const mockPaymentService = {
+  charge: jest.fn().mockResolvedValue({ id: 'charge_123', status: 'success' }),
+  refund: jest.fn().mockResolvedValue({ id: 'refund_123', status: 'success' })
+};
+
+// Stub data
+const stubUser = {
+  id: 1,
+  email: 'stub@example.com',
+  createdAt: new Date('2024-01-01')
+};
+
+// Spy on existing methods
+const emailSpy = jest.spyOn(emailService, 'send');
+
+// Fake implementation
+class FakeCache implements Cache {
+  private data = new Map();
+  
+  async get(key: string) {
+    return this.data.get(key);
+  }
+  
+  async set(key: string, value: any) {
+    this.data.set(key, value);
+  }
+}
+```
+
+## Test Data Management
+
+### Factories
+```typescript
+// factories/user.factory.ts
+import { faker } from '@faker-js/faker';
+
+export const createUser = (overrides = {}) => ({
+  id: faker.datatype.number(),
+  email: faker.internet.email(),
+  name: faker.name.fullName(),
+  createdAt: faker.date.past(),
+  ...overrides
+});
+
+export const createUsers = (count: number, overrides = {}) => 
+  Array.from({ length: count }, () => createUser(overrides));
+```
+
+### Fixtures
+```typescript
+// fixtures/orders.json
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "items": [
+      { "productId": 1, "quantity": 2, "price": 29.99 }
+    ],
+    "status": "pending"
+  }
+]
+
+// Load in tests
+import ordersFixture from './fixtures/orders.json';
+```
+
+## Testing React Components
+
+```typescript
+// Button.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
+
+describe('Button', () => {
+  it('should call onClick when clicked', () => {
+    const handleClick = jest.fn();
+    
+    render(<Button onClick={handleClick}>Click me</Button>);
+    
+    const button = screen.getByRole('button', { name: /click me/i });
+    fireEvent.click(button);
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+  
+  it('should be disabled when loading', () => {
+    render(<Button loading>Submit</Button>);
+    
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+});
+```
+
+## Performance Testing
+
+```typescript
+// performance.test.ts
+it('should process large dataset within time limit', async () => {
+  const largeDataset = generateTestData(10000);
+  
+  const startTime = performance.now();
+  await processData(largeDataset);
+  const endTime = performance.now();
+  
+  const duration = endTime - startTime;
+  expect(duration).toBeLessThan(1000); // Should complete in under 1 second
+});
+```
+
+## Best Practices
+
+1. **Test naming**: Use descriptive names that explain what and why
+2. **Test isolation**: Each test should be independent
+3. **No test interdependence**: Tests shouldn't rely on execution order
+4. **Clean up**: Always clean up resources after tests
+5. **Avoid hard-coded values**: Use constants and helpers
+6. **Test edge cases**: Empty arrays, null values, errors
+7. **Use test coverage**: Aim for 80%+ but focus on critical paths
+8. **Keep tests simple**: If a test is complex, the code might be too
+9. **Mock external dependencies**: Don't make real API calls
+10. **Run tests in CI**: Every commit should run tests

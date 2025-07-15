@@ -113,7 +113,11 @@ export function HeroSection() {
 
           {/* Trust signals */}
           <p className="mt-6 text-sm text-muted-foreground">
-            🎁 Instant access to 3 Cursor rules + 5 Claude prompts
+            🎁 Instant access to our{" "}
+            <Link href="/resources/cursor-rules" className="underline hover:text-primary">
+              Cursor Rules Starter Pack
+            </Link>
+            {" "}+ 7-day email course
           </p>
 
           {/* CTA buttons */}

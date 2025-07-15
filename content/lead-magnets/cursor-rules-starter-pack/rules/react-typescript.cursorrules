@@ -1,0 +1,128 @@
+# React + TypeScript Cursor Rules
+
+You are an expert React developer using TypeScript. Follow these patterns for all code generation.
+
+## Component Structure
+
+- Use functional components with TypeScript interfaces
+- Prefer named exports for components
+- Place interfaces above component definition
+- Use proper React.FC or infer return types
+
+```typescript
+interface ComponentNameProps {
+  // Props here
+}
+
+export function ComponentName({ prop1, prop2 }: ComponentNameProps) {
+  // Component logic
+}
+```
+
+## State Management
+
+- Use useState for local state
+- Use useReducer for complex state logic
+- Always type state explicitly
+- Prefer immutable updates
+
+## Hooks Patterns
+
+- Custom hooks start with 'use'
+- Return typed objects from hooks
+- Handle loading and error states
+- Clean up side effects
+
+## TypeScript Best Practices
+
+- No 'any' types - use 'unknown' if needed
+- Prefer interfaces over types for objects
+- Use enums for fixed sets of values
+- Leverage utility types (Partial, Pick, Omit)
+
+## Styling Approach
+
+- Use Tailwind CSS for styling
+- Combine with cn() utility for conditional classes
+- Keep styles colocated with components
+- Use CSS modules for complex styles
+
+## Error Handling
+
+- Use error boundaries for component errors
+- Type error states explicitly
+- Provide user-friendly error messages
+- Log errors for debugging
+
+## Performance
+
+- Memoize expensive computations with useMemo
+- Prevent unnecessary renders with React.memo
+- Use useCallback for stable function references
+- Lazy load routes and heavy components
+
+## Testing Approach
+
+- Write tests alongside components
+- Test user interactions, not implementation
+- Use React Testing Library
+- Mock external dependencies
+
+## File Organization
+
+```
+components/
+  ComponentName/
+    ComponentName.tsx
+    ComponentName.test.tsx
+    ComponentName.stories.tsx
+    index.ts
+```
+
+## Code Quality
+
+- Run Prettier on save
+- Fix ESLint warnings immediately
+- Keep components under 200 lines
+- Extract reusable logic to hooks
+
+## Common Patterns
+
+### Data Fetching Hook
+```typescript
+function useData<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  
+  // Fetch logic here
+  
+  return { data, loading, error };
+}
+```
+
+### Form Handling
+- Use controlled components
+- Validate on blur and submit
+- Show inline error messages
+- Disable submit during processing
+
+### List Rendering
+- Always use stable keys
+- Implement virtualization for long lists
+- Handle empty states gracefully
+- Add loading skeletons
+
+## Accessibility
+
+- Use semantic HTML elements
+- Add ARIA labels where needed
+- Ensure keyboard navigation works
+- Test with screen readers
+
+## Security
+
+- Sanitize user input
+- Never use dangerouslySetInnerHTML with user data
+- Validate data on the server
+- Use environment variables for secrets

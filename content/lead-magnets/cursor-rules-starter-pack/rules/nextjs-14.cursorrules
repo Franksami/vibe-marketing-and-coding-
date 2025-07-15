@@ -1,0 +1,219 @@
+# Next.js 14 App Router Cursor Rules
+
+You are an expert Next.js developer using the App Router. Follow these patterns and best practices.
+
+## Project Structure
+
+```
+app/
+  (marketing)/
+    page.tsx
+    layout.tsx
+  (app)/
+    dashboard/
+      page.tsx
+    layout.tsx
+  api/
+    route.ts
+components/
+  ui/
+  features/
+lib/
+  utils.ts
+  db.ts
+```
+
+## App Router Patterns
+
+### Page Components
+- Export default async function for pages
+- Use generateMetadata for SEO
+- Implement loading.tsx for better UX
+- Handle errors with error.tsx
+
+```typescript
+export default async function Page({ params, searchParams }: {
+  params: { slug: string }
+  searchParams: { [key: string]: string }
+}) {
+  // Server component logic
+}
+```
+
+### Layouts
+- Layouts are Server Components by default
+- Don't fetch data that changes frequently
+- Use for consistent UI elements
+- Nest layouts for sub-sections
+
+### Route Handlers
+```typescript
+export async function GET(request: Request) {
+  // Handle GET requests
+}
+
+export async function POST(request: Request) {
+  // Handle POST requests
+}
+```
+
+## Data Fetching
+
+### Server Components
+- Fetch data directly in components
+- No useState, useEffect needed
+- Automatic deduplication of requests
+- Cache with Next.js cache options
+
+```typescript
+async function getData() {
+  const res = await fetch('https://api.example.com/data', {
+    next: { revalidate: 3600 } // Cache for 1 hour
+  });
+  return res.json();
+}
+```
+
+### Client Components
+- Add 'use client' directive
+- Use for interactivity
+- Can still receive server data as props
+- Use SWR or React Query for client fetching
+
+## Performance Optimizations
+
+### Image Optimization
+```typescript
+import Image from 'next/image'
+
+<Image
+  src="/hero.png"
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority
+  placeholder="blur"
+/>
+```
+
+### Font Optimization
+```typescript
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+})
+```
+
+### Streaming & Suspense
+- Use Suspense for async components
+- Stream data for better perceived performance
+- Show loading states immediately
+
+## Server Actions
+
+```typescript
+async function createUser(formData: FormData) {
+  'use server'
+  
+  const name = formData.get('name')
+  // Validate and process
+  
+  revalidatePath('/users')
+  redirect('/users')
+}
+```
+
+## Middleware
+
+```typescript
+export function middleware(request: NextRequest) {
+  // Auth checks, redirects, rewrites
+}
+
+export const config = {
+  matcher: '/app/:path*',
+}
+```
+
+## Environment Variables
+
+- Use .env.local for local development
+- Prefix with NEXT_PUBLIC_ for client access
+- Type your env vars:
+
+```typescript
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      DATABASE_URL: string
+      NEXT_PUBLIC_API_URL: string
+    }
+  }
+}
+```
+
+## SEO & Metadata
+
+```typescript
+export const metadata: Metadata = {
+  title: 'Page Title',
+  description: 'Page description',
+  openGraph: {
+    title: 'OG Title',
+    description: 'OG Description',
+    images: ['/og-image.png'],
+  },
+}
+```
+
+## Common Patterns
+
+### Authentication Check
+```typescript
+import { auth } from '@/lib/auth'
+import { redirect } from 'next/navigation'
+
+export default async function ProtectedPage() {
+  const session = await auth()
+  
+  if (!session) {
+    redirect('/login')
+  }
+  
+  // Protected content
+}
+```
+
+### Database Queries
+- Query in Server Components
+- Use Prisma or Drizzle
+- Handle errors gracefully
+- Don't expose sensitive data
+
+### API Route Protection
+```typescript
+export async function POST(request: Request) {
+  const session = await auth()
+  
+  if (!session) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+  
+  // Handle request
+}
+```
+
+## Best Practices
+
+1. **Use Server Components by default**
+2. **Client Components only for interactivity**
+3. **Colocate related files**
+4. **Use route groups for organization**
+5. **Implement proper error boundaries**
+6. **Cache aggressively but wisely**
+7. **Optimize images and fonts**
+8. **Use TypeScript strictly**
+9. **Handle loading and error states**
+10. **Test with Playwright or Cypress**

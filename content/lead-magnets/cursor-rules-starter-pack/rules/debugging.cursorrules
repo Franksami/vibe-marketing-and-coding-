@@ -1,0 +1,423 @@
+# Debugging Cursor Rules
+
+You are an expert debugger. Follow these systematic approaches to identify and fix issues.
+
+## Debugging Methodology
+
+### 1. Reproduce the Issue
+- Get exact steps to reproduce
+- Verify the issue exists
+- Note any error messages
+- Check different environments
+- Document expected vs actual behavior
+
+### 2. Isolate the Problem
+- Binary search through code
+- Comment out sections
+- Use minimal reproducible example
+- Check recent changes
+- Test individual components
+
+### 3. Gather Information
+- Add strategic console.logs
+- Use debugger statements
+- Check network requests
+- Review application state
+- Examine error stack traces
+
+## Common Bug Patterns
+
+### JavaScript/TypeScript
+
+#### Undefined/Null Errors
+```typescript
+// Problem
+const user = getUser();
+console.log(user.name); // Cannot read property 'name' of undefined
+
+// Debug approach
+console.log('User object:', user); // Check what's actually returned
+console.log('getUser function:', getUser.toString()); // Check function implementation
+
+// Solutions
+// 1. Optional chaining
+console.log(user?.name);
+
+// 2. Default values
+const user = getUser() || { name: 'Guest' };
+
+// 3. Guard clauses
+if (!user) {
+  console.error('User not found');
+  return;
+}
+```
+
+#### Async/Promise Issues
+```typescript
+// Problem: Unhandled promise rejection
+async function fetchData() {
+  const data = await api.get('/data'); // Might throw
+  return data;
+}
+
+// Debug approach
+async function fetchData() {
+  console.log('Fetching data...');
+  try {
+    const data = await api.get('/data');
+    console.log('Data received:', data);
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    console.error('Stack:', error.stack);
+    throw error; // Re-throw after logging
+  }
+}
+```
+
+#### State Management Issues
+```typescript
+// Problem: State not updating
+setState({ count: state.count + 1 });
+
+// Debug approach
+console.log('Current state:', state);
+console.log('New count:', state.count + 1);
+setState(prevState => {
+  console.log('Previous state:', prevState);
+  const newState = { count: prevState.count + 1 };
+  console.log('New state:', newState);
+  return newState;
+});
+```
+
+### React Debugging
+
+#### Component Not Rendering
+```typescript
+// Add debug logs to lifecycle
+function MyComponent({ data }) {
+  console.log('MyComponent render, props:', { data });
+  
+  useEffect(() => {
+    console.log('MyComponent mounted');
+    return () => console.log('MyComponent unmounted');
+  }, []);
+  
+  useEffect(() => {
+    console.log('Data changed:', data);
+  }, [data]);
+  
+  if (!data) {
+    console.log('No data, returning null');
+    return null;
+  }
+  
+  return <div>{data}</div>;
+}
+```
+
+#### Hook Dependencies
+```typescript
+// Problem: Effect not running
+useEffect(() => {
+  fetchData();
+}, [userId]); // Is userId changing?
+
+// Debug
+useEffect(() => {
+  console.log('Effect running, userId:', userId);
+  fetchData();
+}, [userId]);
+
+// Check if userId is actually changing
+console.log('userId type:', typeof userId);
+console.log('userId value:', userId);
+```
+
+### API/Network Issues
+
+#### Request Debugging
+```typescript
+// Intercept and log all requests
+axios.interceptors.request.use(request => {
+  console.log('Starting Request:', request.url);
+  console.log('Method:', request.method);
+  console.log('Headers:', request.headers);
+  console.log('Data:', request.data);
+  return request;
+});
+
+axios.interceptors.response.use(
+  response => {
+    console.log('Response:', response.status);
+    console.log('Data:', response.data);
+    return response;
+  },
+  error => {
+    console.error('Error status:', error.response?.status);
+    console.error('Error data:', error.response?.data);
+    return Promise.reject(error);
+  }
+);
+```
+
+#### CORS Issues
+```typescript
+// Check headers
+console.log('Request headers:', {
+  'Content-Type': headers['Content-Type'],
+  'Origin': window.location.origin,
+  'Access-Control-Request-Method': method
+});
+
+// Server-side debugging
+app.use((req, res, next) => {
+  console.log('CORS request from:', req.headers.origin);
+  console.log('Request method:', req.method);
+  next();
+});
+```
+
+### Database Debugging
+
+#### Query Issues
+```typescript
+// Log SQL queries
+const users = await db.query(
+  'SELECT * FROM users WHERE email = ?',
+  [email]
+);
+console.log('Query:', {
+  sql: 'SELECT * FROM users WHERE email = ?',
+  params: [email],
+  result: users
+});
+
+// With ORMs
+const user = await User.findOne({ 
+  where: { email },
+  logging: console.log // Enable query logging
+});
+```
+
+## Browser DevTools
+
+### Console Debugging
+```javascript
+// Group related logs
+console.group('User Authentication');
+console.log('Username:', username);
+console.log('Token exists:', !!token);
+console.log('Token expiry:', tokenExpiry);
+console.groupEnd();
+
+// Timing operations
+console.time('API Call');
+const result = await fetchData();
+console.timeEnd('API Call');
+
+// Table for arrays/objects
+console.table(users);
+
+// Conditional logging
+console.assert(user.age >= 0, 'Age cannot be negative', user);
+```
+
+### Breakpoint Strategies
+```javascript
+// Conditional breakpoints
+if (user.id === problematicUserId) {
+  debugger; // Only stops for specific user
+}
+
+// Logpoints (in DevTools)
+// Right-click line number → Add logpoint
+// Enter: 'User:', user, 'at', new Date()
+```
+
+## Memory Leaks
+
+### Detection
+```typescript
+// Track object creation
+let objectCount = 0;
+
+class MyClass {
+  constructor() {
+    objectCount++;
+    console.log('Objects created:', objectCount);
+  }
+  
+  destroy() {
+    objectCount--;
+    console.log('Objects remaining:', objectCount);
+  }
+}
+
+// Check event listeners
+function addListener(element, event, handler) {
+  console.log('Adding listener:', { element, event });
+  element.addEventListener(event, handler);
+  
+  // Return cleanup function
+  return () => {
+    console.log('Removing listener:', { element, event });
+    element.removeEventListener(event, handler);
+  };
+}
+```
+
+## Performance Debugging
+
+### Timing Functions
+```typescript
+function measurePerformance(fn: Function, label: string) {
+  return async (...args: any[]) => {
+    const start = performance.now();
+    console.log(`${label} started`);
+    
+    try {
+      const result = await fn(...args);
+      const duration = performance.now() - start;
+      console.log(`${label} completed in ${duration.toFixed(2)}ms`);
+      return result;
+    } catch (error) {
+      const duration = performance.now() - start;
+      console.error(`${label} failed after ${duration.toFixed(2)}ms`);
+      throw error;
+    }
+  };
+}
+
+// Usage
+const timedFetch = measurePerformance(fetchData, 'Data fetch');
+```
+
+### React Performance
+```typescript
+// Track renders
+function withRenderTracking(Component: React.FC) {
+  return (props: any) => {
+    console.log(`${Component.name} rendering with props:`, props);
+    const start = performance.now();
+    
+    useEffect(() => {
+      const duration = performance.now() - start;
+      console.log(`${Component.name} render took ${duration.toFixed(2)}ms`);
+    });
+    
+    return <Component {...props} />;
+  };
+}
+```
+
+## Error Boundaries
+
+```typescript
+class DebugErrorBoundary extends React.Component {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.group('React Error Boundary');
+    console.error('Error:', error);
+    console.error('Component Stack:', errorInfo.componentStack);
+    console.error('Props:', this.props);
+    console.error('State:', this.state);
+    console.groupEnd();
+    
+    // Log to error service
+    logErrorToService(error, {
+      componentStack: errorInfo.componentStack,
+      props: this.props
+    });
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div>
+          <h2>Something went wrong</h2>
+          {process.env.NODE_ENV === 'development' && (
+            <pre>{this.state.error?.stack}</pre>
+          )}
+        </div>
+      );
+    }
+    
+    return this.props.children;
+  }
+}
+```
+
+## Debugging Checklist
+
+1. **Can you reproduce it?**
+   - [ ] Steps documented
+   - [ ] Environment noted
+   - [ ] Error messages saved
+
+2. **Have you isolated it?**
+   - [ ] Minimal reproduction created
+   - [ ] Recent changes reviewed
+   - [ ] Similar code checked
+
+3. **Do you understand it?**
+   - [ ] Root cause identified
+   - [ ] Impact assessed
+   - [ ] Fix approach planned
+
+4. **Is it really fixed?**
+   - [ ] Fix tested
+   - [ ] Edge cases handled
+   - [ ] Regression test added
+
+## Debug Utilities
+
+```typescript
+// debug-utils.ts
+export const debug = {
+  log: (label: string, data: any) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[${new Date().toISOString()}] ${label}:`, data);
+    }
+  },
+  
+  trace: () => {
+    console.trace('Stack trace');
+  },
+  
+  profile: async (label: string, fn: Function) => {
+    console.profile(label);
+    const result = await fn();
+    console.profileEnd(label);
+    return result;
+  },
+  
+  watch: (obj: any, prop: string) => {
+    let value = obj[prop];
+    Object.defineProperty(obj, prop, {
+      get() {
+        console.log(`Getting ${prop}:`, value);
+        return value;
+      },
+      set(newValue) {
+        console.log(`Setting ${prop}:`, { old: value, new: newValue });
+        value = newValue;
+      }
+    });
+  }
+};
+```
+
+## Best Practices
+
+1. **Start with reproduction** - Can't fix what you can't reproduce
+2. **Change one thing at a time** - Isolate variables
+3. **Keep a debugging log** - Document what you've tried
+4. **Use version control** - Git bisect for regressions
+5. **Read error messages carefully** - They often tell you exactly what's wrong
+6. **Check the obvious** - Typos, missing imports, wrong URLs
+7. **Take breaks** - Fresh eyes catch bugs
+8. **Ask for help** - Another perspective helps
+9. **Write tests** - Prevent regressions
+10. **Learn from bugs** - Update coding practices

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check, Sparkles, Zap, Users, BookOpen, Headphones, Package } from 'lucide-react';
+import { ProductSchema } from '@/components/schema/ProductSchema';
+import { OrganizationSchema } from '@/components/schema/OrganizationSchema';
 
 export default function ProPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,54 +37,75 @@ export default function ProPage() {
   const benefits = [
     {
       icon: Package,
-      title: 'All Premium Products',
-      description: 'Instant access to Ultimate Cursor Rulebook ($47 value) plus all future products',
+      title: 'All Business Templates',
+      description: 'Instant access to 50+ done-for-you templates ($997 value) plus all future products',
     },
     {
       icon: Sparkles,
-      title: 'Monthly Rule Updates',
-      description: 'New cursor rules every month for latest frameworks and patterns',
+      title: 'Monthly AI Updates',
+      description: 'New business automations and AI tricks every month',
     },
     {
       icon: Users,
       title: 'Private Community',
-      description: 'Connect with other pros who code 10x faster with AI',
+      description: 'Connect with other entrepreneurs building $10K/month businesses',
     },
     {
       icon: Headphones,
       title: 'Weekly Group Coaching',
-      description: 'Live calls to level up your AI coding skills',
+      description: 'Live calls to help you implement and scale faster',
     },
     {
       icon: BookOpen,
-      title: 'Exclusive Resources',
-      description: 'Templates, guides, and resources not available anywhere else',
+      title: 'Exclusive Blueprints',
+      description: 'Step-by-step business models not available anywhere else',
     },
     {
       icon: Zap,
       title: 'Early Access',
-      description: 'Be first to get new products and features',
+      description: 'Be first to get new business strategies and tools',
     },
   ];
 
   const features = [
-    'Ultimate Cursor Rulebook ($47 value)',
-    'AI Freelancer Flywheel Course ($197 value)',
+    'AI Transformation Business System Course ($297 value)',
+    '50+ Done-For-You Business Templates ($997 value)',
     'All future products included',
-    'Monthly new cursor rules',
+    'Monthly new AI automations',
     'Private Discord community',
     'Weekly group coaching calls',
     'Priority email support',
-    'Exclusive templates & resources',
+    'Exclusive business blueprints',
     'Cancel anytime',
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+      <OrganizationSchema />
+      <ProductSchema 
+        name="The Vibe Launch Pro Membership"
+        description="Everything you need to build a $10K/month business without writing code. Monthly membership with all courses, templates, and coaching."
+        url="https://thevibelaunch.ai/pro"
+        price="47"
+        priceCurrency="USD"
+        availability="InStock"
+        category="Business Software"
+        offers={[{
+          "@type": "Offer",
+          "price": "47",
+          "priceCurrency": "USD",
+          "priceValidUntil": "2025-12-31",
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@type": "Organization",
+            "name": "The Vibe Launch"
+          }
+        }]}
+      />
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4" />
             Limited Time: 7-Day Free Trial
           </div>
@@ -92,12 +115,12 @@ export default function ProPage() {
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Everything you need to code 10x faster with AI. One subscription, unlimited potential.
+            Everything you need to build a $10K/month business without writing code. One subscription, unlimited income.
           </p>
 
           {/* Pricing Card */}
-          <Card className="max-w-md mx-auto p-8 shadow-xl border-2 border-purple-500 relative">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+          <Card className="max-w-md mx-auto p-8 shadow-xl border-2 border-orange-500 relative">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-medium">
               BEST VALUE
             </div>
             
@@ -105,7 +128,7 @@ export default function ProPage() {
               <div className="text-5xl font-bold mb-2">
                 $47<span className="text-xl font-normal text-gray-500">/month</span>
               </div>
-              <p className="text-gray-600">Cancel anytime. No BS.</p>
+              <p className="text-gray-600">Build your business. No BS.</p>
               <p className="text-sm text-green-600 font-medium mt-2">
                 Start with 7-day free trial
               </p>
@@ -131,7 +154,7 @@ export default function ProPage() {
           </Card>
 
           <p className="mt-6 text-sm text-gray-500">
-            ⚡ Join 100+ developers already coding faster
+            ⚡ Join 100+ entrepreneurs already making money
           </p>
         </div>
       </section>
@@ -146,7 +169,7 @@ export default function ProPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, i) => (
               <Card key={i} className="p-6">
-                <benefit.icon className="w-10 h-10 text-purple-600 mb-4" />
+                <benefit.icon className="w-10 h-10 text-orange-600 mb-4" />
                 <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-gray-600 text-sm">{benefit.description}</p>
               </Card>
@@ -162,21 +185,21 @@ export default function ProPage() {
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div>
-              <div className="text-4xl font-bold text-purple-600">15-20</div>
-              <p className="text-gray-600">Hours saved per week</p>
+              <div className="text-4xl font-bold text-orange-600">0-10K</div>
+              <p className="text-gray-600">Revenue in 30 days</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-green-500">$100+</div>
               <p className="text-gray-600">Average hourly rate</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-purple-500">$1,500+</div>
-              <p className="text-gray-600">Value per week</p>
+              <div className="text-4xl font-bold text-orange-500">$10K+</div>
+              <p className="text-gray-600">Monthly potential</p>
             </div>
           </div>
 
           <p className="text-lg text-gray-700 mb-8">
-            At $47/month, The Vibe Launch Pro pays for itself in less than 30 minutes of saved time.
+            At $47/month, The Vibe Launch Pro pays for itself with your first client.
           </p>
 
           <Button 
@@ -185,7 +208,7 @@ export default function ProPage() {
             size="lg"
             className="py-6 px-8 text-lg"
           >
-            Start Saving Time Today →
+            Start Making Money Today →
           </Button>
         </div>
       </section>
@@ -212,14 +235,14 @@ export default function ProPage() {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-2">Is this worth it if I already bought the Rulebook?</h3>
-              <p className="text-gray-600">Absolutely! You get monthly updates, new products, coaching calls, and community access that far exceed the rulebook alone.</p>
+              <h3 className="font-semibold mb-2">Do I need to know how to code?</h3>
+              <p className="text-gray-600">No! That's the whole point. We teach you how to use AI to build businesses without writing a single line of code.</p>
             </div>
           </div>
 
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Still have questions?</p>
-            <a href="mailto:support@thevibelaunch.ai" className="text-purple-600 hover:underline">
+            <a href="mailto:support@thevibelaunch.ai" className="text-orange-600 hover:underline">
               Email support@thevibelaunch.ai
             </a>
           </div>
@@ -227,13 +250,13 @@ export default function ProPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white">
+      <section className="py-20 px-4 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Ready to Code 10x Faster?
+            Ready to Build Your $10K/Month Business?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join The Vibe Launch Pro today and transform how you build with AI.
+            Join The Vibe Launch Pro today and start making money with AI.
           </p>
           <Button 
             onClick={handleSubscribe}

@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Download, Lock, Sparkles, Zap } from "lucide-react";
 import Link from "next/link";
+import { OrganizationSchema } from "@/components/schema/OrganizationSchema";
+import { ProductSchema } from "@/components/schema/ProductSchema";
 
 export const metadata: Metadata = {
-  title: "Products - Vibe Academy",
-  description: "Digital products and resources to accelerate your coding journey with AI",
+  title: "Products - The Vibe Launch",
+  description: "Business templates and resources to build your $10K/month business without writing code",
 };
 
 const tierConfig = {
@@ -43,13 +45,26 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <OrganizationSchema />
+      {publishedProducts.map((product) => (
+        <ProductSchema
+          key={product.id}
+          name={product.name}
+          description={product.description}
+          url={`https://thevibelaunch.ai/products/${product.slug}`}
+          price={product.price.toString()}
+          priceCurrency="USD"
+          availability="InStock"
+          category="Business Software"
+        />
+      ))}
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Digital Products & Resources
+            Business Templates & Resources
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Accelerate your coding journey with AI-powered tools and templates
+            Done-for-you templates to build your $10K/month business without writing code
           </p>
         </div>
 
@@ -59,7 +74,7 @@ export default function ProductsPage() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-2">Free Resources</h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Start your journey with these high-value free resources
+                Start your business journey with these high-value free resources
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -76,7 +91,7 @@ export default function ProductsPage() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-2">Essential Tools</h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Level up with these affordable, high-impact resources
+                Level up your business with these affordable, high-impact resources
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -93,7 +108,7 @@ export default function ProductsPage() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-2">Premium Solutions</h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Professional-grade tools for serious developers
+                Professional-grade tools for serious entrepreneurs
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

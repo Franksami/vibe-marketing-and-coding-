@@ -84,7 +84,7 @@ Join our community to:
 - Get help with complex patterns
 - Learn from other developers
 
-👉 [Join Vibe Academy](https://vibeacademy.com)
+👉 [Join The Vibe Launch](https://thevibelaunch.ai)
 
 ## Updates
 

@@ -185,7 +185,7 @@ Your first client is just one good proposal away. Let's make it happen!
 ## 📧 Questions?
 
 - Post in #freelancer-flywheel
-- Email: support@vibeacademy.com
+- Email: support@thevibelaunch.ai
 - Office Hours: Thursdays 2-3pm EST
 
 ---

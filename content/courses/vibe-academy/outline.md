@@ -1,4 +1,4 @@
-# Vibe Academy Course Outline
+# The Vibe Launch Course Outline
 
 ## Course Title: AI-Powered Development with Cursor & Claude
 
@@ -301,7 +301,7 @@ By the end of this course, students will be able to:
 - Complete all modules
 - Submit final project
 - Pass peer review
-- Receive Vibe Academy AI Developer Certificate
+- Receive The Vibe Launch AI Developer Certificate
 
 ---
 

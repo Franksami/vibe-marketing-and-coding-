@@ -253,10 +253,10 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## License
 
-MIT © Vibe Academy
+MIT © The Vibe Launch
 
 ## Support
 
-- 📧 Email: support@vibeacademy.com
+- 📧 Email: support@thevibelaunch.ai
 - 💬 Discord: [Join our community](https://discord.gg/vibeacademy)
-- 📚 Docs: [Documentation](https://docs.vibeacademy.com/ui-kit)
+- 📚 Docs: [Documentation](https://docs.thevibelaunch.ai/ui-kit)

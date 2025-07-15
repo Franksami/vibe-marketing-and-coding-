@@ -13,7 +13,7 @@ const testAuth = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: 'test@vibeacademy.com',
+        email: 'test@thevibelaunch.ai',
         password: 'testpassword123',
         name: 'Test User'
       })
@@ -39,7 +39,7 @@ const testAuth = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: 'test@vibeacademy.com',
+        email: 'test@thevibelaunch.ai',
         password: 'anotherpassword',
         name: 'Duplicate User'
       })
@@ -65,7 +65,7 @@ const testAuth = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: 'magic@vibeacademy.com'
+        email: 'magic@thevibelaunch.ai'
       })
     });
     
@@ -88,7 +88,7 @@ const testAuth = async () => {
   console.log('💡 To test login:');
   console.log('1. Go to http://localhost:3000');
   console.log('2. Click "Sign In"');
-  console.log('3. Use email: test@vibeacademy.com');
+  console.log('3. Use email: test@thevibelaunch.ai');
   console.log('4. Use password: testpassword123');
   console.log('\n💡 Database location: prisma/dev.db');
 };

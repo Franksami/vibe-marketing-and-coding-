@@ -50,7 +50,7 @@ const mockWebhookData = {
   quantity: '1',
   discover_fee_charged: 'false',
   can_contact: 'true',
-  referrer: 'https://vibeacademy.com',
+  referrer: 'https://thevibelaunch.ai',
   order_number: '12345',
   sale_id: 'sale_abc123',
   sale_timestamp: '2025-01-14T12:00:00Z',

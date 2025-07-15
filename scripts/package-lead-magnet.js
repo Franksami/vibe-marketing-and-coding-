@@ -88,7 +88,7 @@ const quickStartContent = `# Quick Start Guide
 
 ---
 
-**Need Help?** Visit [vibeacademy.com](https://vibeacademy.com) or join our Skool community!
+**Need Help?** Visit [thevibelaunch.ai](https://thevibelaunch.ai) or join our Skool community!
 `;
 
 // Create and add quick start guide

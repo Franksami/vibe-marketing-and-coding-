@@ -17,7 +17,7 @@
             "description": "Sign up for a Skool account, start the free trial, and create a new community with a relevant name and branding.",
             "dependencies": [],
             "details": "Register on Skool, choose a community name, upload profile and banner images, and set up initial branding elements.",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1714,7 +1714,7 @@
     ],
     "metadata": {
       "created": "2025-07-14T04:19:20.563Z",
-      "updated": "2025-07-15T00:40:37.584Z",
+      "updated": "2025-07-15T01:39:08.039Z",
       "description": "Tasks for master context"
     }
   }

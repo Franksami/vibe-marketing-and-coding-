@@ -71,7 +71,7 @@ export function ProductSchema({
   };
 
   if (isDigital) {
-    productData['@type'] = ['Product', 'SoftwareApplication'];
+    (productData as any)['@type'] = ['Product', 'SoftwareApplication'];
     (productData as any).applicationCategory = 'DeveloperApplication';
     (productData as any).operatingSystem = 'Any';
     (productData as any).softwareVersion = '1.0';

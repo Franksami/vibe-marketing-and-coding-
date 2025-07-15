@@ -56,37 +56,37 @@ export function HeroSection() {
           {/* Social proof badge */}
           <Badge variant="secondary" className="mb-8 px-4 py-2">
             <Users className="mr-2 h-4 w-4" />
-            Join 10,000+ developers building with AI
+            Join 500+ entrepreneurs making $10K/month with AI
           </Badge>
 
           {/* Main headline */}
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-            Build{" "}
+            Build a{" "}
             <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              $10K Client Dashboards
+              $10K/Month Business
             </span>{" "}
-            in Days Using Cursor + Claude
+            Without Writing Code
           </h1>
 
           {/* Subheadline */}
           <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">
-            Master the AI development stack that&apos;s 10x faster than traditional coding. 
-            Learn to build production-ready apps with the exact tools we used to create this platform.
+            The ONLY system that lets you build ANY online business in hours using the Claude Code + Cursor &quot;cheat code&quot; - 
+            even if you&apos;ve never written a line of code.
           </p>
 
           {/* Value props */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
             <div className="flex items-center gap-2">
               <Zap className="h-4 w-4 text-primary" />
-              <span>Ship 10x Faster</span>
+              <span>Make Money This Week</span>
             </div>
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span>Production-Ready Code</span>
+              <span>No Coding Required</span>
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
-              <span>Active Community</span>
+              <span>Proven $10K System</span>
             </div>
           </div>
 
@@ -101,7 +101,7 @@ export function HeroSection() {
               required
             />
             <Button type="submit" size="lg" className="group" disabled={isLoading}>
-              {isLoading ? 'Submitting...' : 'Get Free Starter Kit'}
+              {isLoading ? 'Submitting...' : 'Start Making Money This Week'}
               {!isLoading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
             </Button>
           </form>
@@ -113,23 +113,23 @@ export function HeroSection() {
 
           {/* Trust signals */}
           <p className="mt-6 text-sm text-muted-foreground">
-            🎁 Instant access to our{" "}
-            <Link href="/resources/cursor-rules" className="underline hover:text-primary">
-              Cursor Rules Starter Pack
+            🎁 Free bonus: &quot;7 Ways to Make $10K/Month with AI&quot; guide +{" "}
+            <Link href="/resources/ultimate-cursor-rulebook" className="underline hover:text-primary">
+              Ultimate Cursor Rulebook
             </Link>
-            {" "}+ 7-day email course
+            {" "}($47 value)
           </p>
 
           {/* CTA buttons */}
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button variant="outline" size="lg" asChild>
               <Link href="/pricing">
-                View Pricing
+                See Success Stories
               </Link>
             </Button>
             <Button variant="ghost" size="lg" asChild>
-              <Link href="#demo">
-                Watch 60-Min Demo →
+              <Link href="#business-models">
+                Pick Your Business Model →
               </Link>
             </Button>
           </div>

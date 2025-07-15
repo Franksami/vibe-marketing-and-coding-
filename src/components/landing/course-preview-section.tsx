@@ -8,43 +8,35 @@ import Link from "next/link";
 export function CoursePreviewSection() {
   const modules = [
     {
-      category: "Foundation",
+      category: "Money Models",
       modules: [
-        { number: 1, title: "Master Cursor Setup", duration: "45 min", lessons: 6 },
-        { number: 2, title: "Project Navigation Mastery", duration: "30 min", lessons: 4 },
-        { number: 3, title: "Custom Modes & Workflows", duration: "60 min", lessons: 8 },
+        { number: 0, title: "7 Ways to Make $10K/Month Online", duration: "90 min", lessons: 3 },
+        { number: 0.5, title: "Tech Basics in Plain English", duration: "60 min", lessons: 6 },
+        { number: 0.75, title: "Power User Secrets", duration: "75 min", lessons: 6 },
       ],
     },
     {
-      category: "Advanced",
+      category: "Business Foundation",
       modules: [
-        { number: 4, title: "AI-Powered PRD Generation", duration: "50 min", lessons: 5 },
-        { number: 5, title: "Powerful Cursor Rules", duration: "40 min", lessons: 6 },
-        { number: 6, title: "AI Guidance Systems", duration: "55 min", lessons: 7 },
+        { number: 1, title: "Design $100M Offers That Sell", duration: "60 min", lessons: 3 },
+        { number: 2, title: "Get 10 Clients This Week", duration: "90 min", lessons: 3 },
+        { number: 3, title: "Build & Deliver with AI", duration: "120 min", lessons: 3 },
       ],
     },
     {
-      category: "Integration",
+      category: "Sales & Scale",
       modules: [
-        { number: 7, title: "Model Context Protocol", duration: "45 min", lessons: 5 },
-        { number: 8, title: "MCP Server Installation", duration: "35 min", lessons: 4 },
-        { number: 9, title: "Package Management", duration: "40 min", lessons: 5 },
+        { number: 4, title: "Close High-Ticket Sales", duration: "60 min", lessons: 3 },
+        { number: 5, title: "Service Delivery Excellence", duration: "45 min", lessons: 3 },
+        { number: 6, title: "Scale to $10K/Month", duration: "60 min", lessons: 3 },
       ],
     },
     {
-      category: "Build",
+      category: "Bonus Content",
       modules: [
-        { number: 10, title: "Plan Your MVP", duration: "60 min", lessons: 6 },
-        { number: 11, title: "Build & Test", duration: "90 min", lessons: 10 },
-        { number: 12, title: "Deploy to Production", duration: "45 min", lessons: 5 },
-      ],
-    },
-    {
-      category: "Supabase",
-      modules: [
-        { number: 13, title: "Database & Auth Setup", duration: "60 min", lessons: 8 },
-        { number: 14, title: "Real-time Features", duration: "50 min", lessons: 6 },
-        { number: 15, title: "Production Deployment", duration: "40 min", lessons: 5 },
+        { number: 7, title: "AI Freelancer Flywheel", duration: "90 min", lessons: 5 },
+        { number: 8, title: "Quick Win Templates", duration: "60 min", lessons: 10 },
+        { number: 9, title: "Community & Support", duration: "Ongoing", lessons: 0 },
       ],
     },
   ];
@@ -61,11 +53,11 @@ export function CoursePreviewSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            The Vibe Coding Masterclass
+            The AI Transformation Business System
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            A comprehensive, step-by-step curriculum that takes you from beginner to 
-            shipping production-ready apps with AI assistance.
+            The ONLY course that shows you how to build a $10K/month business using AI - 
+            without writing a single line of code. 30-day proven system.
           </p>
         </div>
 
@@ -87,7 +79,7 @@ export function CoursePreviewSection() {
         {/* Course Modules */}
         <div className="mt-16">
           <Tabs defaultValue="Foundation" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="grid w-full grid-cols-4">
               {modules.map((category) => (
                 <TabsTrigger key={category.category} value={category.category}>
                   {category.category}

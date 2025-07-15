@@ -4,39 +4,39 @@ import { XCircle, CheckCircle2 } from "lucide-react";
 export function ProblemSection() {
   const problems = [
     {
-      title: "Spending Weeks on Boilerplate",
-      description: "Setting up auth, databases, and basic CRUD takes forever",
+      title: "Tried Learning to Code & Failed",
+      description: "Bootcamps and tutorials left you frustrated and nowhere closer to your goals",
     },
     {
-      title: "Deliverables Look Unprofessional", 
-      description: "Your automations work but lack the polish clients expect",
+      title: "Great Ideas, Can't Build Them", 
+      description: "You know what would sell, but hiring developers costs $10K+ per project",
     },
     {
-      title: "Can't Charge Premium Prices",
-      description: "Without beautiful UIs, you're stuck competing on price",
+      title: "Missing the AI Gold Rush",
+      description: "Everyone's making money with AI except you - and it's frustrating",
     },
     {
-      title: "Slow Development Cycles",
-      description: "Traditional coding methods can't keep up with client demands",
+      title: "Stuck Trading Time for Money",
+      description: "Your business can't scale because everything requires your personal time",
     },
   ];
 
   const solutions = [
     {
-      title: "Ship Full Apps in Hours",
-      description: "Go from idea to deployed app faster than ever before",
+      title: "Build Without Coding",
+      description: "Use AI to create real businesses - no programming knowledge needed",
     },
     {
-      title: "Professional UIs Every Time",
-      description: "Create stunning interfaces that impress clients",
+      title: "Launch This Week",
+      description: "Go from idea to paying customers in days, not months",
     },
     {
-      title: "Charge $10K+ Per Project",
-      description: "Command premium prices with premium deliverables",
+      title: "Multiple Revenue Streams",
+      description: "Create products, services, and recurring income all with AI",
     },
     {
-      title: "10x Development Speed",
-      description: "AI-assisted coding that actually works in production",
+      title: "$10K/Month Proven Path",
+      description: "Follow our exact system used by 500+ non-technical entrepreneurs",
     },
   ];
 
@@ -45,11 +45,11 @@ export function ProblemSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            The Old Way is Broken
+            Stop Learning to Code. Start Making Money.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Traditional development is too slow, and no-code tools are too limited. 
-            There&apos;s a better way.
+            While everyone else is stuck in tutorials, our students are building real businesses 
+            and making real money with AI.
           </p>
         </div>
 

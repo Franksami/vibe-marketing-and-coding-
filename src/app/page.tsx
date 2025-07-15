@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/landing/navigation";
 import { HeroSection } from "@/components/landing/hero-section";
 import { ProblemSection } from "@/components/landing/problem-section";
+import { BusinessModelsSection } from "@/components/landing/business-models-section";
 import { ServiceTiersSection } from "@/components/landing/service-tiers-section";
 import { CoursePreviewSection } from "@/components/landing/course-preview-section";
 import { TechStackSection } from "@/components/landing/tech-stack-section";
@@ -16,8 +17,9 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <ProblemSection />
-        <ServiceTiersSection />
+        <BusinessModelsSection />
         <CoursePreviewSection />
+        <ServiceTiersSection />
         <TechStackSection />
         <TestimonialsSection />
         <FAQSection />

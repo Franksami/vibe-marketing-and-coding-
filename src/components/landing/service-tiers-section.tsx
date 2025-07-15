@@ -52,54 +52,57 @@ export function ServiceTiersSection() {
 
   const tiers = [
     {
-      name: "Community",
-      price: "$0",
-      frequency: "/forever",
-      description: "Join our community and start learning",
+      name: "Starter",
+      price: "$297",
+      frequency: "one-time",
+      description: "Learn the system and start making money",
       features: [
-        "Access to Skool community",
-        "Weekly live coding sessions",
-        "Basic Cursor rules",
-        "Community support",
+        "Complete AI Transformation course",
+        "7 business model blueprints",
+        "50+ copy-paste templates",
+        "Private community access",
+        "30-day money-back guarantee",
       ],
-      cta: "Join Community",
-      href: "https://skool.com/vibe-coding",
+      cta: "Start Making Money",
+      href: "/checkout/starter",
       variant: "outline" as const,
     },
     {
-      name: "Vibe Academy",
-      price: "$499",
+      name: "Pro",
+      price: "$997",
       frequency: "one-time",
-      description: "Complete course + lifetime updates",
+      description: "Done-with-you implementation + coaching",
       features: [
-        "15+ module video course",
-        "All starter kits & templates",
-        "Private Discord channel",
-        "Weekly group calls",
-        "Lifetime updates",
-        "Certificate of completion",
+        "Everything in Starter",
+        "4 weeks of live coaching",
+        "We build your first offer",
+        "Personal success roadmap",
+        "White-label rights to templates",
+        "1-on-1 strategy call",
+        "90-day support",
       ],
-      cta: "Become Founding Member",
-      href: "#academy",
+      cta: "Get Personal Coaching",
+      href: "/checkout/pro",
       variant: "default" as const,
-      badge: "SAVE $200",
+      badge: "MOST POPULAR",
       popular: true,
     },
     {
-      name: "1:1 Coaching",
-      price: "$250",
-      frequency: "/hour",
-      description: "Personalized guidance from experts",
+      name: "VIP",
+      price: "$2,997",
+      frequency: "one-time",
+      description: "We build your business with you",
       features: [
-        "Custom learning path",
-        "Code review & feedback",
-        "Architecture planning",
-        "Career guidance",
-        "Priority support",
-        "Recording of sessions",
+        "Everything in Pro",
+        "We build your complete system",
+        "Launch in 7 days guaranteed",
+        "6 months of support",
+        "Revenue share partnership option",
+        "Weekly 1-on-1 calls",
+        "Priority everything",
       ],
-      cta: "Book Discovery Call",
-      href: "#coaching",
+      cta: "Apply for VIP",
+      href: "/apply/vip",
       variant: "outline" as const,
     },
   ];
@@ -110,13 +113,13 @@ export function ServiceTiersSection() {
         <div className="mx-auto max-w-3xl text-center">
           <Badge variant="secondary" className="mb-4">
             <Sparkles className="mr-2 h-3 w-3" />
-            Limited Time: Founding Member Pricing
+            Transform Your Life in 30 Days
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Choose Your Learning Path
+            Choose Your Transformation Package
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Start free, upgrade when you&apos;re ready. All plans include access to our thriving community.
+            From "I can&apos;t code" to "$10K/month business owner". Pick the support level that fits you.
           </p>
         </div>
 

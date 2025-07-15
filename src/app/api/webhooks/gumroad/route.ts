@@ -85,9 +85,9 @@ export async function POST(request: NextRequest) {
         provider: 'gumroad',
         providerId: event.sale_id,
         metadata: {
-          gumroadData: event,
+          gumroadData: event as any,
           catalogProduct: catalogProduct || null,
-        },
+        } as any,
       },
     });
 
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
             ...currentTags,
             tags: [...new Set(tags)], // Remove duplicates
             lastPurchase: new Date(),
-          },
+          } as any,
         },
       });
     }

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
                 stripeCustomerId: session.customer as string,
                 stripeSubscriptionId: subscription.id,
                 stripePriceId: subscription.items.data[0].price.id,
-                stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                stripeCurrentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
                 plan: 'pro',
               },
               create: {
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
                 stripeCustomerId: session.customer as string,
                 stripeSubscriptionId: subscription.id,
                 stripePriceId: subscription.items.data[0].price.id,
-                stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                stripeCurrentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
                 plan: 'pro',
               },
             });
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
           where: { stripeSubscriptionId: subscription.id },
           data: {
             stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+            stripeCurrentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
             plan: subscription.status === 'active' ? 'pro' : 'free',
           },
         });

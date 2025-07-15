@@ -164,10 +164,10 @@ export async function GET(
 // License key validation endpoint
 export async function POST(
   request: NextRequest,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const { productId } = params;
+    const { productId } = await params;
     const body = await request.json();
     const { licenseKey } = body;
 

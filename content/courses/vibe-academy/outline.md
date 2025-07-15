@@ -168,31 +168,41 @@ By the end of this course, students will be able to:
 
 ---
 
-### Module 6: Business & Monetization (Week 6)
-**Goal**: Turn your AI skills into income
+### Module 6: The AI Freelancer Flywheel (Week 6)
+**Goal**: Build a $10K/month AI freelance business
 
 #### Lessons:
-1. **Productizing Your Skills**
-   - Service packaging
-   - Pricing strategies
-   - Client acquisition
+1. **Portfolio Optimization**
+   - Authority website creation
+   - Upwork & Fiverr profile mastery
+   - Platform-specific strategies
+   - Premium positioning tactics
 
-2. **Building AI-Powered Products**
-   - SaaS ideation with AI
-   - MVP to market
-   - Growth strategies
+2. **Service Packaging & Pricing**
+   - Three-tier service structure
+   - Value-based pricing psychology
+   - Scope protection strategies
+   - Upselling frameworks
 
-3. **Agency/Freelance Model**
-   - Service offerings
-   - Proposal templates
-   - Delivery systems
+3. **Platform Mastery**
+   - Winning Upwork proposals
+   - Fiverr gig optimization
+   - Algorithm optimization
+   - Conversion rate tactics
 
-4. **Content & Course Creation**
-   - Teaching AI development
-   - Building an audience
-   - Passive income streams
+4. **Case Studies & Social Proof**
+   - Problem-Solution-Results framework
+   - Video testimonial creation
+   - ROI demonstration
+   - Portfolio curation
 
-**Module Project**: Launch a micro-SaaS or service offering
+5. **Client Acquisition Systems**
+   - Cold outreach that converts
+   - Referral engine building
+   - Content marketing for authority
+   - Strategic partnerships
+
+**Module Project**: Land your first AI freelance client within 7 days
 
 ---
 
@@ -277,6 +287,12 @@ By the end of this course, students will be able to:
 - 200+ Cursor rules library
 - 500+ prompt templates
 - Project starter templates
+- AI Freelancer Flywheel complete toolkit
+  - Service packaging worksheets
+  - 100+ winning proposal templates
+  - Case study templates
+  - Market research report
+  - Platform optimization checklists
 - Weekly live Q&A sessions
 - Private Discord community
 - 1-on-1 coaching calls (Founding Members)

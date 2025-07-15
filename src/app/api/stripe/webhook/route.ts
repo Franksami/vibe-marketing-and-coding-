@@ -29,9 +29,10 @@ export async function POST(request: NextRequest) {
         
         // Handle successful subscription/payment
         if (session.mode === 'subscription') {
-          const subscription = await stripe.subscriptions.retrieve(
+          const subscriptionResponse = await stripe.subscriptions.retrieve(
             session.subscription as string
           );
+          const subscription = subscriptionResponse as Stripe.Subscription;
           
           // Update user in database
           if (session.customer_email) {

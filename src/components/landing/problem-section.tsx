@@ -143,7 +143,7 @@ export function ProblemSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <Badge variant="outline" className="mb-4 border-destructive/20 bg-destructive/5">
+          <Badge variant="outline" className="mb-4 border-slate-200 bg-slate-50">
             <AlertCircle className="mr-2 h-3 w-3" />
             The Real Problem No One's Talking About
           </Badge>
@@ -168,11 +168,11 @@ export function ProblemSection() {
           <div>
             <h3 className="mb-8 text-xl font-semibold flex items-center gap-2">
               <motion.div 
-                className="h-8 w-8 rounded-full bg-destructive/10 flex items-center justify-center"
+                className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center"
                 animate={{ rotate: [0, -10, 10, -10, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 5 }}
               >
-                <XCircle className="h-5 w-5 text-destructive" />
+                <XCircle className="h-5 w-5 text-slate-600" />
               </motion.div>
               The Struggle Is Real
             </h3>
@@ -184,7 +184,7 @@ export function ProblemSection() {
                   whileHover={{ scale: 1.02, x: 10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="group border-destructive/20 bg-gradient-to-br from-destructive/5 to-destructive/10 p-6 transition-all hover:shadow-md hover:border-destructive/40">
+                  <Card className="group border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 transition-all hover:shadow-md hover:border-slate-300">
                     <div className="space-y-3">
                       <div className="flex items-start gap-3">
                         <motion.span 
@@ -222,11 +222,11 @@ export function ProblemSection() {
           <div>
             <h3 className="mb-8 text-xl font-semibold flex items-center gap-2">
               <motion.div 
-                className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center"
+                className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <CheckCircle2 className="h-5 w-5 text-primary" />
+                <CheckCircle2 className="h-5 w-5 text-slate-600" />
               </motion.div>
               Your New Reality
             </h3>
@@ -238,7 +238,7 @@ export function ProblemSection() {
                   whileHover={{ scale: 1.02, x: -10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Card className="group border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5 p-6 transition-all hover:shadow-md hover:border-primary/40">
+                  <Card className="group border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 transition-all hover:shadow-md hover:border-slate-300">
                     <div className="space-y-3">
                       <div className="flex items-start gap-3">
                         <motion.span 
@@ -278,7 +278,7 @@ export function ProblemSection() {
 
         {/* Transformation statement with parallax effect */}
         <motion.div 
-          className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 p-12"
+          className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-50 p-12 border border-slate-200"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -313,7 +313,7 @@ export function ProblemSection() {
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Badge className="px-4 py-1.5 bg-gradient-primary text-white border-0">
+              <Badge className="px-4 py-1.5 bg-slate-900 text-white border-0">
                 <TrendingUp className="mr-2 h-4 w-4" />
                 Success Story
               </Badge>

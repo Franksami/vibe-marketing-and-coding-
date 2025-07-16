@@ -112,7 +112,7 @@ export function Navigation() {
                   </Button>
                   <Button 
                     asChild 
-                    className="bg-gradient-primary text-white hover:shadow-lg transition-all duration-200 group"
+                    className="bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg transition-all duration-200 group"
                   >
                     <Link href="#pricing" className="flex items-center">
                       <Sparkles className="mr-2 h-4 w-4" />
@@ -206,7 +206,7 @@ export function Navigation() {
                           >
                             Sign In
                           </Button>
-                          <Button className="w-full bg-gradient-primary text-white" asChild>
+                          <Button className="w-full bg-slate-900 text-white hover:bg-slate-800" asChild>
                             <Link href="#pricing" className="flex items-center justify-center">
                               <Sparkles className="mr-2 h-4 w-4" />
                               Start Building

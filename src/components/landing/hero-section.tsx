@@ -168,7 +168,7 @@ export function HeroSection() {
         <div className="mx-auto max-w-4xl text-center">
           {/* Trust indicator with animation */}
           <motion.div variants={itemVariants}>
-            <Badge variant="outline" className="mb-8 px-6 py-2 border-primary/20 bg-primary/5">
+            <Badge variant="outline" className="mb-8 px-6 py-2 border-slate-200 bg-slate-50">
               <TrendingUp className="mr-2 h-4 w-4 text-primary animate-pulse" />
               <CountUp end={127} duration={2} /> students hit $10K+ last month
             </Badge>
@@ -256,7 +256,7 @@ export function HeroSection() {
             >
               <Button 
                 size="lg" 
-                className="gradient-primary text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transform transition-all duration-200 group relative overflow-hidden"
+                className="bg-slate-900 text-white hover:bg-slate-800 text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transform transition-all duration-200 group relative overflow-hidden"
                 asChild
               >
                 <Link href="/pricing" className="flex items-center">
@@ -314,13 +314,13 @@ export function HeroSection() {
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center gap-2 bg-primary/5 px-4 py-2 rounded-full"
+                  className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-200"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + index * 0.1 }}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.1)" }}
                 >
-                  <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+                  <Sparkles className="h-4 w-4 text-slate-600 animate-pulse" />
                   <span>{item}</span>
                 </motion.div>
               ))}

@@ -83,9 +83,9 @@ export function ServiceTiersSection() {
       cta: "Start Building Today",
       href: "/checkout/self-paced",
       variant: "outline" as const,
-      gradient: "from-blue-500/10 to-cyan-500/10",
-      borderGradient: "from-blue-500 to-cyan-500",
-      iconColor: "text-blue-500",
+      gradient: "from-slate-50 to-white",
+      borderGradient: "from-slate-300 to-slate-200",
+      iconColor: "text-slate-700",
       savings: 50,
     },
     {
@@ -111,9 +111,9 @@ export function ServiceTiersSection() {
       variant: "default" as const,
       badge: "MOST POPULAR",
       popular: true,
-      gradient: "from-purple-500/10 to-pink-500/10",
-      borderGradient: "from-purple-500 to-pink-500",
-      iconColor: "text-purple-500",
+      gradient: "from-slate-100 to-slate-50",
+      borderGradient: "from-slate-400 to-slate-300",
+      iconColor: "text-slate-900",
       savings: 50,
     },
     {
@@ -138,9 +138,9 @@ export function ServiceTiersSection() {
       href: "/apply/partnership",
       variant: "outline" as const,
       limited: true,
-      gradient: "from-amber-500/10 to-orange-500/10",
-      borderGradient: "from-amber-500 to-orange-500",
-      iconColor: "text-amber-500",
+      gradient: "from-slate-50 to-white",
+      borderGradient: "from-slate-300 to-slate-200",
+      iconColor: "text-slate-700",
       savings: 50,
     },
   ];
@@ -189,7 +189,7 @@ export function ServiceTiersSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5">
+          <Badge variant="outline" className="mb-4 border-slate-200 bg-slate-50">
             <Sparkles className="mr-2 h-3 w-3 animate-pulse" />
             Limited Time Launch Pricing
           </Badge>
@@ -241,7 +241,7 @@ export function ServiceTiersSection() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.3, type: "spring" }}
                   >
-                    <Badge className="px-4 py-1.5 bg-gradient-primary text-white border-0 shadow-lg">
+                    <Badge className="px-4 py-1.5 bg-slate-900 text-white border-0 shadow-lg">
                       <Sparkles className="mr-1 h-3 w-3" />
                       MOST POPULAR
                     </Badge>
@@ -387,9 +387,9 @@ export function ServiceTiersSection() {
                       <Button 
                         className={`w-full group relative overflow-hidden ${
                           tier.popular 
-                            ? "bg-gradient-primary text-white hover:shadow-lg" 
+                            ? "bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg" 
                             : tier.name === "Partnership" 
-                              ? "border-2 border-primary hover:bg-primary/5" 
+                              ? "border-2 border-slate-300 hover:bg-slate-50" 
                               : ""
                         }`}
                         variant={tier.variant}

@@ -42,8 +42,8 @@ export function BusinessModelsSection() {
       description: "Build custom AI solutions for businesses using no-code tools",
       example: "Solo agency owner: $32K/month with 8 clients",
       difficulty: "Hot",
-      color: "from-orange-500/10 to-red-500/10",
-      borderColor: "border-orange-500/20",
+      color: "from-slate-100 to-slate-50",
+      borderColor: "border-slate-200",
       features: ["High demand", "Premium pricing", "Recurring revenue"],
       testimonial: "I replaced my corporate salary in 3 months",
     },
@@ -55,8 +55,8 @@ export function BusinessModelsSection() {
       description: "Build subscription software without coding using AI",
       example: "Analytics dashboard: 200 users at $49/month",
       difficulty: "High ROI",
-      color: "from-blue-500/10 to-purple-500/10",
-      borderColor: "border-blue-500/20",
+      color: "from-slate-50 to-white",
+      borderColor: "border-slate-200",
       features: ["Passive income", "Scalable", "High margins"],
       testimonial: "My SaaS hit $15K MRR in 60 days",
     },
@@ -68,8 +68,8 @@ export function BusinessModelsSection() {
       description: "Package your knowledge into courses, templates, and tools",
       example: "Business templates: $11K/month passive income",
       difficulty: "Easy",
-      color: "from-green-500/10 to-emerald-500/10",
-      borderColor: "border-green-500/20",
+      color: "from-slate-100 to-slate-50",
+      borderColor: "border-slate-200",
       features: ["Low overhead", "Quick launch", "Evergreen sales"],
       testimonial: "Zero to $8K in my first month",
     },
@@ -81,8 +81,8 @@ export function BusinessModelsSection() {
       description: "Create exclusive membership sites with AI-powered features",
       example: "Fitness community: 250 members at $47/month",
       difficulty: "Scalable",
-      color: "from-purple-500/10 to-pink-500/10",
-      borderColor: "border-purple-500/20",
+      color: "from-slate-50 to-white",
+      borderColor: "border-slate-200",
       features: ["Recurring revenue", "High engagement", "Community-driven"],
       testimonial: "300 members paying $97/month",
     },
@@ -94,8 +94,8 @@ export function BusinessModelsSection() {
       description: "Build AI-powered content sites that rank and convert",
       example: "Comparison site: $7K/month affiliate commissions",
       difficulty: "Passive",
-      color: "from-cyan-500/10 to-blue-500/10",
-      borderColor: "border-cyan-500/20",
+      color: "from-slate-100 to-slate-50",
+      borderColor: "border-slate-200",
       features: ["SEO traffic", "Affiliate income", "Low maintenance"],
       testimonial: "Ranking #1 for 50+ keywords",
     },
@@ -107,8 +107,8 @@ export function BusinessModelsSection() {
       description: "Grow and monetize AI-curated newsletters",
       example: "Tech newsletter: 8K subs, $15K/month from sponsors",
       difficulty: "Growing",
-      color: "from-amber-500/10 to-orange-500/10",
-      borderColor: "border-amber-500/20",
+      color: "from-slate-50 to-white",
+      borderColor: "border-slate-200",
       features: ["Email list asset", "Multiple revenue streams", "Authority building"],
       testimonial: "10K subscribers in 90 days",
     },
@@ -120,8 +120,8 @@ export function BusinessModelsSection() {
       description: "Connect buyers and sellers with AI-powered platforms",
       example: "Service marketplace: $28K/month in fees",
       difficulty: "High Value",
-      color: "from-indigo-500/10 to-purple-500/10",
-      borderColor: "border-indigo-500/20",
+      color: "from-slate-100 to-slate-50",
+      borderColor: "border-slate-200",
       features: ["Transaction fees", "Network effects", "Viral growth"],
       testimonial: "Processing $100K+ monthly",
     },
@@ -170,7 +170,7 @@ export function BusinessModelsSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5">
+          <Badge variant="outline" className="mb-4 border-slate-200 bg-slate-50">
             <Zap className="mr-2 h-3 w-3" />
             Real Student Results
           </Badge>
@@ -336,7 +336,7 @@ export function BusinessModelsSection() {
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Badge className="bg-gradient-primary text-white border-0">
+              <Badge className="bg-slate-900 text-white border-0">
                 <Sparkles className="mr-2 h-3 w-3" />
                 Limited Time Bonus
               </Badge>
@@ -355,7 +355,7 @@ export function BusinessModelsSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button size="lg" className="bg-gradient-primary text-white group" asChild>
+                <Button size="lg" className="bg-slate-900 text-white hover:bg-slate-800 group" asChild>
                   <Link href="#pricing" className="flex items-center">
                     Get All 7 Business Blueprints
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

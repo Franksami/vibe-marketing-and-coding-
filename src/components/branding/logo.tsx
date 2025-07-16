@@ -15,7 +15,7 @@ export function Logo({ className, size = 'md', variant = 'default' }: LogoProps)
   };
 
   const colors = {
-    default: 'text-gradient',
+    default: 'text-slate-900',
     white: 'text-white',
   };
 

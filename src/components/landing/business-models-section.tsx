@@ -144,7 +144,7 @@ export function BusinessModelsSection() {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -160,7 +160,7 @@ export function BusinessModelsSection() {
             "linear-gradient(to right, rgba(6, 182, 212, 0.05), rgba(59, 130, 246, 0.05))",
           ],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" as const }}
       />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

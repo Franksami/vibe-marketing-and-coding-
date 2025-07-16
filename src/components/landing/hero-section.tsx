@@ -51,7 +51,7 @@ export function HeroSection() {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -61,7 +61,7 @@ export function HeroSection() {
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   };
 
@@ -106,7 +106,7 @@ export function HeroSection() {
             "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
           ],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" as const }}
       />
       
       {/* Floating particles */}
@@ -128,7 +128,7 @@ export function HeroSection() {
               duration: Math.random() * 5 + 5,
               repeat: Infinity,
               delay: Math.random() * 5,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
             }}
           />
         ))}

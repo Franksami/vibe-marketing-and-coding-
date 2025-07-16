@@ -181,6 +181,10 @@
     background: radial-gradient(ellipse 80% 80% at 50% -20%, hsl(222.2 47.4% 11.2% / 0.1), transparent);
   }
   
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-from), var(--tw-gradient-to));
+  }
+  
   .text-gradient {
     @apply bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent;
   }

@@ -29,6 +29,9 @@
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@react-spring/web": "^10.0.1",
+    "@react-three/drei": "^10.5.1",
+    "@react-three/fiber": "^9.2.0",
+    "@react-three/postprocessing": "^3.0.4",
     "@stripe/stripe-js": "^7.4.0",
     "archiver": "^7.0.1",
     "bcryptjs": "^3.0.2",
@@ -49,6 +52,7 @@
     "stripe": "^18.3.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.178.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {

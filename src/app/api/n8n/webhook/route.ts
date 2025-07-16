@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       data: {
         source: 'n8n',
         event: payload.event,
-        payload: payload.data,
+        payload: JSON.stringify(payload.data),
         status: 'success',
         workflowId: payload.workflowId,
         executionId: payload.executionId,
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
       data: {
         source: 'n8n',
         event: 'error',
-        payload: { error: error instanceof Error ? error.message : 'Unknown error' },
+        payload: JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
         status: 'failed',
       },
     });

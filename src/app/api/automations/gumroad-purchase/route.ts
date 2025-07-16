@@ -182,8 +182,12 @@ async function updateCustomerStatus(email: string, status: string) {
   await prisma.user.update({
     where: { email },
     data: { 
-      customerStatus: status,
-      lastPurchaseAt: new Date(),
+      plan: status === 'vip' ? 'enterprise' : status === 'customer' ? 'pro' : 'free',
+      purchasedAt: new Date(),
+      metadata: {
+        customerStatus: status,
+        lastPurchaseAt: new Date().toISOString()
+      }
     }
   });
 }

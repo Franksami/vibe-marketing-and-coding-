@@ -41,8 +41,8 @@ export function MatrixRain() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Green text
-      ctx.fillStyle = "#0f0";
+      // Orange text (Anthropic/Claude orange)
+      ctx.fillStyle = "#FF6B35";
       ctx.font = fontSize + "px monospace";
 
       // Loop through drops
@@ -76,7 +76,7 @@ export function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full opacity-10 pointer-events-none"
+      className="fixed inset-0 w-full h-full opacity-5 pointer-events-none"
       style={{ zIndex: 0 }}
     />
   );

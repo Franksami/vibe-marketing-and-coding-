@@ -1,5 +1,5 @@
 import { Navigation } from "@/components/landing/navigation";
-import { HeroSimple } from "@/components/landing/hero-simple";
+import { HeroDark } from "@/components/landing/hero-dark";
 import { ProblemSection } from "@/components/landing/problem-section";
 import { BusinessModelsSimple } from "@/components/landing/business-models-simple";
 import { ServiceTiersSimple } from "@/components/landing/service-tiers-simple";
@@ -37,7 +37,7 @@ export default function Home() {
       <MatrixRain />
       <Navigation />
       <main className="flex-1">
-        <HeroSimple />
+        <HeroDark />
         <ProblemSection />
         <FreeProductSimple />
         <BusinessModelsSimple />

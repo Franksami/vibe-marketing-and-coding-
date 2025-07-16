@@ -45,14 +45,14 @@ export function Navigation() {
     <>
       <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled 
-          ? "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm" 
+          ? "border-b border-gray-800 bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/80 shadow-sm" 
           : "bg-transparent"
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Logo className="transition-transform hover:scale-105" size="md" />
+              <Logo className="transition-transform hover:scale-105" size="md" variant="white" />
             </div>
             
             {/* Desktop Navigation */}
@@ -62,7 +62,7 @@ export function Navigation() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="relative text-sm font-medium transition-all hover:text-primary group whitespace-nowrap"
+                    className="relative text-sm font-medium text-gray-300 transition-all hover:text-orange-500 group whitespace-nowrap"
                   >
                     <span className="relative z-10">{item.label}</span>
                     {item.badge && (
@@ -70,7 +70,7 @@ export function Navigation() {
                         {item.badge}
                       </Badge>
                     )}
-                    <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
+                    <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-orange-500 scale-x-0 transition-transform group-hover:scale-x-100" />
                   </Link>
                 ))}
               </nav>
@@ -138,7 +138,7 @@ export function Navigation() {
                   <div className="flex flex-col h-full">
                     {/* Mobile Header */}
                     <div className="flex items-center justify-between mb-8">
-                      <Logo size="md" />
+                      <Logo size="md" variant="white" />
                       <Button 
                         variant="ghost" 
                         size="icon"

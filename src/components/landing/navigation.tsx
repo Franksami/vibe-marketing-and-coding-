@@ -33,11 +33,12 @@ export function Navigation() {
   }, []);
 
   const navItems = [
+    { label: "Products", href: "/products", badge: "New" },
     { label: "How It Works", href: "#features" },
     { label: "Success Stories", href: "#business-models" },
     { label: "Pricing", href: "#pricing" },
     { label: "Community", href: "#community" },
-    { label: "Free Resources", href: "/resources/cursor-rules", badge: "New" },
+    { label: "Free Resources", href: "/resources/cursor-rules" },
   ];
 
   return (

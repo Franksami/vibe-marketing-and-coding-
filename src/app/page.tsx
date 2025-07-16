@@ -1,5 +1,4 @@
 import { Navigation } from "@/components/landing/navigation";
-import { HeroSection } from "@/components/landing/hero-section";
 import { Hero3D } from "@/components/landing/hero-3d";
 import { ProblemSection } from "@/components/landing/problem-section";
 import { BusinessModelsSection } from "@/components/landing/business-models-section";
@@ -12,6 +11,7 @@ import { CTASection } from "@/components/landing/cta-section";
 import { ExitIntentPopup } from "@/components/popups/exit-intent-popup";
 import { OrganizationSchema } from "@/components/schema/OrganizationSchema";
 import { CourseSchema } from "@/components/schema/CourseSchema";
+import { FreeProductCTA } from "@/components/landing/free-product-cta";
 
 export default function Home() {
   return (
@@ -37,6 +37,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero3D />
         <ProblemSection />
+        <FreeProductCTA />
         <BusinessModelsSection />
         <CoursePreviewSection />
         <ServiceTiersSection />

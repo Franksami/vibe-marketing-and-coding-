@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     // Parse the form-encoded body
     const formData = new URLSearchParams(rawBody);
-    const body: any = {};
+    const body: Record<string, string> = {};
     formData.forEach((value, key) => {
       body[key] = value;
     });

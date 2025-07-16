@@ -50,6 +50,7 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
+        <script src="https://gumroad.com/js/gumroad.js" async />
       </body>
     </html>
   );

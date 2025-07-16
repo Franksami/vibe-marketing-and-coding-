@@ -1,271 +1,208 @@
 import { Metadata } from "next";
-import productCatalog from "../../../content/products/catalog.json";
-import { formatGumroadPrice, getProductUrl } from "@/lib/gumroad";
+import Link from "next/link";
+import productCatalog from "@/content/products/catalog.json";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Download, Lock, Sparkles, Zap } from "lucide-react";
-import Link from "next/link";
-import { OrganizationSchema } from "@/components/schema/OrganizationSchema";
-import { ProductSchema } from "@/components/schema/ProductSchema";
+import { ArrowRight, Sparkles, Zap, Crown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Products - The Vibe Launch",
-  description: "Business templates and resources to build your $10K/month business without writing code",
-};
-
-const tierConfig = {
-  free: {
-    badge: "Free",
-    color: "bg-green-500",
-    icon: Download,
-  },
-  tripwire: {
-    badge: "Popular",
-    color: "bg-blue-500",
-    icon: Zap,
-  },
-  premium: {
-    badge: "Premium",
-    color: "bg-purple-500",
-    icon: Sparkles,
-  },
+  description: "AI-powered marketing tools and resources to accelerate your growth",
 };
 
 export default function ProductsPage() {
-  const publishedProducts = productCatalog.products.filter(
-    (product) => product.status === "published" || product.status === "testing"
-  );
-
-  const groupedProducts = {
-    free: publishedProducts.filter((p) => p.tier === "free"),
-    tripwire: publishedProducts.filter((p) => p.tier === "tripwire"),
-    premium: publishedProducts.filter((p) => p.tier === "premium"),
+  const formatPrice = (cents: number) => {
+    if (cents === 0) return "Free";
+    return `$${(cents / 100).toFixed(0)}`;
   };
 
+  const getTierIcon = (tier: string) => {
+    switch (tier) {
+      case "free": return <Sparkles className="w-4 h-4" />;
+      case "tripwire": return <Zap className="w-4 h-4" />;
+      case "premium": return <Crown className="w-4 h-4" />;
+      default: return null;
+    }
+  };
+
+  const getTierColor = (tier: string) => {
+    switch (tier) {
+      case "free": return "bg-green-500/10 text-green-500 border-green-500/20";
+      case "tripwire": return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+      case "premium": return "bg-purple-500/10 text-purple-500 border-purple-500/20";
+      default: return "";
+    }
+  };
+
+  const publishedProducts = productCatalog.products.filter(p => p.status === "testing" || p.status === "published");
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <OrganizationSchema />
-      {publishedProducts.map((product) => (
-        <ProductSchema
-          key={product.id}
-          name={product.name}
-          description={product.description}
-          url={`https://thevibelaunch.ai/products/${product.slug}`}
-          price={product.price.toString()}
-          category="Business Software"
-          isDigital={true}
-        />
-      ))}
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Business Templates & Resources
+    <main className="min-h-screen pt-20">
+      {/* Hero Section */}
+      <section className="py-20 bg-gradient-to-b from-primary/5 to-transparent">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            AI-Powered Marketing Tools
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
-            Done-for-you templates to build your $10K/month business without writing code
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Everything you need to leverage AI for marketing success. From free tools to premium solutions.
           </p>
         </div>
+      </section>
 
-        {/* Free Products */}
-        {groupedProducts.free.length > 0 && (
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Free Resources</h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Start your business journey with these high-value free resources
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {groupedProducts.free.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        )}
+      {/* Products Grid */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {publishedProducts.map((product) => (
+              <Card key={product.id} className="relative overflow-hidden group hover:shadow-lg transition-all duration-300">
+                {/* Tier Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <Badge className={getTierColor(product.tier)} variant="outline">
+                    {getTierIcon(product.tier)}
+                    <span className="ml-1">{product.tier}</span>
+                  </Badge>
+                </div>
 
-        {/* Tripwire Products */}
-        {groupedProducts.tripwire.length > 0 && (
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Essential Tools</h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Level up your business with these affordable, high-impact resources
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {groupedProducts.tripwire.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        )}
+                <CardHeader>
+                  <CardTitle className="text-xl pr-20">{product.name}</CardTitle>
+                  <CardDescription className="line-clamp-2">
+                    {product.description}
+                  </CardDescription>
+                </CardHeader>
 
-        {/* Premium Products */}
-        {groupedProducts.premium.length > 0 && (
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Premium Solutions</h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Professional-grade tools for serious entrepreneurs
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {groupedProducts.premium.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        )}
+                <CardContent className="space-y-4">
+                  {/* Price */}
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold">
+                      {formatPrice(product.price)}
+                    </span>
+                    {product.tier === "tripwire" && (
+                      <span className="text-muted-foreground line-through">
+                        $97
+                      </span>
+                    )}
+                  </div>
 
-        {/* Bundles */}
-        {productCatalog.bundles.length > 0 && (
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Bundle Deals</h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Save big with these curated bundles
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {productCatalog.bundles.map((bundle) => (
-                <BundleCard key={bundle.id} bundle={bundle} />
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
-    </div>
-  );
-}
+                  {/* Key Features */}
+                  <ul className="space-y-2">
+                    {product.features.slice(0, 3).map((feature, index) => (
+                      <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                    {product.features.length > 3 && (
+                      <li className="text-sm text-muted-foreground">
+                        <span className="text-primary">+</span> {product.features.length - 3} more features
+                      </li>
+                    )}
+                  </ul>
+                </CardContent>
 
-function ProductCard({ product }: { product: typeof productCatalog.products[0] }) {
-  const config = tierConfig[product.tier as keyof typeof tierConfig];
-  const Icon = config.icon;
-  const isComingSoon = product.status === "planned" || product.status === "development";
+                <CardFooter>
+                  <Button asChild className="w-full group">
+                    <Link href={`/products/${product.slug}`}>
+                      {product.price === 0 ? "Get Free Access" : "Learn More"}
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </CardFooter>
 
-  return (
-    <Card className="relative overflow-hidden hover:shadow-lg transition-shadow">
-      {product.tier !== "free" && (
-        <div className="absolute top-4 right-4">
-          <Badge className={`${config.color} text-white`}>
-            {config.badge}
-          </Badge>
-        </div>
-      )}
-      
-      <CardHeader>
-        <div className="flex items-center gap-2 mb-2">
-          <Icon className="h-5 w-5 text-gray-600" />
-          <span className="text-sm text-gray-600 capitalize">{product.tier}</span>
-        </div>
-        <CardTitle className="text-xl">{product.name}</CardTitle>
-        <CardDescription className="line-clamp-2">
-          {product.description}
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <div className="mb-4">
-          <div className="text-3xl font-bold">
-            {product.price === 0 ? "Free" : formatGumroadPrice(product.price)}
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+              </Card>
+            ))}
           </div>
-        </div>
 
-        <div className="space-y-2">
-          {product.features.slice(0, 4).map((feature, index) => (
-            <div key={index} className="flex items-start gap-2">
-              <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                {feature}
-              </span>
+          {/* Coming Soon Products */}
+          {productCatalog.products.filter(p => p.status === "planned" || p.status === "development").length > 0 && (
+            <div className="mt-20">
+              <h2 className="text-2xl font-bold text-center mb-8">Coming Soon</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {productCatalog.products
+                  .filter(p => p.status === "planned" || p.status === "development")
+                  .map((product) => (
+                    <Card key={product.id} className="relative opacity-60">
+                      <CardHeader>
+                        <Badge variant="outline" className="absolute top-4 right-4">
+                          Coming Soon
+                        </Badge>
+                        <CardTitle className="text-xl pr-20">{product.name}</CardTitle>
+                        <CardDescription>
+                          {product.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-muted-foreground">
+                          {formatPrice(product.price)}
+                        </div>
+                      </CardContent>
+                      <CardFooter>
+                        <Button variant="outline" className="w-full" disabled>
+                          Notify Me
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+              </div>
             </div>
-          ))}
-          {product.features.length > 4 && (
-            <p className="text-sm text-gray-500 pl-6">
-              + {product.features.length - 4} more features
-            </p>
           )}
         </div>
-      </CardContent>
+      </section>
 
-      <CardFooter>
-        {isComingSoon ? (
-          <Button className="w-full" disabled>
-            <Lock className="mr-2 h-4 w-4" />
-            Coming Soon
-          </Button>
-        ) : product.gumroadId ? (
-          <Button className="w-full" asChild>
-            <a
-              href={getProductUrl(product.slug)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {product.price === 0 ? "Get Free Access" : "Get Instant Access"}
-            </a>
-          </Button>
-        ) : (
-          <Button className="w-full" asChild>
-            <Link href={`/products/${product.slug}`}>
-              Learn More
-            </Link>
-          </Button>
-        )}
-      </CardFooter>
-    </Card>
-  );
-}
-
-function BundleCard({ bundle }: { bundle: typeof productCatalog.bundles[0] }) {
-  const savings = bundle.savings;
-  const savingsPercent = Math.round((savings / bundle.originalPrice) * 100);
-
-  return (
-    <Card className="relative overflow-hidden border-2 border-purple-200 dark:border-purple-800">
-      <div className="absolute top-4 right-4">
-        <Badge className="bg-red-500 text-white">
-          Save {savingsPercent}%
-        </Badge>
-      </div>
-
-      <CardHeader>
-        <CardTitle className="text-2xl">{bundle.name}</CardTitle>
-        <CardDescription>{bundle.description}</CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <div className="mb-4">
-          <div className="text-gray-500 line-through text-lg">
-            {formatGumroadPrice(bundle.originalPrice)}
+      {/* Bundle Offers */}
+      {productCatalog.bundles.length > 0 && (
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">Bundle Deals</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {productCatalog.bundles.map((bundle) => (
+                <Card key={bundle.id} className="relative overflow-hidden">
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-gradient-to-r from-violet-500 to-cyan-500 text-white">
+                      Save ${(bundle.savings / 100).toFixed(0)}
+                    </Badge>
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{bundle.name}</CardTitle>
+                    <CardDescription>{bundle.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-bold">
+                          ${(bundle.bundlePrice / 100).toFixed(0)}
+                        </span>
+                        <span className="text-muted-foreground line-through">
+                          ${(bundle.originalPrice / 100).toFixed(0)}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Includes:</p>
+                        {bundle.products.map((productId) => {
+                          const product = productCatalog.products.find(p => p.id === productId);
+                          return product ? (
+                            <div key={productId} className="text-sm text-muted-foreground">
+                              • {product.name}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full" disabled={bundle.status !== "published"}>
+                      {bundle.status === "published" ? "Get Bundle Deal" : "Coming Soon"}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
           </div>
-          <div className="text-3xl font-bold text-purple-600">
-            {formatGumroadPrice(bundle.bundlePrice)}
-          </div>
-          <div className="text-green-600 font-semibold">
-            You save {formatGumroadPrice(savings)}!
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <p className="font-semibold text-sm">This bundle includes:</p>
-          {bundle.products.map((productId) => {
-            const product = productCatalog.products.find((p) => p.id === productId);
-            return product ? (
-              <div key={productId} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span className="text-sm">{product.name}</span>
-              </div>
-            ) : null;
-          })}
-        </div>
-      </CardContent>
-
-      <CardFooter>
-        <Button className="w-full" size="lg" disabled={bundle.status !== "published"}>
-          {bundle.status === "published" ? "Get Bundle Deal" : "Coming Soon"}
-        </Button>
-      </CardFooter>
-    </Card>
+        </section>
+      )}
+    </main>
   );
 }

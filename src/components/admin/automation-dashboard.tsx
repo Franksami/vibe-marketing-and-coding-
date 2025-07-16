@@ -162,7 +162,7 @@ export function AutomationDashboard() {
                     {getStatusIcon(workflow.status)}
                     <CardTitle className="text-lg">{workflow.name}</CardTitle>
                   </div>
-                  <Badge variant={workflow.status === 'active' ? 'success' : 'secondary'}>
+                  <Badge variant={workflow.status === 'active' ? 'default' : 'secondary'}>
                     {workflow.status}
                   </Badge>
                 </div>

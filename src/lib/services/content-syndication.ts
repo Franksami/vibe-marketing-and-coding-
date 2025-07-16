@@ -98,7 +98,7 @@ export class ContentSyndicationService {
       return [{
         platform: 'all',
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : 'Unknown error',
       }];
     }
   }
@@ -220,7 +220,7 @@ export class ContentSyndicationService {
    * Get content type intro
    */
   private getContentIntro(type: string): string {
-    const intros = {
+    const intros: Record<string, string> = {
       blog: '📝 New Blog Post Alert!',
       course: '🎓 New Course Available!',
       product: '🚀 New Product Launch!',
@@ -271,9 +271,6 @@ export class ContentSyndicationService {
     return prisma.contentSyndication.findMany({
       where: { contentId },
       orderBy: { createdAt: 'desc' },
-      include: {
-        results: true,
-      },
     });
   }
 }

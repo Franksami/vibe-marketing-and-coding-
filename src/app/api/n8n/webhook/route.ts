@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
       data: {
         source: 'n8n',
         event: 'error',
-        payload: { error: error.message },
+        payload: { error: error instanceof Error ? error.message : 'Unknown error' },
         status: 'failed',
       },
     });

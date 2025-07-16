@@ -4,11 +4,7 @@ import "./globals.css";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { AnimatedBackground } from "@/components/backgrounds/animated-background";
-import { RippleEffect } from "@/components/effects/ripple-effect";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { MagneticCursor } from "@/components/effects/magnetic-cursor";
-import { MorphingBlobs } from "@/components/backgrounds/morphing-blobs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,10 +36,6 @@ export default function RootLayout({
       >
         <AuthProvider>
           <ScrollProgress />
-          <MorphingBlobs />
-          <AnimatedBackground />
-          <MagneticCursor />
-          <RippleEffect />
           {children}
           <Toaster position="top-center" />
         </AuthProvider>

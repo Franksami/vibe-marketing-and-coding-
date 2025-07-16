@@ -1,17 +1,18 @@
 import { Navigation } from "@/components/landing/navigation";
-import { Hero3D } from "@/components/landing/hero-3d";
+import { HeroSimple } from "@/components/landing/hero-simple";
 import { ProblemSection } from "@/components/landing/problem-section";
-import { BusinessModelsSection } from "@/components/landing/business-models-section";
-import { ServiceTiersSection } from "@/components/landing/service-tiers-section";
+import { BusinessModelsSimple } from "@/components/landing/business-models-simple";
+import { ServiceTiersSimple } from "@/components/landing/service-tiers-simple";
 import { CoursePreviewSection } from "@/components/landing/course-preview-section";
-import { TechStackSection } from "@/components/landing/tech-stack-section";
+import { TechStackSimple } from "@/components/landing/tech-stack-simple";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { FAQSection } from "@/components/landing/faq-section";
 import { CTASection } from "@/components/landing/cta-section";
 import { ExitIntentPopup } from "@/components/popups/exit-intent-popup";
 import { OrganizationSchema } from "@/components/schema/OrganizationSchema";
 import { CourseSchema } from "@/components/schema/CourseSchema";
-import { FreeProductCTA } from "@/components/landing/free-product-cta";
+import { FreeProductSimple } from "@/components/landing/free-product-simple";
+import { MatrixRain } from "@/components/backgrounds/matrix-rain";
 
 export default function Home() {
   return (
@@ -33,15 +34,16 @@ export default function Home() {
           "Scaling to $10K/month"
         ]}
       />
+      <MatrixRain />
       <Navigation />
       <main className="flex-1">
-        <Hero3D />
+        <HeroSimple />
         <ProblemSection />
-        <FreeProductCTA />
-        <BusinessModelsSection />
+        <FreeProductSimple />
+        <BusinessModelsSimple />
         <CoursePreviewSection />
-        <ServiceTiersSection />
-        <TechStackSection />
+        <ServiceTiersSimple />
+        <TechStackSimple />
         <TestimonialsSection />
         <FAQSection />
         <CTASection />

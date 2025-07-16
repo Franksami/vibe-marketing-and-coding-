@@ -126,34 +126,34 @@ export function ExitIntentPopup() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-gray-900 border-gray-800">
         <button
           onClick={() => setIsOpen(false)}
           className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
         >
-          <X className="h-4 w-4" />
+          <X className="h-4 w-4 text-gray-400 hover:text-white" />
           <span className="sr-only">Close</span>
         </button>
         
         <DialogHeader className="text-center sm:text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <Gift className="h-6 w-6 text-slate-600" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20">
+            <Gift className="h-6 w-6 text-orange-500" />
           </div>
-          <DialogTitle className="text-2xl">Wait! Don&apos;t Leave Empty-Handed 🎁</DialogTitle>
-          <DialogDescription className="text-base">
-            Get our exclusive <strong>Cursor Power Pack</strong> with 10 advanced rules 
+          <DialogTitle className="text-2xl text-white">Wait! Don&apos;t Leave Empty-Handed 🎁</DialogTitle>
+          <DialogDescription className="text-base text-gray-400">
+            Get our exclusive <strong className="text-orange-500">Cursor Power Pack</strong> with 10 advanced rules 
             that will instantly level up your AI coding game.
           </DialogDescription>
         </DialogHeader>
 
         <div className="mt-6 space-y-4">
           {/* Value props */}
-          <div className="rounded-lg bg-muted p-4">
-            <h3 className="mb-2 font-semibold flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-slate-600" />
+          <div className="rounded-lg bg-gray-800/50 border border-gray-700 p-4">
+            <h3 className="mb-2 font-semibold flex items-center gap-2 text-white">
+              <Sparkles className="h-4 w-4 text-orange-500" />
               What You&apos;ll Get:
             </h3>
-            <ul className="space-y-1 text-sm text-muted-foreground">
+            <ul className="space-y-1 text-sm text-gray-300">
               <li>• 10 Advanced Cursor Rules (normally $47)</li>
               <li>• AI Prompt Cheat Sheet</li>
               <li>• Component Generation Templates</li>
@@ -174,7 +174,7 @@ export function ExitIntentPopup() {
             />
             <Button 
               type="submit" 
-              className="w-full bg-slate-900 text-white hover:bg-slate-800" 
+              className="w-full bg-orange-600 text-white hover:bg-orange-700 border-0" 
               size="lg"
               disabled={isLoading}
             >

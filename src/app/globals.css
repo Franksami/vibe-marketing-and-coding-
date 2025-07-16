@@ -233,10 +233,4 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Hide cursor on devices with custom cursor */
-  @media (hover: hover) and (pointer: fine) {
-    * {
-      cursor: none !important;
-    }
-  }
 }

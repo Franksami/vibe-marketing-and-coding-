@@ -1,17 +1,17 @@
 import { Navigation } from "@/components/landing/navigation";
 import { HeroDark } from "@/components/landing/hero-dark";
-import { ProblemSection } from "@/components/landing/problem-section";
-import { BusinessModelsSimple } from "@/components/landing/business-models-simple";
-import { ServiceTiersSimple } from "@/components/landing/service-tiers-simple";
-import { CoursePreviewSection } from "@/components/landing/course-preview-section";
-import { TechStackSimple } from "@/components/landing/tech-stack-simple";
-import { TestimonialsSection } from "@/components/landing/testimonials-section";
-import { FAQSection } from "@/components/landing/faq-section";
-import { CTASection } from "@/components/landing/cta-section";
+import { ProblemSectionDark } from "@/components/landing/problem-section-dark";
+import { BusinessModelsDark } from "@/components/landing/business-models-dark";
+import { ServiceTiersDark } from "@/components/landing/service-tiers-dark";
+import { CoursePreviewDark } from "@/components/landing/course-preview-dark";
+import { TechStackDark } from "@/components/landing/tech-stack-dark";
+import { TestimonialsDark } from "@/components/landing/testimonials-dark";
+import { FAQDark } from "@/components/landing/faq-dark";
+import { CTADark } from "@/components/landing/cta-dark";
 import { ExitIntentPopup } from "@/components/popups/exit-intent-popup";
 import { OrganizationSchema } from "@/components/schema/OrganizationSchema";
 import { CourseSchema } from "@/components/schema/CourseSchema";
-import { FreeProductSimple } from "@/components/landing/free-product-simple";
+import { FreeProductDark } from "@/components/landing/free-product-dark";
 import { MatrixRain } from "@/components/backgrounds/matrix-rain";
 
 export default function Home() {
@@ -36,17 +36,17 @@ export default function Home() {
       />
       <MatrixRain />
       <Navigation />
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
         <HeroDark />
-        <ProblemSection />
-        <FreeProductSimple />
-        <BusinessModelsSimple />
-        <CoursePreviewSection />
-        <ServiceTiersSimple />
-        <TechStackSimple />
-        <TestimonialsSection />
-        <FAQSection />
-        <CTASection />
+        <ProblemSectionDark />
+        <FreeProductDark />
+        <BusinessModelsDark />
+        <CoursePreviewDark />
+        <ServiceTiersDark />
+        <TechStackDark />
+        <TestimonialsDark />
+        <FAQDark />
+        <CTADark />
       </main>
       <ExitIntentPopup />
     </div>

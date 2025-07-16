@@ -127,3 +127,81 @@ model LicenseKey {
   @@index([userId])
   @@index([productId])
 }
+
+// Webhook and automation logging
+model WebhookLog {
+  id          String   @id @default(cuid())
+  source      String   // n8n, stripe, convertkit, etc.
+  event       String   // Event type
+  payload     Json     // Raw webhook payload
+  status      String   // success, failed, processing
+  error       String?  // Error message if failed
+  workflowId  String?  // n8n workflow ID
+  executionId String?  // n8n execution ID
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([source])
+  @@index([event])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Content syndication tracking
+model ContentSyndication {
+  id           String   @id @default(cuid())
+  contentId    String   // ID of the content (blog post, course, etc.)
+  contentType  String   // blog, course, product, announcement
+  platforms    Json     // Array of platforms to syndicate to
+  status       String   // pending, processing, completed, failed
+  executionId  String?  // n8n execution ID
+  results      Json?    // Results from each platform
+  
+  createdAt    DateTime @default(now())
+  completedAt  DateTime?
+  
+  @@index([contentId])
+  @@index([contentType])
+  @@index([status])
+}
+
+// Social media post tracking
+model SocialPost {
+  id           String   @id @default(cuid())
+  platform     String   // twitter, linkedin, facebook, instagram
+  postId       String   // Platform-specific post ID
+  contentId    String   // Reference to our content
+  contentType  String   // Type of content posted
+  postUrl      String?  // URL to the post on the platform
+  engagement   Json?    // Likes, shares, comments, etc.
+  status       String   // published, scheduled, failed, deleted
+  scheduledFor DateTime?
+  publishedAt  DateTime?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([platform, postId])
+  @@index([contentId])
+  @@index([platform])
+  @@index([status])
+}
+
+// Automation workflow runs
+model WorkflowRun {
+  id          String   @id @default(cuid())
+  workflowId  String   // n8n workflow ID
+  trigger     String   // What triggered this run
+  input       Json     // Input data
+  output      Json?    // Output data
+  status      String   // running, success, failed
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  error       String?  // Error message if failed
+  duration    Int?     // Duration in milliseconds
+  
+  @@index([workflowId])
+  @@index([trigger])
+  @@index([status])
+  @@index([startedAt])
+}

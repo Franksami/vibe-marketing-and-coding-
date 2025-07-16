@@ -1,0 +1,392 @@
+{
+  "name": "Content Syndication Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sync-social",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Extract content and platforms from webhook\nconst content = $input.item.json.data.content;\nconst tasks = $input.item.json.data.tasks;\n\n// Prepare items for each platform\nconst outputs = [];\n\nfor (const task of tasks) {\n  outputs.push({\n    json: {\n      platform: task.platform,\n      content: task.content,\n      config: task.config,\n      originalContent: content\n    }\n  });\n}\n\nreturn outputs;"
+      },
+      "id": "prepare-content",
+      "name": "Prepare Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.platform }}",
+                    "rightValue": "twitter",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Twitter"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.platform }}",
+                    "rightValue": "linkedin",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "LinkedIn"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.platform }}",
+                    "rightValue": "facebook",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Facebook"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "id": "platform-switch",
+      "name": "Platform Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twitter.com/2/tweets",
+        "authentication": "oAuth2",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "text",
+              "value": "={{ $json.content.text }}"
+            }
+          ]
+        }
+      },
+      "id": "post-twitter",
+      "name": "Post to Twitter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 200],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "twitter-oauth2",
+          "name": "Twitter OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.linkedin.com/v2/ugcPosts",
+        "authentication": "oAuth2",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "author",
+              "value": "urn:li:person:{{ $credentials.personId }}"
+            },
+            {
+              "name": "lifecycleState",
+              "value": "PUBLISHED"
+            },
+            {
+              "name": "specificContent",
+              "value": "={{ { \"com.linkedin.ugc.ShareContent\": { \"shareCommentary\": { \"text\": $json.content.text }, \"shareMediaCategory\": \"NONE\" } } }}"
+            },
+            {
+              "name": "visibility",
+              "value": "={{ { \"com.linkedin.ugc.MemberNetworkVisibility\": \"PUBLIC\" } }}"
+            }
+          ]
+        }
+      },
+      "id": "post-linkedin",
+      "name": "Post to LinkedIn",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "linkedin-oauth2",
+          "name": "LinkedIn OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/{{ $credentials.pageId }}/feed",
+        "authentication": "oAuth2",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "message",
+              "value": "={{ $json.content.message }}"
+            },
+            {
+              "name": "link",
+              "value": "={{ $json.content.link }}"
+            }
+          ]
+        }
+      },
+      "id": "post-facebook",
+      "name": "Post to Facebook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 400],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "facebook-oauth2",
+          "name": "Facebook OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all results\nconst results = [];\nconst platforms = ['twitter', 'linkedin', 'facebook'];\n\nfor (const platform of platforms) {\n  try {\n    const platformData = $input.all().find(item => \n      item.json.platform === platform\n    );\n    \n    if (platformData) {\n      results.push({\n        platform,\n        success: true,\n        postId: platformData.json.id || platformData.json.postId,\n        url: platformData.json.url || platformData.json.postUrl\n      });\n    }\n  } catch (error) {\n    results.push({\n      platform,\n      success: false,\n      error: error.message\n    });\n  }\n}\n\nreturn [{\n  json: {\n    executionId: $execution.id,\n    timestamp: new Date().toISOString(),\n    results\n  }\n}];"
+      },
+      "id": "collect-results",
+      "name": "Collect Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APP_URL }}/api/n8n/webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "event",
+              "value": "social.posted"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.timestamp }}"
+            },
+            {
+              "name": "data",
+              "value": "={{ $json.results }}"
+            },
+            {
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}"
+            },
+            {
+              "name": "executionId",
+              "value": "={{ $execution.id }}"
+            }
+          ]
+        }
+      },
+      "id": "webhook-callback",
+      "name": "Webhook Callback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1250, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "app-webhook-auth",
+          "name": "App Webhook Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "webhook-trigger": {
+      "main": [
+        [
+          {
+            "node": "prepare-content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prepare-content": {
+      "main": [
+        [
+          {
+            "node": "platform-switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "platform-switch": {
+      "main": [
+        [
+          {
+            "node": "post-twitter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "post-linkedin",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "post-facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "post-twitter": {
+      "main": [
+        [
+          {
+            "node": "collect-results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "post-linkedin": {
+      "main": [
+        [
+          {
+            "node": "collect-results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "post-facebook": {
+      "main": [
+        [
+          {
+            "node": "collect-results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "collect-results": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "webhook-callback": {
+      "main": [
+        [
+          {
+            "node": "webhook-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "content",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "social-media",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

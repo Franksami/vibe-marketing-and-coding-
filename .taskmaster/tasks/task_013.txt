@@ -114,3 +114,9 @@ Check for technical issues, content accuracy, and alignment with objectives; rev
 ### Details:
 Ensure all modules, resources, and assessments are live and accessible to learners.
 
+## 16. Create MCP Marketing Course Advanced Modules [pending]
+### Dependencies: None
+### Description: Develop 6 modules: MCP Server Setup, Keyword Research (DataForSEO), Social Scraping (Apify), Image Generation (DALL-E), Video Generation (HeyGen), GA4 Analytics. 2-hour course transforming Claude into automated marketing team using n8n and MCP protocol.
+### Details:
+
+

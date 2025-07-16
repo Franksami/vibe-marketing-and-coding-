@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Sparkles, Users, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Zap, CheckCircle2, TrendingUp, Clock } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { trackEvents } from "@/components/analytics/google-analytics";
@@ -45,93 +45,102 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-background/95 px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-      {/* Background decoration */}
+    <section className="relative min-h-[90vh] overflow-hidden px-4 py-20 sm:px-6 lg:px-8 flex items-center">
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 -z-10 gradient-mesh opacity-30" />
+      <div className="absolute inset-0 -z-10 gradient-radial" />
+      
+      {/* Animated floating elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gradient-to-tr from-primary/5 to-primary/10 shadow-xl shadow-primary/10 ring-1 ring-primary/5 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
+        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-accent/20 blur-3xl animate-pulse animation-delay-2000" />
       </div>
 
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          {/* Social proof badge */}
-          <Badge variant="secondary" className="mb-8 px-4 py-2">
-            <Users className="mr-2 h-4 w-4" />
-            Join 500+ entrepreneurs making $10K/month with AI
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Trust indicator */}
+          <Badge variant="outline" className="mb-8 px-6 py-2 border-primary/20 bg-primary/5">
+            <TrendingUp className="mr-2 h-4 w-4 text-primary" />
+            127 students hit $10K+ last month
           </Badge>
 
           {/* Main headline */}
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-            Build a{" "}
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              $10K/Month Business
-            </span>{" "}
-            Without Writing Code
+            Turn Your Ideas Into
+            <span className="block mt-2 text-gradient">
+              Revenue-Generating Apps
+            </span>
+            <span className="block mt-2 text-2xl sm:text-3xl lg:text-4xl text-muted-foreground font-normal">
+              in 48 Hours or Less
+            </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">
-            The ONLY system that lets you build ANY online business in hours using the Claude Code + Cursor &quot;cheat code&quot; - 
-            even if you&apos;ve never written a line of code.
+          <p className="mt-8 text-lg leading-relaxed text-muted-foreground sm:text-xl max-w-2xl mx-auto">
+            Master the AI-powered development system that&apos;s helping non-technical founders build 
+            and launch profitable SaaS, marketplaces, and automation businesses—without writing code.
           </p>
 
-          {/* Value props */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <Zap className="h-4 w-4 text-primary" />
-              <span>Make Money This Week</span>
+          {/* Success metrics */}
+          <div className="mt-10 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">48hrs</div>
+              <div className="text-sm text-muted-foreground">Average Launch Time</div>
             </div>
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span>No Coding Required</span>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">$10-50K</div>
+              <div className="text-sm text-muted-foreground">Monthly Revenue</div>
             </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-primary" />
-              <span>Proven $10K System</span>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">0</div>
+              <div className="text-sm text-muted-foreground">Coding Required</div>
             </div>
           </div>
 
-          {/* Email capture form */}
-          <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="max-w-md"
-              required
-            />
-            <Button type="submit" size="lg" className="group" disabled={isLoading}>
-              {isLoading ? 'Submitting...' : 'Start Making Money This Week'}
-              {!isLoading && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
-            </Button>
-          </form>
-          {message && (
-            <p className={`mt-2 text-sm ${message.includes('error') || message.includes('Failed') ? 'text-red-500' : 'text-green-600'}`}>
-              {message}
-            </p>
-          )}
-
-          {/* Trust signals */}
-          <p className="mt-6 text-sm text-muted-foreground">
-            🎁 Free bonus: &quot;7 Ways to Make $10K/Month with AI&quot; guide +{" "}
-            <Link href="/resources/ultimate-cursor-rulebook" className="underline hover:text-primary">
-              Ultimate Cursor Rulebook
-            </Link>
-            {" "}($47 value)
-          </p>
-
-          {/* CTA buttons */}
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/pricing">
-                See Success Stories
+          {/* Primary CTA */}
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="gradient-primary text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+              <Link href="/pricing" className="flex items-center">
+                Get Instant Access
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="ghost" size="lg" asChild>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-full border-2 hover:bg-primary/5">
               <Link href="#business-models">
-                Pick Your Business Model →
+                View Success Stories
               </Link>
             </Button>
+          </div>
+
+          {/* What's included */}
+          <div className="mt-12 space-y-3">
+            <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">What You Get Today:</p>
+            <div className="flex flex-wrap gap-4 justify-center text-sm">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span>Complete AI Development System</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span>7 Ready-to-Launch Templates</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span>Private Community Access</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span>Weekly Live Coaching</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Urgency/Scarcity */}
+          <div className="mt-8">
+            <Badge variant="destructive" className="px-4 py-2">
+              <Clock className="mr-2 h-4 w-4" />
+              Special Launch Price Ends in 48 Hours
+            </Badge>
           </div>
         </div>
       </div>

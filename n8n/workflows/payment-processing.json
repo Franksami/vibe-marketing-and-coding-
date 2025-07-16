@@ -1,0 +1,336 @@
+{
+  "name": "Payment Processing Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "payment-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "stripe-webhook",
+      "name": "Stripe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verify Stripe webhook signature\nconst stripe = require('stripe');\nconst endpointSecret = $env.STRIPE_WEBHOOK_SECRET;\n\nconst sig = $input.item.headers['stripe-signature'];\nconst payload = $input.item.body;\n\ntry {\n  // In production, verify the signature\n  // const event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);\n  \n  // For now, parse the event\n  const event = JSON.parse(payload);\n  \n  return [{\n    json: {\n      eventType: event.type,\n      eventId: event.id,\n      data: event.data.object,\n      timestamp: new Date().toISOString()\n    }\n  }];\n} catch (err) {\n  throw new Error(`Webhook signature verification failed: ${err.message}`);\n}"
+      },
+      "id": "verify-webhook",
+      "name": "Verify Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.eventType }}",
+                    "rightValue": "checkout.session.completed",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Checkout"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.eventType }}",
+                    "rightValue": "customer.subscription.created",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Subscription"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.eventType }}",
+                    "rightValue": "payment_intent.succeeded",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Payment"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "id": "event-router",
+      "name": "Event Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process checkout completion\nconst session = $json.data;\n\nreturn [{\n  json: {\n    userId: session.client_reference_id,\n    userEmail: session.customer_email,\n    userName: session.customer_details?.name || 'Customer',\n    productId: session.metadata?.productId,\n    courseName: session.metadata?.courseName || 'Product',\n    amount: session.amount_total,\n    currency: session.currency,\n    purchaseId: session.id,\n    subscriptionId: session.subscription,\n    mode: session.mode\n  }\n}];"
+      },
+      "id": "process-checkout",
+      "name": "Process Checkout",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APP_URL }}/api/n8n/trigger",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "type",
+              "value": "process-enrollment"
+            },
+            {
+              "name": "data",
+              "value": "={{ $json }}"
+            }
+          ]
+        }
+      },
+      "id": "trigger-enrollment",
+      "name": "Trigger Enrollment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.convertkit.com/v3/purchases",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "api_secret",
+              "value": "={{ $credentials.apiSecret }}"
+            }
+          ]
+        },
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "purchase",
+              "value": "={{ { transaction_id: $json.purchaseId, email_address: $json.userEmail, first_name: $json.userName.split(' ')[0], currency: $json.currency.toUpperCase(), transaction_time: new Date().toISOString(), subtotal: $json.amount / 100, total: $json.amount / 100, status: 'paid', products: [{ name: $json.courseName, sku: $json.productId, price: $json.amount / 100, quantity: 1 }] } }}"
+            }
+          ]
+        }
+      },
+      "id": "track-convertkit",
+      "name": "Track in ConvertKit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 300],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "convertkit-api",
+          "name": "ConvertKit API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APP_URL }}/api/n8n/webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "event",
+              "value": "payment.completed"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.timestamp }}"
+            },
+            {
+              "name": "data",
+              "value": "={{ { eventType: $node['verify-webhook'].json.eventType, eventId: $node['verify-webhook'].json.eventId, processedData: $json } }}"
+            },
+            {
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}"
+            },
+            {
+              "name": "executionId",
+              "value": "={{ $execution.id }}"
+            }
+          ]
+        }
+      },
+      "id": "webhook-callback",
+      "name": "Webhook Callback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1250, 250],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "app-webhook-auth",
+          "name": "App Webhook Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "stripe-webhook": {
+      "main": [
+        [
+          {
+            "node": "verify-webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "verify-webhook": {
+      "main": [
+        [
+          {
+            "node": "event-router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "event-router": {
+      "main": [
+        [
+          {
+            "node": "process-checkout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "process-checkout": {
+      "main": [
+        [
+          {
+            "node": "trigger-enrollment",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "track-convertkit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "trigger-enrollment": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "track-convertkit": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "webhook-callback": {
+      "main": [
+        [
+          {
+            "node": "webhook-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "payment",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "stripe",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

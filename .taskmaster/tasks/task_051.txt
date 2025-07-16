@@ -1,0 +1,20 @@
+# Task ID: 51
+# Title: Build Calendly Integration
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Implement automated scheduling system for demos and consultations
+# Details:
+1. Set up Calendly account and API
+2. Create booking types (demo, consultation)
+3. Implement calendar sync
+4. Build automated reminders
+5. Create follow-up automation
+6. Integrate with CRM
+
+# Test Strategy:
+1. Test booking flow
+2. Validate calendar sync
+3. Test reminder delivery
+4. Verify timezone handling
+5. Test CRM integration

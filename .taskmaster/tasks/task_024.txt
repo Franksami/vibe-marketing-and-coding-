@@ -22,3 +22,29 @@
 3. Metrics accuracy testing
 4. Integration testing with n8n API
 5. Performance testing for gallery loading
+
+# Subtasks:
+## 1. Implement Reddit Content Production Workflow [pending]
+### Dependencies: None
+### Description: Create n8n workflow that reads Reddit posts, generates multi-platform content ideas using AI, creates LinkedIn posts, blog posts, and YouTube scripts. Uses OpenAI, Claude via OpenRouter, and Google Sheets integration.
+### Details:
+
+
+## 2. Implement YouTube Thumbnail Generator Workflow [pending]
+### Dependencies: None
+### Description: Create n8n workflow that analyzes YouTube transcripts, extracts hooks, generates branded thumbnails using DALL-E 3, and uploads to Google Drive. Includes Apify integration for transcript fetching.
+### Details:
+
+
+## 3. Implement HeyGen Video Generation Workflow [pending]
+### Dependencies: None
+### Description: Create n8n workflow that generates AI videos using HeyGen API. Includes fetching avatars/voices, generating videos from scripts in Google Sheets, and checking video status. Integrates with payment processing workflows.
+### Details:
+
+
+## 4. Implement Marketing Analytics Dashboard Workflow [pending]
+### Dependencies: None
+### Description: Create n8n workflow that integrates GA4, social media metrics, and content performance. Includes automated reporting, performance tracking, and data visualization for marketing campaigns.
+### Details:
+
+

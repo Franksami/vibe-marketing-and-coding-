@@ -1,0 +1,282 @@
+{
+  "name": "Student Onboarding Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "process-enrollment",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Enrollment Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract enrollment data\nconst enrollment = $input.item.json.data;\n\nreturn [{\n  json: {\n    userId: enrollment.userId,\n    courseId: enrollment.courseId,\n    userEmail: enrollment.userEmail,\n    userName: enrollment.userName,\n    courseName: enrollment.courseName,\n    purchaseId: enrollment.purchaseId,\n    enrollmentDate: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "extract-data",
+      "name": "Extract Enrollment Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.convertkit.com/v3/tags/{{ $env.CONVERTKIT_STUDENT_TAG_ID }}/subscribe",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "api_key",
+              "value": "={{ $credentials.apiKey }}"
+            }
+          ]
+        },
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "email",
+              "value": "={{ $json.userEmail }}"
+            },
+            {
+              "name": "first_name",
+              "value": "={{ $json.userName.split(' ')[0] }}"
+            },
+            {
+              "name": "fields",
+              "value": "={{ { course_enrolled: $json.courseName, enrollment_date: $json.enrollmentDate } }}"
+            }
+          ]
+        }
+      },
+      "id": "add-convertkit-tag",
+      "name": "Add to ConvertKit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 200],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "convertkit-api",
+          "name": "ConvertKit API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "{{ $env.SKOOL_API_URL }}/members",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "email",
+              "value": "={{ $json.userEmail }}"
+            },
+            {
+              "name": "name",
+              "value": "={{ $json.userName }}"
+            },
+            {
+              "name": "groups",
+              "value": "={{ [$json.courseName] }}"
+            },
+            {
+              "name": "referenceId",
+              "value": "={{ $json.userId }}"
+            }
+          ]
+        }
+      },
+      "id": "add-skool-access",
+      "name": "Grant Skool Access",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "skool-api",
+          "name": "Skool API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "fromEmail": "{{ $env.FROM_EMAIL }}",
+        "toEmail": "={{ $json.userEmail }}",
+        "subject": "Welcome to {{ $json.courseName }}! 🎉",
+        "html": "<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }\n    .container { max-width: 600px; margin: 0 auto; padding: 20px; }\n    .header { background-color: #6B21A8; color: white; padding: 20px; text-align: center; }\n    .content { padding: 20px; background-color: #f9f9f9; }\n    .button { display: inline-block; padding: 12px 24px; background-color: #6B21A8; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }\n    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>Welcome to The Vibe Launch! 🚀</h1>\n    </div>\n    <div class=\"content\">\n      <h2>Hi {{ $json.userName.split(' ')[0] }}!</h2>\n      <p>Congratulations on enrolling in <strong>{{ $json.courseName }}</strong>!</p>\n      <p>We're thrilled to have you join our community of AI-powered developers. Here's what happens next:</p>\n      <ul>\n        <li>✅ You now have full access to all course materials</li>\n        <li>✅ You've been added to our exclusive Skool community</li>\n        <li>✅ You'll receive weekly tips and updates via email</li>\n      </ul>\n      <p>Ready to dive in?</p>\n      <a href=\"{{ $env.APP_URL }}/courses/{{ $json.courseId }}\" class=\"button\">Start Learning Now</a>\n      <p>If you have any questions, don't hesitate to reach out!</p>\n      <p>Happy learning!<br>The Vibe Launch Team</p>\n    </div>\n    <div class=\"footer\">\n      <p>© 2024 The Vibe Launch. All rights reserved.</p>\n      <p>You're receiving this email because you enrolled in a course at thevibelaunch.ai</p>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "send-welcome-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [650, 400],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-credentials",
+          "name": "SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.APP_URL }}/api/n8n/webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "event",
+              "value": "user.enrolled"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.enrollmentDate }}"
+            },
+            {
+              "name": "data",
+              "value": "={{ { userId: $json.userId, courseId: $json.courseId, convertKitSuccess: $node['add-convertkit-tag'].json.success, skoolSuccess: $node['add-skool-access'].json.success, emailSent: true } }}"
+            },
+            {
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}"
+            },
+            {
+              "name": "executionId",
+              "value": "={{ $execution.id }}"
+            }
+          ]
+        }
+      },
+      "id": "webhook-callback",
+      "name": "Update App Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "app-webhook-auth",
+          "name": "App Webhook Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "webhook-trigger": {
+      "main": [
+        [
+          {
+            "node": "extract-data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract-data": {
+      "main": [
+        [
+          {
+            "node": "add-convertkit-tag",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "add-skool-access",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "send-welcome-email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add-convertkit-tag": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add-skool-access": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "send-welcome-email": {
+      "main": [
+        [
+          {
+            "node": "webhook-callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "webhook-callback": {
+      "main": [
+        [
+          {
+            "node": "webhook-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "enrollment",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "onboarding",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

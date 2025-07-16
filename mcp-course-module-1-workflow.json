@@ -1,0 +1,75 @@
+{
+  "name": "Module 1 - MCP Test Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "mcp-test",
+        "options": {}
+      },
+      "id": "mcp_server_trigger",
+      "name": "MCP Server",
+      "type": "n8n-nodes-base.mcpServer",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": {
+          "message": "🎉 Hello from n8n! Your MCP connection is working perfectly!",
+          "status": "success",
+          "timestamp": "={{new Date().toISOString()}}",
+          "course": "MCP Marketing Course",
+          "module": "Module 1 - Setup Complete",
+          "next_steps": [
+            "Module 2: Connect DataForSEO for keyword research",
+            "Module 3: Set up Apify for social scraping", 
+            "Module 4: Configure DALL-E for image generation"
+          ],
+          "tips": {
+            "reminder": "Make sure to save and activate this workflow",
+            "community": "Share your success in Skool with #Module1Done",
+            "support": "Having issues? Check the troubleshooting guide or ask in community"
+          }
+        },
+        "options": {}
+      },
+      "id": "webhook_response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "MCP Server": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "module-1-demo",
+  "id": "mcp-module-1-test",
+  "meta": {
+    "instanceId": "mcp-marketing-course",
+    "templateId": "module-1-mcp-test",
+    "description": "Test workflow for Module 1 of MCP Marketing Course. Import this to verify your MCP setup is working correctly.",
+    "tags": ["mcp", "marketing", "course", "module-1", "test"]
+  },
+  "tags": []
+}

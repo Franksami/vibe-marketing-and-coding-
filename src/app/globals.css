@@ -44,72 +44,72 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --radius: 0.5rem;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.15 0.01 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.15 0.01 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.647 0.171 39.851); /* #DC6B3B - Anthropic Orange */
+  --popover-foreground: oklch(0.15 0.01 0);
+  --primary: oklch(0.55 0.25 265); /* Modern indigo-blue */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.747 0.139 41.428); /* #F5A572 - Light Anthropic Orange */
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.594 0.204 274.756); /* Purple ring */
-  --chart-1: oklch(0.594 0.204 274.756); /* Purple */
-  --chart-2: oklch(0.688 0.159 279.697); /* Light Purple */
-  --chart-3: oklch(0.538 0.256 274.112); /* Dark Purple */
-  --chart-4: oklch(0.646 0.222 41.116);
-  --chart-5: oklch(0.6 0.118 184.704);
+  --secondary: oklch(0.96 0.01 265);
+  --secondary-foreground: oklch(0.3 0.05 265);
+  --muted: oklch(0.96 0.005 0);
+  --muted-foreground: oklch(0.45 0.01 0);
+  --accent: oklch(0.65 0.15 200); /* Bright cyan accent */
+  --accent-foreground: oklch(0.15 0.01 0);
+  --destructive: oklch(0.59 0.24 27);
+  --border: oklch(0.91 0.005 0);
+  --input: oklch(0.91 0.005 0);
+  --ring: oklch(0.55 0.25 265);
+  --chart-1: oklch(0.55 0.25 265); /* Primary blue */
+  --chart-2: oklch(0.65 0.15 200); /* Cyan */
+  --chart-3: oklch(0.55 0.2 150); /* Teal */
+  --chart-4: oklch(0.7 0.15 90); /* Green */
+  --chart-5: oklch(0.6 0.2 30); /* Orange */
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.594 0.204 274.756); /* Purple */
+  --sidebar-foreground: oklch(0.15 0.01 0);
+  --sidebar-primary: oklch(0.55 0.25 265);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.594 0.204 274.756); /* Purple ring */
+  --sidebar-accent: oklch(0.96 0.01 265);
+  --sidebar-accent-foreground: oklch(0.3 0.05 265);
+  --sidebar-border: oklch(0.91 0.005 0);
+  --sidebar-ring: oklch(0.55 0.25 265);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.747 0.139 41.428); /* #F5A572 - Light Anthropic Orange in dark mode */
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.647 0.171 39.851); /* #DC6B3B - Anthropic Orange accent */
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.747 0.139 41.428); /* Light Anthropic Orange ring */
-  --chart-1: oklch(0.747 0.139 41.428); /* Light Anthropic Orange */
-  --chart-2: oklch(0.647 0.171 39.851); /* Anthropic Orange */
-  --chart-3: oklch(0.547 0.171 37.851); /* Dark Anthropic Orange */
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.747 0.139 41.428); /* Light Anthropic Orange */
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.747 0.139 41.428); /* Light Anthropic Orange ring */
+  --background: oklch(0.08 0.01 265);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.12 0.01 265);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.12 0.01 265);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.65 0.2 265); /* Bright blue in dark mode */
+  --primary-foreground: oklch(0.08 0.01 265);
+  --secondary: oklch(0.2 0.02 265);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.2 0.01 265);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.7 0.15 200); /* Bright cyan accent in dark */
+  --accent-foreground: oklch(0.08 0.01 265);
+  --destructive: oklch(0.7 0.19 22);
+  --border: oklch(0.95 0 0 / 10%);
+  --input: oklch(0.95 0 0 / 15%);
+  --ring: oklch(0.65 0.2 265);
+  --chart-1: oklch(0.65 0.2 265); /* Primary blue */
+  --chart-2: oklch(0.7 0.15 200); /* Cyan */
+  --chart-3: oklch(0.65 0.18 150); /* Teal */
+  --chart-4: oklch(0.75 0.13 90); /* Green */
+  --chart-5: oklch(0.7 0.18 30); /* Orange */
+  --sidebar: oklch(0.12 0.01 265);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.65 0.2 265);
+  --sidebar-primary-foreground: oklch(0.08 0.01 265);
+  --sidebar-accent: oklch(0.2 0.02 265);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.95 0 0 / 10%);
+  --sidebar-ring: oklch(0.65 0.2 265);
 }
 
 @layer base {
@@ -118,5 +118,40 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-accent;
+  }
+  
+  .gradient-mesh {
+    background-image: 
+      radial-gradient(at 27% 37%, oklch(0.65 0.15 200 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, oklch(0.55 0.25 265 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, oklch(0.55 0.2 150 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, oklch(0.7 0.15 90 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, oklch(0.6 0.2 30 / 0.3) 0px, transparent 50%),
+      radial-gradient(at 33% 50%, oklch(0.65 0.2 265 / 0.3) 0px, transparent 50%);
+  }
+  
+  .gradient-radial {
+    background: radial-gradient(ellipse 80% 80% at 50% -20%, oklch(0.55 0.25 265 / 0.3), transparent);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+  }
+  
+  .glow {
+    box-shadow: 
+      0 0 20px oklch(0.55 0.25 265 / 0.1),
+      0 0 40px oklch(0.55 0.25 265 / 0.1),
+      0 0 60px oklch(0.55 0.25 265 / 0.1);
+  }
+  
+  .glass {
+    @apply backdrop-blur-md bg-white/5 border border-white/10;
   }
 }

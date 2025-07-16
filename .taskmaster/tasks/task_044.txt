@@ -1,0 +1,21 @@
+# Task ID: 44
+# Title: Integrate Instantly.ai for Cold Email Outreach
+# Status: pending
+# Dependencies: 42
+# Priority: high
+# Description: Set up AI-powered cold email outreach platform with campaign tracking and analytics
+# Details:
+1. Set up Instantly account and API integration
+2. Configure email warmup (2-3 weeks minimum)
+3. Create cold email templates
+4. Set up tracking and analytics
+5. Implement webhook handlers for opens/replies
+6. Create campaign management dashboard
+7. Test deliverability and inbox placement
+
+# Test Strategy:
+1. Test API connection and authentication
+2. Verify email sending functionality
+3. Test webhook reception for opens/clicks/replies
+4. Validate campaign analytics accuracy
+5. Check deliverability with email testing tools

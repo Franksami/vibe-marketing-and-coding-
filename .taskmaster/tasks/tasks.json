@@ -323,7 +323,7 @@
             "description": "Film or record all lessons, demonstrations, and walkthroughs for each module.",
             "dependencies": [],
             "details": "Follow scripts and storyboards, ensuring clarity and engagement in delivery.",
-            "status": "pending",
+            "status": "in-progress",
             "testStrategy": ""
           },
           {
@@ -411,6 +411,15 @@
             "details": "Ensure all modules, resources, and assessments are live and accessible to learners.",
             "status": "pending",
             "testStrategy": ""
+          },
+          {
+            "id": 16,
+            "title": "Create MCP Marketing Course Advanced Modules",
+            "description": "Develop 6 modules: MCP Server Setup, Keyword Research (DataForSEO), Social Scraping (Apify), Image Generation (DALL-E), Video Generation (HeyGen), GA4 Analytics. 2-hour course transforming Claude into automated marketing team using n8n and MCP protocol.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
           }
         ]
       },
@@ -1469,7 +1478,44 @@
           22
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Reddit Content Production Workflow",
+            "description": "Create n8n workflow that reads Reddit posts, generates multi-platform content ideas using AI, creates LinkedIn posts, blog posts, and YouTube scripts. Uses OpenAI, Claude via OpenRouter, and Google Sheets integration.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 24
+          },
+          {
+            "id": 2,
+            "title": "Implement YouTube Thumbnail Generator Workflow",
+            "description": "Create n8n workflow that analyzes YouTube transcripts, extracts hooks, generates branded thumbnails using DALL-E 3, and uploads to Google Drive. Includes Apify integration for transcript fetching.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 24
+          },
+          {
+            "id": 3,
+            "title": "Implement HeyGen Video Generation Workflow",
+            "description": "Create n8n workflow that generates AI videos using HeyGen API. Includes fetching avatars/voices, generating videos from scripts in Google Sheets, and checking video status. Integrates with payment processing workflows.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 24
+          },
+          {
+            "id": 4,
+            "title": "Implement Marketing Analytics Dashboard Workflow",
+            "description": "Create n8n workflow that integrates GA4, social media metrics, and content performance. Includes automated reporting, performance tracking, and data visualization for marketing campaigns.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 24
+          }
+        ]
       },
       {
         "id": 25,
@@ -1718,7 +1764,7 @@
         "details": "1. Check domain availability\n2. Select a reliable domain registrar (e.g., Namecheap, GoDaddy, or Cloudflare)\n3. Purchase domain for 1-2 years\n4. Configure DNS settings\n5. Set up domain privacy protection\n6. Point domain to hosting platform",
         "testStrategy": "1. Verify domain registration is complete\n2. Test DNS propagation\n3. Ensure domain points to correct hosting\n4. Verify HTTPS certificate setup\n5. Test domain accessibility from multiple locations",
         "priority": "high",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "subtasks": []
       },
@@ -1730,13 +1776,162 @@
         "testStrategy": "1. Review content for completeness and accuracy\n2. Test all code examples and exercises\n3. Verify video quality and audio clarity\n4. Get feedback from beta testers\n5. Ensure smooth integration with learning platform\n6. Test assessment functionality",
         "priority": "high",
         "status": "pending",
-        "dependencies": [13],
+        "dependencies": [
+          13
+        ],
+        "subtasks": []
+      },
+      {
+        "id": 44,
+        "title": "Integrate Instantly.ai for Cold Email Outreach",
+        "description": "Set up AI-powered cold email outreach platform with campaign tracking and analytics",
+        "details": "1. Set up Instantly account and API integration\n2. Configure email warmup (2-3 weeks minimum)\n3. Create cold email templates\n4. Set up tracking and analytics\n5. Implement webhook handlers for opens/replies\n6. Create campaign management dashboard\n7. Test deliverability and inbox placement",
+        "testStrategy": "1. Test API connection and authentication\n2. Verify email sending functionality\n3. Test webhook reception for opens/clicks/replies\n4. Validate campaign analytics accuracy\n5. Check deliverability with email testing tools",
+        "priority": "high",
+        "dependencies": [
+          42
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 45,
+        "title": "Implement Apify for Lead Research and Scraping",
+        "description": "Set up web scraping platform for automated lead generation and data extraction",
+        "details": "1. Set up Apify account and API access\n2. Configure LinkedIn Sales Navigator scraper\n3. Create company website data extractor\n4. Build lead enrichment pipeline\n5. Implement data validation and deduplication\n6. Create lead scoring algorithm\n7. Set up automated lead import to Instantly",
+        "testStrategy": "1. Test scraper accuracy on sample websites\n2. Validate data extraction quality\n3. Test deduplication logic\n4. Verify API rate limiting\n5. Check data privacy compliance",
+        "priority": "high",
+        "dependencies": [
+          44
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 46,
+        "title": "Build Lead Management System",
+        "description": "Create comprehensive lead tracking and management system with CRM capabilities",
+        "details": "1. Create Lead and ColdEmailCampaign database models\n2. Build lead import/export functionality\n3. Implement lead qualification workflow\n4. Create lead analytics dashboard\n5. Set up lead routing to sales team\n6. Build CRM integration layer",
+        "testStrategy": "1. Test database operations (CRUD)\n2. Validate import/export with various formats\n3. Test lead scoring accuracy\n4. Verify analytics calculations\n5. Test integration endpoints",
+        "priority": "high",
+        "dependencies": [
+          44,
+          45
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 47,
+        "title": "Integrate ManyChat for Multi-Channel Chatbots",
+        "description": "Set up automated chatbot system for WhatsApp, Instagram, and Facebook messaging",
+        "details": "1. Set up ManyChat account and API access\n2. Create WhatsApp Business integration\n3. Build Instagram DM automation\n4. Design conversation flows for support\n5. Implement course recommendation bot\n6. Create FAQ automation\n7. Set up lead capture through chat\n8. Build analytics tracking",
+        "testStrategy": "1. Test message flow on each platform\n2. Validate conversation logic\n3. Test lead capture functionality\n4. Verify analytics accuracy\n5. Conduct user acceptance testing",
+        "priority": "medium",
+        "dependencies": [
+          42
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 48,
+        "title": "Implement Opus Clip for Video Repurposing",
+        "description": "Set up AI-powered video clipping for converting long-form content to social media clips",
+        "details": "1. Set up Opus Clip account (or alternative)\n2. Create video processing pipeline\n3. Build automatic clip generation workflow\n4. Implement social media formatting\n5. Create posting schedule automation\n6. Set up performance tracking\n7. Build content library management",
+        "testStrategy": "1. Test video processing quality\n2. Validate clip selection accuracy\n3. Test social media format compatibility\n4. Verify automation workflow\n5. Check storage and retrieval system",
+        "priority": "medium",
+        "dependencies": [
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 49,
+        "title": "Integrate Apollo.io for B2B Lead Database",
+        "description": "Set up B2B lead database with enrichment and email finding capabilities",
+        "details": "1. Set up Apollo account and API\n2. Configure search criteria and filters\n3. Build lead enrichment pipeline\n4. Implement email finder integration\n5. Create data sync with CRM\n6. Set up lead scoring integration",
+        "testStrategy": "1. Test API authentication\n2. Validate search accuracy\n3. Test enrichment data quality\n4. Verify email finder accuracy\n5. Test sync reliability",
+        "priority": "medium",
+        "dependencies": [
+          46
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 50,
+        "title": "Implement Bannerbear for Dynamic Graphics",
+        "description": "Set up automated graphic generation for social media and marketing materials",
+        "details": "1. Set up Bannerbear account and API\n2. Create social media templates\n3. Build dynamic image generation\n4. Implement blog post graphics automation\n5. Create testimonial image generator\n6. Set up batch processing",
+        "testStrategy": "1. Test template rendering\n2. Validate image quality\n3. Test bulk generation\n4. Verify API performance\n5. Check storage integration",
+        "priority": "low",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 51,
+        "title": "Build Calendly Integration",
+        "description": "Implement automated scheduling system for demos and consultations",
+        "details": "1. Set up Calendly account and API\n2. Create booking types (demo, consultation)\n3. Implement calendar sync\n4. Build automated reminders\n5. Create follow-up automation\n6. Integrate with CRM",
+        "testStrategy": "1. Test booking flow\n2. Validate calendar sync\n3. Test reminder delivery\n4. Verify timezone handling\n5. Test CRM integration",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 52,
+        "title": "Implement AI Content Generation",
+        "description": "Set up AI-powered content creation for blogs, social media, and emails",
+        "details": "1. Set up OpenAI/Claude API access\n2. Create blog post generator\n3. Build social media content creator\n4. Implement email template generator\n5. Create course outline assistant\n6. Build content optimization tool",
+        "testStrategy": "1. Test content quality\n2. Validate API integration\n3. Test rate limiting\n4. Verify content uniqueness\n5. Check SEO optimization",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 53,
+        "title": "Set up Advanced Analytics Platform",
+        "description": "Implement comprehensive analytics and tracking across all platforms",
+        "details": "1. Implement Mixpanel for product analytics\n2. Set up Segment for data routing\n3. Configure conversion tracking\n4. Build unified dashboard\n5. Create automated reports\n6. Set up alert system",
+        "testStrategy": "1. Test event tracking\n2. Validate data accuracy\n3. Test dashboard functionality\n4. Verify report generation\n5. Test alert triggers",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 54,
+        "title": "Implement HubSpot CRM Integration",
+        "description": "Set up full CRM system with marketing automation capabilities",
+        "details": "1. Set up HubSpot account\n2. Configure data sync\n3. Build two-way integration\n4. Implement workflow automation\n5. Create reporting integration",
+        "testStrategy": "1. Test data sync accuracy\n2. Validate workflow triggers\n3. Test bi-directional updates\n4. Verify reporting accuracy\n5. Check performance impact",
+        "priority": "low",
+        "dependencies": [
+          46
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 55,
+        "title": "Build Monitoring and Error Handling System",
+        "description": "Implement comprehensive monitoring, logging, and error tracking",
+        "details": "1. Set up Sentry for error tracking\n2. Implement Datadog monitoring\n3. Create health check endpoints\n4. Build alert system\n5. Set up automated recovery",
+        "testStrategy": "1. Test error capture\n2. Validate monitoring metrics\n3. Test alert delivery\n4. Verify recovery procedures\n5. Load test system",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
         "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-07-14T04:19:20.563Z",
-      "updated": "2025-07-15T19:45:00.000Z",
+      "updated": "2025-07-16T04:07:58.937Z",
       "description": "Tasks for master context"
     }
   }

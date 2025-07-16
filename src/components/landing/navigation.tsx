@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, User } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Menu, User, Sparkles, ArrowRight } from "lucide-react";
 import { LoginDialog } from "@/components/auth/login-dialog";
 import { useSession, signOut } from "next-auth/react";
 import { Logo } from "@/components/branding/logo";
@@ -21,21 +22,33 @@ export function Navigation() {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
-    { label: "Features", href: "#features" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Courses", href: "#courses" },
+    { label: "How It Works", href: "#features" },
+    { label: "Success Stories", href: "#business-models" },
+    { label: "Pricing", href: "#pricing" },
     { label: "Community", href: "#community" },
-    { label: "Free Resources", href: "/resources/cursor-rules" },
-    { label: "Library", href: "/library" },
+    { label: "Free Resources", href: "/resources/cursor-rules", badge: "New" },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
-        <div className="mr-4 flex">
-          <Logo className="mr-6" />
+    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      scrolled 
+        ? "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm" 
+        : "bg-transparent"
+    }`}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center">
+        <div className="mr-8 flex items-center">
+          <Logo className="transition-transform hover:scale-105" />
         </div>
         
         {/* Desktop Navigation */}
@@ -45,9 +58,15 @@ export function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium transition-colors hover:text-primary"
+                className="relative text-sm font-medium transition-all hover:text-primary group"
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                {item.badge && (
+                  <Badge className="ml-2 h-5 px-1.5 text-[10px]" variant="secondary">
+                    {item.badge}
+                  </Badge>
+                )}
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 transition-transform group-hover:scale-x-100" />
               </Link>
             ))}
           </nav>
@@ -79,11 +98,22 @@ export function Navigation() {
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="outline" onClick={() => setShowLoginDialog(true)}>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowLoginDialog(true)}
+                  className="text-sm"
+                >
                   Sign In
                 </Button>
-                <Button asChild>
-                  <Link href="#get-started">Get Started Free</Link>
+                <Button 
+                  asChild 
+                  className="bg-gradient-primary text-white hover:shadow-lg transition-all duration-200 group"
+                >
+                  <Link href="#pricing" className="flex items-center">
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Start Building
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </Button>
               </>
             )}
@@ -106,9 +136,14 @@ export function Navigation() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-sm font-medium transition-colors hover:text-primary"
+                    className="flex items-center justify-between text-sm font-medium transition-colors hover:text-primary py-2"
                   >
                     {item.label}
+                    {item.badge && (
+                      <Badge className="h-5 px-1.5 text-[10px]" variant="secondary">
+                        {item.badge}
+                      </Badge>
+                    )}
                   </Link>
                 ))}
                 <div className="space-y-2 pt-4">
@@ -122,8 +157,11 @@ export function Navigation() {
                   >
                     Sign In
                   </Button>
-                  <Button className="w-full" asChild>
-                    <Link href="#get-started">Get Started Free</Link>
+                  <Button className="w-full bg-gradient-primary text-white" asChild>
+                    <Link href="#pricing" className="flex items-center justify-center">
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      Start Building
+                    </Link>
                   </Button>
                 </div>
               </nav>

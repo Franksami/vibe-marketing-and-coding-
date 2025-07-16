@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    const { email, firstName } = data.subscriber;
+    const { email } = data.subscriber;
     
     // In production, you would:
     // 1. Verify webhook signature

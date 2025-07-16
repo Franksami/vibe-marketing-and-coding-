@@ -102,7 +102,7 @@ export async function GET(
         activations: license.activations + 1,
         lastActivatedAt: new Date(),
         metadata: {
-          ...(license.metadata as any || {}),
+          ...(license.metadata as Record<string, unknown> || {}),
           lastDownloadIp: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
           lastDownloadUserAgent: request.headers.get('user-agent'),
           lastDownloadAt: new Date().toISOString(),
@@ -120,7 +120,7 @@ export async function GET(
     } else {
       // For other products, redirect to Gumroad's download URL
       // This would be provided by Gumroad in the purchase webhook
-      const gumroadData = license.purchase.metadata as any;
+      const gumroadData = license.purchase.metadata as { gumroadData?: { download_url?: string } };
       downloadUrl = gumroadData?.gumroadData?.download_url || '#';
     }
 

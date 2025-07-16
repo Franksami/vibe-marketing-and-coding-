@@ -19,7 +19,7 @@ export type N8NWebhookEvent =
 interface N8NWebhookPayload {
   event: N8NWebhookEvent;
   timestamp: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   workflowId?: string;
   executionId?: string;
 }
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
 
 // Handler functions for each event type
 
-async function handleContentPublished(data: any) {
+async function handleContentPublished(data: Record<string, unknown>) {
   // Update content status in database
   if (data.contentId && data.contentType) {
     console.log(`Content published: ${data.contentType} - ${data.contentId}`);
@@ -130,12 +130,12 @@ async function handleContentPublished(data: any) {
   }
 }
 
-async function handleContentUpdated(data: any) {
+async function handleContentUpdated(data: Record<string, unknown>) {
   // Handle content updates
   console.log('Content updated:', data);
 }
 
-async function handleUserEnrolled(data: any) {
+async function handleUserEnrolled(data: Record<string, unknown>) {
   // Process new user enrollment
   if (data.userId && data.courseId) {
     console.log(`User ${data.userId} enrolled in course ${data.courseId}`);
@@ -143,17 +143,17 @@ async function handleUserEnrolled(data: any) {
   }
 }
 
-async function handlePaymentCompleted(data: any) {
+async function handlePaymentCompleted(data: Record<string, unknown>) {
   // Process completed payment
   console.log('Payment completed:', data);
 }
 
-async function handleEmailSubscribed(data: any) {
+async function handleEmailSubscribed(data: Record<string, unknown>) {
   // Handle email subscription
   console.log('Email subscribed:', data);
 }
 
-async function handleSocialPosted(data: any) {
+async function handleSocialPosted(data: Record<string, unknown>) {
   // Track social media posts
   if (data.platform && data.postId) {
     console.log(`Posted to ${data.platform}: ${data.postId}`);
@@ -161,7 +161,7 @@ async function handleSocialPosted(data: any) {
   }
 }
 
-async function handleAutomationCompleted(data: any) {
+async function handleAutomationCompleted(data: Record<string, unknown>) {
   // Log automation completion
   console.log('Automation completed:', data);
 }

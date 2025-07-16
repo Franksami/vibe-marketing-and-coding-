@@ -16,7 +16,7 @@ export type TriggerType =
 
 interface TriggerPayload {
   type: TriggerType;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   priority?: 'low' | 'normal' | 'high';
   metadata?: {
     userId?: string;

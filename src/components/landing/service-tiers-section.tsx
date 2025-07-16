@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,10 +9,22 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { trackEvents } from "@/components/analytics/google-analytics";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import CountUp from "react-countup";
 
 export function ServiceTiersSection() {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [hoveredTier, setHoveredTier] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
 
   const handlePurchase = async () => {
     if (!session) {
@@ -54,8 +66,8 @@ export function ServiceTiersSection() {
     {
       name: "Self-Paced",
       icon: Zap,
-      price: "$497",
-      originalPrice: "$997",
+      price: 497,
+      originalPrice: 997,
       frequency: "lifetime access",
       description: "Everything you need to build & launch",
       features: [
@@ -72,12 +84,15 @@ export function ServiceTiersSection() {
       href: "/checkout/self-paced",
       variant: "outline" as const,
       gradient: "from-blue-500/10 to-cyan-500/10",
+      borderGradient: "from-blue-500 to-cyan-500",
+      iconColor: "text-blue-500",
+      savings: 50,
     },
     {
       name: "Accelerator",
       icon: Rocket,
-      price: "$1,497",
-      originalPrice: "$2,997",
+      price: 1497,
+      originalPrice: 2997,
       frequency: "8-week program",
       description: "Fast-track to your first $10K month",
       features: [
@@ -97,12 +112,15 @@ export function ServiceTiersSection() {
       badge: "MOST POPULAR",
       popular: true,
       gradient: "from-purple-500/10 to-pink-500/10",
+      borderGradient: "from-purple-500 to-pink-500",
+      iconColor: "text-purple-500",
+      savings: 50,
     },
     {
       name: "Partnership",
       icon: Crown,
-      price: "$4,997",
-      originalPrice: "$9,997",
+      price: 4997,
+      originalPrice: 9997,
       frequency: "12-week intensive",
       description: "We build and scale together",
       features: [
@@ -121,18 +139,58 @@ export function ServiceTiersSection() {
       variant: "outline" as const,
       limited: true,
       gradient: "from-amber-500/10 to-orange-500/10",
+      borderGradient: "from-amber-500 to-orange-500",
+      iconColor: "text-amber-500",
+      savings: 50,
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
-      {/* Background gradient */}
-      <div className="absolute inset-0 -z-10 gradient-mesh opacity-20" />
+    <section id="pricing" className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Animated background gradient */}
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        animate={{
+          background: [
+            "radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+            "radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)",
+            "radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      />
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
+        <motion.div 
+          className="mx-auto max-w-3xl text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
           <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5">
-            <Sparkles className="mr-2 h-3 w-3" />
+            <Sparkles className="mr-2 h-3 w-3 animate-pulse" />
             Limited Time Launch Pricing
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -143,120 +201,262 @@ export function ServiceTiersSection() {
             Join 500+ non-technical founders who are building profitable businesses with AI. 
             Pick the support level that matches your goals.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
-          {tiers.map((tier) => (
-            <Card
+        <motion.div 
+          ref={ref}
+          className="mt-16 grid gap-8 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+        >
+          {tiers.map((tier, index) => (
+            <motion.div
               key={tier.name}
-              className={`relative transition-all duration-300 hover:shadow-xl ${tier.popular ? "border-primary shadow-lg scale-105" : "hover:scale-[1.02]"}`}
+              variants={cardVariants}
+              onMouseEnter={() => setHoveredTier(index)}
+              onMouseLeave={() => setHoveredTier(null)}
+              whileHover={{ y: -10 }}
+              style={{ perspective: 1000 }}
             >
-              {tier.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="px-4 py-1.5 bg-gradient-primary text-white border-0">
-                    <Sparkles className="mr-1 h-3 w-3" />
-                    MOST POPULAR
-                  </Badge>
-                </div>
-              )}
-              
-              <CardHeader className="relative">
-                <div className={`absolute inset-0 ${tier.gradient} opacity-5 rounded-t-lg`} />
-                <div className="relative z-10">
-                  <tier.icon className="h-10 w-10 mb-4 text-primary" />
-                  <CardTitle className="text-2xl">{tier.name}</CardTitle>
-                  <CardDescription className="mt-2">{tier.description}</CardDescription>
-                  <div className="mt-6 space-y-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-bold tracking-tight">{tier.price}</span>
-                      {tier.originalPrice && (
-                        <span className="text-xl text-muted-foreground line-through">{tier.originalPrice}</span>
+              <Card 
+                className={`relative h-full transition-all duration-500 ${
+                  tier.popular 
+                    ? "shadow-2xl scale-105 border-2 border-primary" 
+                    : "hover:shadow-xl border-2 border-transparent"
+                }`}
+                style={{
+                  transform: hoveredTier === index 
+                    ? "rotateY(-2deg) rotateX(2deg)" 
+                    : "rotateY(0deg) rotateX(0deg)",
+                  transformStyle: "preserve-3d",
+                  transition: "transform 0.5s ease"
+                }}
+              >
+                {/* Popular badge */}
+                {tier.popular && (
+                  <motion.div 
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 z-10"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring" }}
+                  >
+                    <Badge className="px-4 py-1.5 bg-gradient-primary text-white border-0 shadow-lg">
+                      <Sparkles className="mr-1 h-3 w-3" />
+                      MOST POPULAR
+                    </Badge>
+                  </motion.div>
+                )}
+                
+                {/* Gradient background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-50 rounded-t-lg`} />
+                
+                {/* Animated border gradient on hover */}
+                {hoveredTier === index && (
+                  <motion.div
+                    className="absolute inset-0 rounded-lg opacity-75"
+                    style={{
+                      background: `linear-gradient(45deg, transparent 30%, ${tier.borderGradient} 50%, transparent 70%)`,
+                      backgroundSize: "200% 200%",
+                    }}
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                )}
+                
+                <CardHeader className="relative z-10">
+                  <div className="relative">
+                    <motion.div 
+                      className="flex justify-center mb-4"
+                      animate={hoveredTier === index ? { rotate: 360 } : { rotate: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className={`h-16 w-16 rounded-full bg-background shadow-md flex items-center justify-center ${tier.iconColor}`}>
+                        <tier.icon className="h-8 w-8" />
+                      </div>
+                    </motion.div>
+                    
+                    <CardTitle className="text-2xl">{tier.name}</CardTitle>
+                    <CardDescription className="mt-2">{tier.description}</CardDescription>
+                    
+                    <div className="mt-6 space-y-1">
+                      <div className="flex items-baseline justify-center gap-2">
+                        <motion.span 
+                          className="text-5xl font-bold tracking-tight"
+                          animate={hoveredTier === index ? { scale: 1.1 } : { scale: 1 }}
+                        >
+                          $<CountUp 
+                            end={tier.price} 
+                            duration={1.5}
+                            enableScrollSpy
+                            scrollSpyOnce
+                          />
+                        </motion.span>
+                        {tier.originalPrice && (
+                          <span className="text-xl text-muted-foreground line-through">
+                            ${tier.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm text-muted-foreground">{tier.frequency}</span>
+                      
+                      {tier.savings && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={hoveredTier === index ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Badge variant="secondary" className="mt-2">
+                            Save {tier.savings}% today
+                          </Badge>
+                        </motion.div>
                       )}
                     </div>
-                    <span className="text-sm text-muted-foreground">{tier.frequency}</span>
                   </div>
+                  
                   {tier.limited && (
                     <Badge variant="secondary" className="mt-3">
                       Limited Spots Available
                     </Badge>
                   )}
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <ul className="space-y-3">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 flex-shrink-0 text-primary" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              
-              <CardFooter>
-                {tier.name === "Self-Paced" ? (
-                  <Button 
-                    className="w-full" 
-                    variant={tier.variant}
-                    size="lg"
-                    onClick={handlePurchase}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      tier.cta
-                    )}
-                  </Button>
-                ) : (
-                  <Button 
-                    className={`w-full group ${
-                      tier.popular 
-                        ? "bg-gradient-primary text-white hover:shadow-lg" 
-                        : tier.name === "Partnership" 
-                          ? "border-2 border-primary hover:bg-primary/5" 
-                          : ""
-                    }`}
-                    variant={tier.variant}
-                    size="lg"
-                    asChild
-                  >
-                    <Link href={tier.href} className="flex items-center justify-center">
-                      {tier.cta}
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
+                </CardHeader>
+                
+                <CardContent className="relative z-10">
+                  <ul className="space-y-3">
+                    {tier.features.map((feature, idx) => (
+                      <motion.li 
+                        key={feature} 
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ delay: 0.1 * idx }}
+                      >
+                        <motion.div
+                          animate={hoveredTier === index ? { scale: [1, 1.2, 1] } : {}}
+                          transition={{ delay: idx * 0.1 }}
+                        >
+                          <Check className="h-5 w-5 flex-shrink-0 text-primary" />
+                        </motion.div>
+                        <span className="text-sm text-muted-foreground">{feature}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </CardContent>
+                
+                <CardFooter className="relative z-10">
+                  {tier.name === "Self-Paced" ? (
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full"
+                    >
+                      <Button 
+                        className="w-full relative overflow-hidden" 
+                        variant={tier.variant}
+                        size="lg"
+                        onClick={handlePurchase}
+                        disabled={isLoading}
+                      >
+                        <motion.span
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                          initial={{ x: "-100%" }}
+                          animate={hoveredTier === index ? { x: "100%" } : {}}
+                          transition={{ duration: 0.5 }}
+                        />
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            {tier.cta}
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </>
+                        )}
+                      </Button>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full"
+                    >
+                      <Button 
+                        className={`w-full group relative overflow-hidden ${
+                          tier.popular 
+                            ? "bg-gradient-primary text-white hover:shadow-lg" 
+                            : tier.name === "Partnership" 
+                              ? "border-2 border-primary hover:bg-primary/5" 
+                              : ""
+                        }`}
+                        variant={tier.variant}
+                        size="lg"
+                        asChild
+                      >
+                        <Link href={tier.href} className="flex items-center justify-center">
+                          <motion.span
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                            initial={{ x: "-100%" }}
+                            animate={hoveredTier === index ? { x: "100%" } : {}}
+                            transition={{ duration: 0.5 }}
+                          />
+                          {tier.cta}
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      </Button>
+                    </motion.div>
+                  )}
+                </CardFooter>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Money-back guarantee */}
-        <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground">
-            🛡️ 30-day money-back guarantee on all paid plans • No questions asked
-          </p>
-        </div>
+        {/* Money-back guarantee with animation */}
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+        >
+          <motion.p 
+            className="text-sm text-muted-foreground flex items-center justify-center gap-2"
+            animate={{ y: [0, -2, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span className="text-lg">🛡️</span>
+            30-day money-back guarantee on all paid plans • No questions asked
+          </motion.p>
+        </motion.div>
 
         {/* Agency/Enterprise CTA */}
-        <Card className="mt-12 border-dashed">
-          <CardHeader className="text-center">
-            <CardTitle>Need Custom Training for Your Team?</CardTitle>
-            <CardDescription>
-              We offer custom workshops and implementation services for agencies and enterprises
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="justify-center">
-            <Button variant="link" asChild>
-              <Link href="#contact">Contact Us for Custom Pricing →</Link>
-            </Button>
-          </CardFooter>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.7 }}
+        >
+          <Card className="mt-12 border-dashed border-2 hover:border-primary/50 transition-colors">
+            <CardHeader className="text-center">
+              <CardTitle>Need Custom Training for Your Team?</CardTitle>
+              <CardDescription>
+                We offer custom workshops and implementation services for agencies and enterprises
+              </CardDescription>
+            </CardHeader>
+            <CardFooter className="justify-center">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="link" asChild className="group">
+                  <Link href="#contact" className="flex items-center">
+                    Contact Us for Custom Pricing 
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </CardFooter>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );

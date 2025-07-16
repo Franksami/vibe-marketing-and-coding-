@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
+import { TextReveal, GlitchText } from "@/components/effects/text-reveal";
 
 export function HeroSection() {
   const [email, setEmail] = useState("");
@@ -179,7 +180,9 @@ export function HeroSection() {
             className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
             variants={itemVariants}
           >
-            Turn Your Ideas Into
+            <TextReveal type="word" duration={1}>
+              Turn Your Ideas Into
+            </TextReveal>
             <span className="block mt-2 relative h-[1.2em]">
               <motion.span
                 key={currentWord}
@@ -189,11 +192,13 @@ export function HeroSection() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
               >
-                {words[currentWord]}
+                <GlitchText>{words[currentWord]}</GlitchText>
               </motion.span>
             </span>
             <span className="block mt-2 text-2xl sm:text-3xl lg:text-4xl text-muted-foreground font-normal">
-              in 48 Hours or Less
+              <TextReveal type="letter" delay={0.5} duration={1}>
+                in 48 Hours or Less
+              </TextReveal>
             </span>
           </motion.h1>
 

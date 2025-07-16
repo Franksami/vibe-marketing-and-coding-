@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
             session.subscription as string
           );
           const subscription = subscriptionResponse as Stripe.Subscription;
+          const currentPeriodEnd = (subscription as any).current_period_end || Math.floor(Date.now() / 1000);
           
           // Update user in database
           if (session.customer_email) {
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
                 stripeCustomerId: session.customer as string,
                 stripeSubscriptionId: subscription.id,
                 stripePriceId: subscription.items.data[0].price.id,
-                stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                stripeCurrentPeriodEnd: new Date(currentPeriodEnd * 1000),
                 plan: 'pro',
               },
               create: {
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
                 stripeCustomerId: session.customer as string,
                 stripeSubscriptionId: subscription.id,
                 stripePriceId: subscription.items.data[0].price.id,
-                stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                stripeCurrentPeriodEnd: new Date(currentPeriodEnd * 1000),
                 plan: 'pro',
               },
             });
@@ -61,13 +62,14 @@ export async function POST(request: NextRequest) {
 
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;
+        const currentPeriodEnd = (subscription as any).current_period_end || Math.floor(Date.now() / 1000);
         
         // Update subscription in database
         await prisma.user.update({
           where: { stripeSubscriptionId: subscription.id },
           data: {
             stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+            stripeCurrentPeriodEnd: new Date(currentPeriodEnd * 1000),
             plan: subscription.status === 'active' ? 'pro' : 'free',
           },
         });

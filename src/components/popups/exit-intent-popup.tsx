@@ -137,7 +137,7 @@ export function ExitIntentPopup() {
         
         <DialogHeader className="text-center sm:text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <Gift className="h-6 w-6 text-primary" />
+            <Gift className="h-6 w-6 text-slate-600" />
           </div>
           <DialogTitle className="text-2xl">Wait! Don&apos;t Leave Empty-Handed 🎁</DialogTitle>
           <DialogDescription className="text-base">
@@ -150,7 +150,7 @@ export function ExitIntentPopup() {
           {/* Value props */}
           <div className="rounded-lg bg-muted p-4">
             <h3 className="mb-2 font-semibold flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-primary" />
+              <Sparkles className="h-4 w-4 text-slate-600" />
               What You&apos;ll Get:
             </h3>
             <ul className="space-y-1 text-sm text-muted-foreground">
@@ -174,7 +174,7 @@ export function ExitIntentPopup() {
             />
             <Button 
               type="submit" 
-              className="w-full" 
+              className="w-full bg-slate-900 text-white hover:bg-slate-800" 
               size="lg"
               disabled={isLoading}
             >

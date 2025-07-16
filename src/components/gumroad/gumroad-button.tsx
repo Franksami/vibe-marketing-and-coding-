@@ -44,8 +44,8 @@ export function GumroadButton({
     }
 
     // Open Gumroad overlay or redirect
-    if (typeof window !== 'undefined' && (window as any).GumroadOverlay) {
-      (window as any).GumroadOverlay.show({ url: productUrl });
+    if (typeof window !== 'undefined' && window.GumroadOverlay) {
+      window.GumroadOverlay.show({ url: productUrl });
     } else {
       window.open(productUrl, '_blank');
     }

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import productCatalog from "@/content/products/catalog.json";
+import productCatalog from "../../../../content/products/catalog.json";
 import { GumroadButton, GumroadScript } from "@/components/gumroad/gumroad-button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";

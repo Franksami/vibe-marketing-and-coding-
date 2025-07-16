@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { gumroad } from '@/lib/gumroad';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/email';
-import productCatalog from '@/content/products/catalog.json';
+import productCatalog from '@/../../content/products/catalog.json';
 
 export async function POST(request: NextRequest) {
   try {
